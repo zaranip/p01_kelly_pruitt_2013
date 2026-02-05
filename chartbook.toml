@@ -1,0 +1,139 @@
+[config]
+type = "pipeline"
+chartbook_format_version = "0.0.2"
+
+[site]
+title = "Kelly and Pruitt 2013 Replication"
+author = "Zara and Dylan"
+copyright = "2025"
+logo_path = ""
+favicon_path = ""
+
+[pipeline]
+id = "P01"
+pipeline_name = "Market Expectations in the Cross-Section of Present Values"
+pipeline_description = "Replication of Table 1 from Kelly and Pruitt (2013). Uses PLS to extract a factor from book-to-market ratios to predict aggregate market returns and dividend growth."
+lead_pipeline_developer = "Zara and Dylan"
+contributors = ["Zara", "Dylan"]
+software_modules_command = ""
+runs_on_grid_or_windows_or_other = "Windows/Linux/MacOS"
+git_repo_URL = "https://github.com/zaranip/p01_kelly_pruitt_2013"
+README_file_path = "./README.md"
+
+[notebooks]
+
+[dataframes]
+
+[dataframes.crsp_monthly_stock]
+dataframe_name = "CRSP Monthly Stock Data"
+short_description_df = "Monthly stock prices, returns, and shares outstanding from CRSP."
+data_sources = ["CRSP"]
+data_providers = ["WRDS"]
+links_to_data_providers = ["https://wrds-www.wharton.upenn.edu/"]
+topic_tags = ["Stock Returns", "Market Data", "CRSP"]
+type_of_data_access = "Subscription (WRDS)"
+data_license = "WRDS Subscription"
+license_expiration_date = "N/A"
+need_to_contact_provider = "No"
+provider_contact_info = ""
+restriction_on_use = "Academic use only"
+how_is_pulled = "WRDS Python API"
+path_to_parquet_data = "./_data/CRSP_monthly_stock.parquet"
+path_to_excel_data = ""
+date_col = "date"
+dataframe_docs_str = "Monthly stock-level data from CRSP including prices, returns, shares outstanding, and market capitalization. Contains 4.4M records covering 31,654 unique stocks from 1929-2024."
+
+[dataframes.crsp_market_returns]
+dataframe_name = "CRSP Market Returns"
+short_description_df = "Aggregate market returns (value-weighted and equal-weighted) from CRSP indices."
+data_sources = ["CRSP"]
+data_providers = ["WRDS"]
+links_to_data_providers = ["https://wrds-www.wharton.upenn.edu/"]
+topic_tags = ["Market Returns", "CRSP", "Value-Weighted"]
+type_of_data_access = "Subscription (WRDS)"
+data_license = "WRDS Subscription"
+license_expiration_date = "N/A"
+need_to_contact_provider = "No"
+provider_contact_info = ""
+restriction_on_use = "Academic use only"
+how_is_pulled = "WRDS Python API"
+path_to_parquet_data = "./_data/CRSP_market_returns.parquet"
+path_to_excel_data = ""
+date_col = "date"
+dataframe_docs_str = "Aggregate market returns from CRSP indices including value-weighted (vwretd) and equal-weighted (ewretd) returns. Contains 1,140 monthly observations from 1930-2024."
+
+[dataframes.compustat]
+dataframe_name = "Compustat Fundamentals"
+short_description_df = "Annual accounting data from Compustat for book equity calculation."
+data_sources = ["Compustat"]
+data_providers = ["WRDS"]
+links_to_data_providers = ["https://wrds-www.wharton.upenn.edu/"]
+topic_tags = ["Accounting Data", "Book Equity", "Compustat"]
+type_of_data_access = "Subscription (WRDS)"
+data_license = "WRDS Subscription"
+license_expiration_date = "N/A"
+need_to_contact_provider = "No"
+provider_contact_info = ""
+restriction_on_use = "Academic use only"
+how_is_pulled = "WRDS Python API"
+path_to_parquet_data = "./_data/Compustat.parquet"
+path_to_excel_data = ""
+date_col = "datadate"
+dataframe_docs_str = "Annual accounting data from Compustat including book equity components (seq, ceq, at, lt, pstk, txditc). Contains 593K records for 46,655 unique firms from 1950-2026."
+
+[dataframes.ccm_link]
+dataframe_name = "CRSP-Compustat Link Table"
+short_description_df = "Crosswalk linking CRSP PERMNO to Compustat GVKEY."
+data_sources = ["CRSP", "Compustat"]
+data_providers = ["WRDS"]
+links_to_data_providers = ["https://wrds-www.wharton.upenn.edu/"]
+topic_tags = ["Linking Table", "CRSP", "Compustat"]
+type_of_data_access = "Subscription (WRDS)"
+data_license = "WRDS Subscription"
+license_expiration_date = "N/A"
+need_to_contact_provider = "No"
+provider_contact_info = ""
+restriction_on_use = "Academic use only"
+how_is_pulled = "WRDS Python API"
+path_to_parquet_data = "./_data/CRSP_Comp_Link_Table.parquet"
+path_to_excel_data = ""
+date_col = ""
+dataframe_docs_str = "Crosswalk table linking CRSP PERMNO to Compustat GVKEY. Contains 39K links covering 34,550 unique gvkeys and 35,066 unique permnos."
+
+[charts]
+
+[charts.market_returns]
+chart_name = "CRSP Market Returns"
+short_description_chart = "Cumulative value-weighted market returns from CRSP"
+dataframe_id = "crsp_market_returns"
+topic_tags = ["Market Returns", "CRSP"]
+data_series_start_date = "1930-01-01"
+data_frequency = "Monthly"
+observation_period = "Month-end"
+lag_in_data_release = "One month"
+data_release_dates = "Monthly"
+seasonal_adjustment = "None"
+units = "Cumulative Return"
+data_series = "vwretd"
+mnemonic = ""
+path_to_html_chart = "./_output/chart_market_returns.html"
+path_to_excel_chart = ""
+chart_docs_str = "Interactive time series chart showing cumulative growth of $1 invested in the value-weighted market portfolio from 1930-2024. Uses logarithmic scale to show long-term compounding."
+
+[charts.compustat_coverage]
+chart_name = "Compustat Coverage"
+short_description_chart = "Number of firms in Compustat by year"
+dataframe_id = "compustat"
+topic_tags = ["Compustat", "Data Coverage"]
+data_series_start_date = "1930-01-01"
+data_frequency = "Annual"
+observation_period = "Fiscal year"
+lag_in_data_release = "Variable"
+data_release_dates = "Annual"
+seasonal_adjustment = "None"
+units = "Number of Firms"
+data_series = "gvkey"
+mnemonic = ""
+path_to_html_chart = "./_output/chart_compustat_coverage.html"
+path_to_excel_chart = ""
+chart_docs_str = "Bar chart showing the number of unique firms in Compustat by fiscal year. Demonstrates data coverage expansion over time from 1950 to present."

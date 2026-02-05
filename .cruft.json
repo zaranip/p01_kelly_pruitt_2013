@@ -1,0 +1,42 @@
+{
+  "template": "https://github.com/backofficedev/cookiecutter_chartbook",
+  "commit": "4080816fa0e0dca41c5cc1d1641b1dda3b94b662",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_name": "Kelly Pruitt 2013",
+      "project_slug": "p01_kelly_pruitt_2013",
+      "project_description": "Replication of Kelly and Pruitt 2013",
+      "author_name": "Zara and Dylan",
+      "author_email": "znip@uchicago.com",
+      "python_version": "3.12",
+      "environment_manager": "pip",
+      "include_latex_reports": "n",
+      "include_jupyter_notebooks": "y",
+      "include_r_scripts": "n",
+      "include_stata_scripts": "n",
+      "include_chartbook": "y",
+      "include_github_actions": "n",
+      "include_fred": "n",
+      "include_fed_yield_curve": "False",
+      "include_ofr_api": "n",
+      "include_bloomberg": "n",
+      "include_crsp_stock": "y",
+      "include_crsp_compustat": "y",
+      "_copy_without_render": [
+        "*.bst",
+        "*.sty",
+        "*.eps",
+        "*.ipe",
+        "*.png",
+        "*.pdf",
+        "*.tex",
+        "*.bib",
+        ".github/workflows/*.yml"
+      ],
+      "_template": "https://github.com/backofficedev/cookiecutter_chartbook",
+      "_commit": "4080816fa0e0dca41c5cc1d1641b1dda3b94b662"
+    }
+  },
+  "directory": null
+}

@@ -1,0 +1,8 @@
+Name,Metadata Complete,Object Type,Identifier,Pipeline,Missing Fields,Page Link
+Market Expectations in the Cross-Section of Present Values,False,pipeline,P01,P01,"build_commands, os_compatibility",../index.html
+CRSP Monthly Stock Data,True,dataframe,crsp_monthly_stock,P01,,../dataframes/P01/crsp_monthly_stock.html
+CRSP Market Returns,True,dataframe,crsp_market_returns,P01,,../dataframes/P01/crsp_market_returns.html
+Compustat Fundamentals,True,dataframe,compustat,P01,,../dataframes/P01/compustat.html
+CRSP-Compustat Link Table,False,dataframe,ccm_link,P01,date_col,../dataframes/P01/ccm_link.html
+CRSP Market Returns,False,chart,market_returns,P01,data_release_timing,../charts/P01.market_returns.html
+Compustat Coverage,False,chart,compustat_coverage,P01,data_release_timing,../charts/P01.compustat_coverage.html
