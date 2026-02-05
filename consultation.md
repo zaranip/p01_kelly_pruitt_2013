@@ -1,11 +1,6 @@
-# Consultation Agenda - Kelly & Pruitt (2013) Replication
+# Meeting Agenda
 
-**Project**: Market Expectations in the Cross-Section of Present Values  
-**Team**: Zara, Dylan
-
----
-
-## Questions for Instructor
+## Questions
 
 1. **Data period**: Paper uses ~1930-2011. Should we extend to present or match original sample?
 2. **Book equity definition**: Multiple valid approaches exist (seq+txditc-ps vs ceq). Which is preferred?
