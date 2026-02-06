@@ -3,9 +3,7 @@
 ## Questions
 
 1. **Data period**: Paper uses ~1930-2011. Should we extend to present or match original sample?
-2. **Book equity definition**: Multiple valid approaches exist (seq+txditc-ps vs ceq). Which is preferred?
-3. **PLS implementation**: Use sklearn's PLSRegression or implement 3PRF from scratch?
-4. **Table 1 scope**: Replicate full table (returns + dividend growth) or subset?
+2. **PLS implementation**: Use sklearn's PLSRegression or implement 3PRF from scratch?
 
 ---
 
