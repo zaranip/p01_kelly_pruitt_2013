@@ -34,3 +34,6 @@
 
 - CRSP CIZ format transition may cause discrepancies with original paper's SIZ-based sample
 - Compustat coverage pre-1960 is limited; may affect early sample period
+    - For pre-1960, should we use Ken French website portfolio for book to market ratios?
+- do we need to calculate all p-values?
+- how is y_bar calculated for out of sample R^2 value?
