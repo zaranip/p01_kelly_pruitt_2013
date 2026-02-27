@@ -6,7 +6,7 @@ Annual accounting data from Compustat including book equity components (seq, ceq
 ## DataFrame Glimpse
 
 ```
-Rows: 593738
+Rows: 593799
 Columns: 22
 $ gvkey                      <str> '369350'
 $ datadate          <datetime[ns]> 2024-12-31 00:00:00
@@ -29,7 +29,7 @@ $ ebit                       <f64> 985.618
 $ csho                       <f64> None
 $ prcc_f                     <f64> None
 $ year                       <i32> 2024
-$ __index_level_0__          <i64> 93737
+$ __index_level_0__          <i64> 93798
 
 
 ```
@@ -47,7 +47,7 @@ $ __index_level_0__          <i64> 93737
 | How is data pulled?            | WRDS Python API                                                    |
 | Data available up to (min)     | 2025-12-31 00:00:00                                                             |
 | Data available up to (max)     | 2026-01-31 00:00:00                                                             |
-| Dataframe Path                 | C:\Users\Zara\Documents\GitHub\FINM Winter Quarter\full-stack-quant\p01_kelly_pruitt_2013\_data\Compustat.parquet                                                   |
+| Dataframe Path                 | /Users/dylanwang/Desktop/UChicago/Classes/FINM 32900/p01_kelly_pruitt_2013/_data/Compustat.parquet                                                   |
 | Download Data as Parquet       | [Parquet](../../download_dataframe/P01/compustat.parquet)         |
 | Download Data as Excel         | [Excel](../../download_dataframe/P01/compustat.xlsx)              |
 | Linked Charts                  |   [P01:compustat_coverage](../../charts/P01.compustat_coverage.md)<br>   |
@@ -60,8 +60,8 @@ $ __index_level_0__          <i64> 93737
 | Lead Pipeline Developer         | Zara and Dylan             |
 | Contributors                    | Zara, Dylan           |
 | Git Repo URL                    | https://github.com/zaranip/p01_kelly_pruitt_2013                        |
-| Pipeline Web Page               | <a href="file://C:/Users/Zara/Documents/GitHub/FINM Winter Quarter/full-stack-quant/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page      |
-| Date of Last Code Update        | 2026-02-04 20:03:29           |
+| Pipeline Web Page               | <a href="file:///Users/dylanwang/Desktop/UChicago/Classes/FINM 32900/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page      |
+| Date of Last Code Update        | 2026-02-05 15:45:21           |
 | OS Compatibility                |  |
 | Linked Dataframes               |  [P01:crsp_monthly_stock](../dataframes/P01/crsp_monthly_stock.md)<br>  [P01:crsp_market_returns](../dataframes/P01/crsp_market_returns.md)<br>  [P01:compustat](../dataframes/P01/compustat.md)<br>  [P01:ccm_link](../dataframes/P01/ccm_link.md)<br>  |
 
