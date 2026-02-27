@@ -5,10 +5,10 @@ import pull_ken_french_data as pkf
 
 DATA_DIR = pkf.DATA_DIR
 
-def clean_kelly_pruitt_data():
+def clean_kelly_pruitt_data(load_from_cache=False):
     """
     Pulls and cleans the Ken French datasets to replicate Kelly & Pruitt (2013) Table 1.
-    Includes handling for invalid data markers commonly used by Ken French (-99.99, -999).
+    If load_from_cache is True, it skips cleaning and simply reads the saved Parquet files.
     """
     datasets = [
         "F-F_Research_Data_Factors",
@@ -17,16 +17,19 @@ def clean_kelly_pruitt_data():
         "100_Portfolios_10x10"
     ]
     
+    if load_from_cache:
+        cleaned_data = {}
+        cleaned_data["Market_Returns"] = pd.read_parquet(DATA_DIR / "Market_Returns.parquet")
+        for ds in datasets[1:]:
+            cleaned_data[f"{ds}_Returns"] = pd.read_parquet(DATA_DIR / f"{ds}_Returns.parquet")
+            cleaned_data[f"{ds}_BM"] = pd.read_parquet(DATA_DIR / f"{ds}_BM.parquet")
+        return cleaned_data
+        
     # Missing value indicators in Ken French data
     missing_indicators = [-99.99, -999, -999.00, -99.990]
-    
-    # 1. Pull the raw datasets into Excel files
-    for ds in datasets:
-        pkf.pull_ken_french_excel(dataset_name=ds, data_dir=DATA_DIR)
-        
     cleaned_data = {}
         
-    # 2. Extract Aggregate Market Return (Mkt = Mkt-RF + RF)
+    # Extract Aggregate Market Return (Mkt = Mkt-RF + RF)
     ff_factors = pkf.load_sheet("F-F_Research_Data_Factors", sheet_name="0", data_dir=DATA_DIR)
     
     # Replace missing values with NaN
@@ -42,7 +45,7 @@ def clean_kelly_pruitt_data():
     ff_factors['Mkt'] = ff_factors['Mkt-RF'] + ff_factors['RF']
     cleaned_data["Market_Returns"] = ff_factors.set_index('Date')[['Mkt', 'Mkt-RF', 'RF']]
     
-    # 3. Construct Monthly Portfolio Book-to-Market Ratios
+    # Construct Monthly Portfolio Book-to-Market Ratios
     for ds in datasets[1:]:
         # Sheet indices based on Ken French's standard layout:
         # 0: Monthly Returns
@@ -97,10 +100,10 @@ def clean_kelly_pruitt_data():
         
         bm_ratios = monthly_me[['Date']].copy()
         for c in portfolio_cols:
-            # Divide BE by ME. If ME is 0 or NaN, or BE is NaN, pandas will correctly yield NaN or inf.
-            # We replace inf with NaN just to be safe.
-            bm_ratios[c] = merged_be[c] / monthly_me[c]
-            bm_ratios[c].replace([np.inf, -np.inf], np.nan, inplace=True)
+            raw_bm = merged_be[c] / monthly_me[c]
+            
+            # Apply the log transformation as specified by the Vuolteenaho
+            bm_ratios[c] = np.log(raw_bm.where(raw_bm > 0))
             
         cleaned_data[f"{ds}_Returns"] = returns.set_index('Date')[portfolio_cols]
         cleaned_data[f"{ds}_BM"] = bm_ratios.set_index('Date')[portfolio_cols]
@@ -108,5 +111,13 @@ def clean_kelly_pruitt_data():
     return cleaned_data
 
 if __name__ == "__main__":
-    data_dict = clean_kelly_pruitt_data()
-    print("Data loaded successfully. Available keys:", list(data_dict.keys()))
+    data_dict = clean_kelly_pruitt_data(load_from_cache=False)
+    
+    for key, df in data_dict.items():
+        # Ensure column names are strings before saving to Parquet
+        df.columns = df.columns.astype(str)
+        save_path = DATA_DIR / f"{key}.parquet"
+        df.to_parquet(save_path)
+        print(f"Saved {save_path}")
+        
+    print("Data cleaned and cached successfully.")

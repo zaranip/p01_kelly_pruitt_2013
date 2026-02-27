@@ -241,15 +241,12 @@ def _demo():
 
 
 if __name__ == "__main__":
-    _ = pull_ken_french_excel(
-        dataset_name="Portfolios_Formed_on_INV",
-    )  # Save Portfolios_Formed_on_INV.xlsx
-    _ = pull_ken_french_excel(
-        dataset_name="25_Portfolios_OP_INV_5x5",
-    )  # Save 25_Portfolios_OP_INV_5x5.xlsx
-    _ = pull_ken_french_excel(
-        dataset_name="F-F_Research_Data_Factors",
-    )  # Save F-F_Research_Data_Factors.xlsx
-    _ = pull_ken_french_excel(
-        dataset_name="6_Portfolios_2x3",
-    )  # Save 6_Portfolios_2x3.xlsx
+    datasets = [
+        "F-F_Research_Data_Factors",
+        "6_Portfolios_2x3",
+        "25_Portfolios_5x5",
+        "100_Portfolios_10x10"
+    ]
+    for ds in datasets:
+        print(f"Pulling {ds}...")
+        pull_ken_french_excel(dataset_name=ds)
