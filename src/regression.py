@@ -3,15 +3,6 @@ import numpy as np
 import load_data
 import regression_tools as rt
 
-def calculate_log_returns(market_data):
-    """
-    Converts simple market returns to log returns as specified in the paper's 
-    present value identity.
-    """
-    # Using 'Mkt' which is Mkt-RF + RF
-    simple_returns = market_data['Mkt'] / 100.0
-    log_returns = np.log(1 + simple_returns)
-    return log_returns
 
 def calculate_r2(actuals, predictions, historical_means):
     """Calculates the out-of-sample predictive R-squared."""
@@ -92,7 +83,7 @@ def replicate_table_1():
     end_sample = '2010-12-31'
     
     # Setup Targets
-    log_returns = calculate_log_returns(data['Market_Returns'].loc[start_sample:end_sample])
+    log_returns = data['Market_Returns']['Log_Mkt'].loc[start_sample:end_sample]
     
     y_1m = log_returns
     y_12m = log_returns.rolling(12).sum().dropna()

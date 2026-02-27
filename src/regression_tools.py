@@ -5,6 +5,7 @@ def first_stage_regressions(v_df, y_series, h=1):
     """
     Stage 1: Time-Series Regressions (Paper eq. 11)
     For each portfolio i, regress v_{i,t} on y_{t+h} to estimate phi_i.
+    Replicating: v_{i,t} = phi_{i,0} + phi_i * y_{t+h} + e_{i,t} (thus need y_shifted)
     OLS slope = Cov(v_i, y) / Var(y)
     """
     y_shifted = y_series.shift(-h)
@@ -12,7 +13,9 @@ def first_stage_regressions(v_df, y_series, h=1):
     phi = {}
     for col in v_df.columns:
         # Align this specific column with y, dropping NaNs in EITHER series
+        # This also helps ensure when calculating OLS slope (Cov(X,Y) / Var(X)) that variance matches
         pair = pd.concat([v_df[col], y_shifted], axis=1).dropna()
+
         if len(pair) < 3:
             continue
         v_col = pair.iloc[:, 0]
@@ -30,6 +33,7 @@ def second_stage_regressions(v_df, phi):
     """
     Stage 2: Cross-Sectional Regressions (Paper eq. 12)
     At each time t, regress the cross-section of v_{i,t} on phi_i to recover F_t.
+    Replicating v_{i,t} = {c}_t + {F}_t * phi_i + w_{i,t}
     OLS slope = Cov(v_t, phi) / Var(phi)
     """
     v_df_aligned = v_df[phi.index]
@@ -52,6 +56,7 @@ def second_stage_regressions(v_df, phi):
 def third_stage_regression(F_series, y_series, h=1):
     """
     Stage 3: Predictive Time-Series Regression (Paper eq. in Section II.C)
+    Replicating  y_{t+h} = beta_0 + beta * {F}_t + u_{t+h}, (thus need shifted y)
     Regress future market returns on the lagged factor F_t.
     """
     y_future = y_series.shift(-h).rename('future_target')

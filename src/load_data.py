@@ -43,7 +43,8 @@ def clean_kelly_pruitt_data(load_from_cache=False):
     
     # Calculate total market return
     ff_factors['Mkt'] = ff_factors['Mkt-RF'] + ff_factors['RF']
-    cleaned_data["Market_Returns"] = ff_factors.set_index('Date')[['Mkt', 'Mkt-RF', 'RF']]
+    ff_factors['Log_Mkt'] = np.log(1 + (ff_factors['Mkt'] / 100.0))
+    cleaned_data["Market_Returns"] = ff_factors.set_index('Date')[['Mkt', 'Log_Mkt', 'Mkt-RF', 'RF']]
     
     # Construct Monthly Portfolio Book-to-Market Ratios
     for ds in datasets[1:]:
@@ -90,7 +91,6 @@ def clean_kelly_pruitt_data(load_from_cache=False):
         annual_be = (annual_beme_idx * dec_me).reset_index().rename(columns={'Year': 'Formation_Year'})
         
         # Shift BE visibility to June of the following year
-        # e.g., if we are in July Year Y, the most recent observable BE is from Dec Year Y-1
         monthly_me['Formation_Year'] = np.where(monthly_me['Month'] >= 7, 
                                                 monthly_me['Year'] - 1, 
                                                 monthly_me['Year'] - 2)

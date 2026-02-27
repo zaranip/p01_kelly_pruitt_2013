@@ -223,23 +223,6 @@ def load_sheet(dataset_name, sheet_name: str = "0", data_dir=DATA_DIR):
     return df
 
 
-def _demo():
-    df = load_sheet("Portfolios_Formed_on_INV", sheet_name="0")
-    df
-    df_desc = load_sheet("25_Portfolios_OP_INV_5x5", sheet_name="Description")
-    print(df_desc)
-
-    ff_factors = load_sheet("F-F_Research_Data_Factors", sheet_name="0")
-    ff_factors
-    ff_factors_desc = load_sheet("F-F_Research_Data_Factors", sheet_name="Description")
-    print(ff_factors_desc)
-
-    ff_portfolios = load_sheet("6_Portfolios_2x3", sheet_name="0")
-    ff_portfolios
-    ff_portfolios_desc = load_sheet("6_Portfolios_2x3", sheet_name="Description")
-    print(ff_portfolios_desc)
-
-
 if __name__ == "__main__":
     datasets = [
         "F-F_Research_Data_Factors",
