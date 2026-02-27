@@ -107,6 +107,79 @@ def task_pull_CRSP_Compustat():
     }
 
 
+def task_pull_ken_french():
+    """Pull Fama-French and Portfolio datasets"""
+    datasets = [
+        "F-F_Research_Data_Factors",
+        "6_Portfolios_2x3",
+        "25_Portfolios_5x5",
+        "100_Portfolios_10x10"
+    ]
+    
+    targets = [DATA_DIR / f"{ds}.xlsx" for ds in datasets]
+    
+    def all_targets_exist():
+        """Return True if all target Excel files exist."""
+        return all(t.exists() for t in targets)
+        
+    return {
+        "actions": [
+            "python ./src/pull_ken_french_data.py",
+        ],
+        "targets": targets,
+        "file_dep": ["./src/settings.py", "./src/pull_ken_french_data.py"],
+        "uptodate": [all_targets_exist],
+        "verbosity": 2,
+        "clean": True,
+    }
+
+def task_clean_kelly_pruitt_data():
+    """Clean Fama-French datasets and generate Parquet files"""
+    datasets = [
+        "6_Portfolios_2x3",
+        "25_Portfolios_5x5",
+        "100_Portfolios_10x10"
+    ]
+    
+    # Establish expected output targets based on load_data.py
+    targets = [DATA_DIR / "Market_Returns.parquet"]
+    for ds in datasets:
+        targets.append(DATA_DIR / f"{ds}_Returns.parquet")
+        targets.append(DATA_DIR / f"{ds}_BM.parquet")
+
+    return {
+        "actions": [
+            "python ./src/load_data.py",
+        ],
+        "targets": targets,
+        "file_dep": [
+            "./src/settings.py", 
+            "./src/load_data.py",
+            "./src/pull_ken_french_data.py"
+        ],
+        "task_dep": ["pull_ken_french"],
+        "verbosity": 2,
+        "clean": True,
+    }
+
+def task_replicate_table_1():
+    """Run Kelly & Pruitt (2013) Table 1 regressions and output to LaTeX"""
+    return {
+        "actions": [
+            "python ./src/regression.py",
+        ],
+        "targets": [OUTPUT_DIR / "table_1_replication.tex"],
+        "file_dep": [
+            "./src/settings.py",
+            "./src/regression.py", 
+            "./src/regression_tools.py",
+            "./src/load_data.py"
+        ],
+        "task_dep": ["clean_kelly_pruitt_data"],
+        "clean": True,
+    }
+
+
 def task_exploratory_charts():
     """Generate exploratory charts to verify data was pulled successfully"""
     return {

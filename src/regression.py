@@ -2,7 +2,10 @@ import pandas as pd
 import numpy as np
 import load_data
 import regression_tools as rt
+from settings import config
+from pathlib import Path
 
+OUTPUT_DIR = Path(config("OUTPUT_DIR"))
 
 def calculate_r2(actuals, predictions, historical_means):
     """Calculates the out-of-sample predictive R-squared."""
@@ -96,11 +99,7 @@ def replicate_table_1():
     
     results = []
 
-    print("\nReplicating Kelly & Pruitt (2013) Table 1...")
-    print("-" * 65)
-    print(f"{'Portfolio Set':<18} | {'1-Year IS':<10} | {'1-Year OOS':<10} | {'1-Month IS':<10} | {'1-Month OOS':<10}")
-    print("-" * 65)
-    
+    print("\nRunning Kelly & Pruitt (2013) Table 1 Regressions...")
     for label, bm_key in portfolios:
         v_df = data[bm_key].loc[start_sample:end_sample]
         
@@ -120,7 +119,38 @@ def replicate_table_1():
         is_1m = run_in_sample(v_df_1m, y_1m_aligned, h=1)
         oos_1m = run_out_of_sample(v_df_1m, y_1m_aligned, h=1, start_date='1980-01-01')
         
-        print(f"{label:<18} | {is_12m:>9.2f}% | {oos_12m:>9.2f}% | {is_1m:>9.2f}% | {oos_1m:>9.2f}%")
+        # Store results in a dictionary
+        results.append({
+            "Portfolio Set": label,
+            "1-Year IS": is_12m,
+            "1-Year OOS": oos_12m,
+            "1-Month IS": is_1m,
+            "1-Month OOS": oos_1m
+        })
+
+    # Convert results to a pandas DataFrame
+    df_results = pd.DataFrame(results).set_index("Portfolio Set")
+    
+    # Print to console (Visible when running outside PyDoit or with `doit -v 2`)
+    print("-" * 65)
+    print(df_results.round(2))
+    print("-" * 65)
+
+    # Export to LaTeX
+    output_path = OUTPUT_DIR / "table_1_replication.tex"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    # Format floats to 2 decimal places in LaTeX
+    latex_table = df_results.style.format("{:.2f}").to_latex(
+        caption="Replication of Kelly and Pruitt (2013) Table 1",
+        label="tab:kp2013_table1",
+        hrules=True
+    )
+    
+    with open(output_path, "w") as f:
+        f.write(latex_table)
+        
+    print(f"\nSaved LaTeX table to: {output_path}")
 
 if __name__ == "__main__":
     replicate_table_1()
