@@ -80,7 +80,7 @@ The time-series of the predictive index extracted from the cross-section. Plots 
 
 \divider
 
-\need{Predictive Relationship}
+\need{Stage 3: Predictive Relationship}
 In-sample correlation between the extracted factor and realized future market returns. Depicts the predictive relationship between the extracted latent factor ($F_t$) and the realized future market returns ($y_{t+1}$). The upward-sloping trend line demonstrates the strong in-sample predictive power of the factor. The reader should conclude that the information extracted from the cross-section is highly relevant and linearly correlated with forecasting aggregate market movements.
 
 \smallskip
@@ -115,12 +115,27 @@ Descriptive statistics for the 25 Portfolios and Log Market Returns.
 
 \need{Table 1 Replication Results}
 In-sample and out-of-sample predictive R-squared statistics (in percentages) across different portfolio granularities.
+Train: 1930 - 1980, Test: 1981 - 2010
 
 \smallskip
 {
 \footnotesize
 \centering
-\input{\PathToOutput table_1_replication.tex}
+\input{\PathToOutput table_1_replication_original.tex}
+\par
+}
+
+\divider
+
+\need{Table 1 Replication Results for New Data}
+In-sample and out-of-sample predictive R-squared statistics (in percentages) across different portfolio granularities.
+Train: 1930 - 2010, Test: 2011 - 2024
+
+\smallskip
+{
+\footnotesize
+\centering
+\input{\PathToOutput table_1_replication_modern.tex}
 \par
 }
 

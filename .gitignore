@@ -9,8 +9,12 @@
 # Exclude _output directory since it's should generated automatically
 /_output/*
 
-# Exclude PDFs generated from source LaTeX files, which are kept in the reports directory
-/reports/*.pdf
+# Exclude reports directory since most should be generated automatically
+/reports/*
+
+# Allow these as they are templates for auto-generated figures
+!/reports/handout.cls
+!/reports/replication_report.tex
 
 # Secrets saved in environment files
 .env*

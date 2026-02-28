@@ -1,3 +1,12 @@
+"""
+Implements the core statistical mechanics of the three-pass regression filter.
+
+Provides dedicated functions for the three required OLS regression stages: 
+estimating time-series sensitivities (Stage 1), extracting the cross-sectional 
+latent factor (Stage 2), and evaluating the predictive time-series 
+relationship (Stage 3).
+"""
+
 import pandas as pd
 import statsmodels.api as sm
 

@@ -1,3 +1,12 @@
+"""
+Calculates predictive performance metrics for the three-pass regression filter.
+
+Computes in-sample and out-of-sample predictive R-squared values over 
+specified forecasting horizons (e.g., 1-month, 1-year). The out-of-sample 
+evaluation utilizes a recursive expanding window methodology to strictly 
+prevent look-ahead bias during factor extraction and prediction.
+"""
+
 import pandas as pd
 import numpy as np
 import load_data

@@ -1,3 +1,12 @@
+"""
+Retrieves, cleans, and caches Fama-French portfolio datasets.
+
+Processes raw Ken French data by handling missing value indicators, 
+standardizing datetime indices, and calculating monthly Book-to-Market (BM) 
+ratios from annual book equity and monthly market equity. Saves the 
+resulting clean datasets as Parquet files for faster downstream access.
+"""
+
 import pandas as pd
 import numpy as np
 

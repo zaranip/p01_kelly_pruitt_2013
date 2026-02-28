@@ -1,3 +1,12 @@
+"""
+Coordinates end-to-end Kelly & Pruitt (2013) replication pipeline.
+
+Handles data loading, descriptive statistics generation, execution of the 
+three-stage regression filter, and PLS model evaluations across both the 
+original paper's timeframe and modern data. Exports all intermediate 
+analytical results to CSV files for downstream reporting.
+"""
+
 import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -13,6 +22,7 @@ OUTPUT_DIR = Path(config("OUTPUT_DIR"))
 START_TRAIN_DATE = config("START_TRAIN_DATE")
 START_TEST_DATE = config("START_TEST_DATE")
 END_TEST_DATE = config("END_TEST_DATE")
+CURRENT_DATE = config("CURRENT_DATE")
 
 def data_sparsity_analysis(data):
     """Analyzes data availability over time and exports to CSV."""
@@ -70,9 +80,9 @@ def run_stage_3_analysis(F_series, y_1m):
 
     return model, df_plot
 
-def replicate_table_1(data):
-    """Replicates Kelly and Pruitt (2013) Table 1 and exports results to CSV."""
-    log_returns = data['Market_Returns']['Log_Mkt'].loc[START_TRAIN_DATE:END_TEST_DATE]
+def run_pls_evaluations(data, train_start, test_start, test_end):
+    """Runs the PLS evaluations for a specific timeframe."""
+    log_returns = data['Market_Returns']['Log_Mkt'].loc[train_start:test_end]
     
     y_1m = log_returns
     y_12m = log_returns.rolling(12).sum().dropna()
@@ -86,7 +96,7 @@ def replicate_table_1(data):
     results = []
 
     for label, bm_key in portfolios:
-        v_df = data[bm_key].loc[START_TRAIN_DATE:END_TEST_DATE]
+        v_df = data[bm_key].loc[train_start:test_end]
         
         v_df_12m = v_df.loc[v_df.index.intersection(y_12m.index)]
         y_12m_aligned = y_12m.loc[v_df_12m.index]
@@ -95,10 +105,10 @@ def replicate_table_1(data):
         y_1m_aligned = y_1m.loc[v_df_1m.index]
         
         is_12m = pls_regression.run_in_sample(v_df_12m, y_12m_aligned, h=12)
-        oos_12m = pls_regression.run_out_of_sample(v_df_12m, y_12m_aligned, h=12, start_date=START_TEST_DATE)
+        oos_12m = pls_regression.run_out_of_sample(v_df_12m, y_12m_aligned, h=12, start_date=test_start)
         
         is_1m = pls_regression.run_in_sample(v_df_1m, y_1m_aligned, h=1)
-        oos_1m = pls_regression.run_out_of_sample(v_df_1m, y_1m_aligned, h=1, start_date=START_TEST_DATE)
+        oos_1m = pls_regression.run_out_of_sample(v_df_1m, y_1m_aligned, h=1, start_date=test_start)
         
         results.append({
             "Portfolio Set": label,
@@ -108,10 +118,22 @@ def replicate_table_1(data):
             "1-Month OOS": oos_1m
         })
 
-    df_results = pd.DataFrame(results).set_index("Portfolio Set")
-    df_results.to_csv(OUTPUT_DIR / "table_1_results.csv")
-        
-    return df_results
+    return pd.DataFrame(results).set_index("Portfolio Set")
+
+
+def replicate_table_1(data):
+    """Replicates Kelly and Pruitt Table 1 for both original and modern timeframes."""
+    
+    # Original Period (Test: 1980 - 2010)
+    df_original = run_pls_evaluations(data, START_TRAIN_DATE, START_TEST_DATE, END_TEST_DATE)
+    df_original.to_csv(OUTPUT_DIR / "table_1_results_original.csv")
+    
+    # Modern Period (Test: 2011 - 2024)
+    modern_test_start = END_TEST_DATE + pd.Timedelta(days=1)
+    df_modern = run_pls_evaluations(data, START_TRAIN_DATE, modern_test_start, CURRENT_DATE)
+    df_modern.to_csv(OUTPUT_DIR / "table_1_results_modern.csv")
+
+    return df_original, df_modern
 
 def run_all():
     """Main function that maps out and calls all individual pipeline components in sequence."""

@@ -120,14 +120,25 @@ def generate_stage_3_chart():
     fig.savefig(OUTPUT_DIR / "stage_3_predictive.png", bbox_inches="tight")
     plt.close(fig)
 
-
-def generate_table_1_results():
-    """Generates the raw tabular LaTeX for Table 1 replication results."""
-    print("Formatting Table 1 Results...")
-    df_results = pd.read_csv(OUTPUT_DIR / "table_1_results.csv", index_col=0)
-    with open(OUTPUT_DIR / "table_1_replication.tex", "w") as f:
+def format_table_1_latex(csv_path, tex_path):
+    """Reads a results CSV and outputs a formatted LaTeX table."""
+    df_results = pd.read_csv(csv_path, index_col=0)
+    with open(tex_path, "w") as f:
         f.write(df_results.style.format("{:.2f}").to_latex(hrules=True))
 
+def generate_table_1_results():
+    """Generates the raw tabular LaTeX for both original and modern results."""
+    print("Formatting Table 1 Results (Original Period)...")
+    format_table_1_latex(
+        OUTPUT_DIR / "table_1_results_original.csv", 
+        OUTPUT_DIR / "table_1_replication_original.tex"
+    )
+    
+    print("Formatting Table 1 Results (Modern Period)...")
+    format_table_1_latex(
+        OUTPUT_DIR / "table_1_results_modern.csv", 
+        OUTPUT_DIR / "table_1_replication_modern.tex"
+    )
 
 def main():
     print("Loading intermediate analytical results...")
