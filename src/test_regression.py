@@ -3,7 +3,7 @@ import numpy as np
 from pandas.testing import assert_series_equal
 
 # Assuming the file is named regression.py
-import regression as reg
+import pls_regression as pls_reg
 
 def create_synthetic_data(periods=20):
     """
@@ -31,7 +31,7 @@ def test_calculate_r2_positive():
     predictions = [9.9, 12.1, 13.9]  # Very close to actuals
     historical_means = [8.0, 9.0, 10.0]  # Far from actuals
     
-    r2 = reg.calculate_r2(actuals, predictions, historical_means)
+    r2 = pls_reg.calculate_r2(actuals, predictions, historical_means)
     
     # Model MSE should be tiny, Mean MSE should be large, R2 should be near 100%
     assert r2 > 90.0
@@ -43,7 +43,7 @@ def test_calculate_r2_negative():
     predictions = [2.0, 20.0, 5.0]  # Terrible predictions
     historical_means = [9.0, 11.0, 13.0]  # Quite close to actuals
     
-    r2 = reg.calculate_r2(actuals, predictions, historical_means)
+    r2 = pls_reg.calculate_r2(actuals, predictions, historical_means)
     
     # Model MSE > Mean MSE, therefore R2 must be negative
     assert r2 < 0.0
@@ -54,7 +54,7 @@ def test_calculate_r2_zero_variance():
     predictions = [10.0, 10.0, 10.0]
     historical_means = [10.0, 10.0, 10.0]
     
-    r2 = reg.calculate_r2(actuals, predictions, historical_means)
+    r2 = pls_reg.calculate_r2(actuals, predictions, historical_means)
     assert np.isnan(r2)
 
 def test_run_in_sample():
@@ -62,7 +62,7 @@ def test_run_in_sample():
     v_df, y_series = create_synthetic_data(periods=12)
     
     # Run in-sample for h=1
-    r2_is = reg.run_in_sample(v_df, y_series, h=1)
+    r2_is = pls_reg.run_in_sample(v_df, y_series, h=1)
     
     # With perfectly synthetic data, IS R2 should be very high and formatted as a percentage
     assert isinstance(r2_is, float)
@@ -78,7 +78,7 @@ def test_run_out_of_sample_expanding_window():
     start_date = "1978-01-01"
     
     # Run OOS for h=1
-    r2_oos = reg.run_out_of_sample(v_df, y_series, h=1, start_date=start_date)
+    r2_oos = pls_reg.run_out_of_sample(v_df, y_series, h=1, start_date=start_date)
     
     assert isinstance(r2_oos, float)
     assert not np.isnan(r2_oos)
@@ -90,7 +90,7 @@ def test_run_out_of_sample_insufficient_data():
     # Provide a start date that occurs after the dataset ends
     start_date = "1990-01-01"
     
-    r2_oos = reg.run_out_of_sample(v_df, y_series, h=1, start_date=start_date)
+    r2_oos = pls_reg.run_out_of_sample(v_df, y_series, h=1, start_date=start_date)
     
     # Because there are no predictions made, the mse_mean will be 0, resulting in NaN
     assert np.isnan(r2_oos)

@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 from pandas.testing import assert_series_equal
 
-import regression 
+import replication 
+import load_data
 
 def test_kelly_pruitt_table_1_replication():
     """
@@ -20,8 +21,11 @@ def test_kelly_pruitt_table_1_replication():
     })
     expected_table_1.index.name = "Portfolio Set"
     
-    # Ensure regression.replicate_table_1() returns df_results
-    actual_results = regression.replicate_table_1()
+    # Load the cached data needed for the replication function
+    data = load_data.clean_kelly_pruitt_data(load_from_cache=True)
+    
+    # Ensure replication.replicate_table_1() returns df_results
+    actual_results = replication.replicate_table_1(data)
     
     assert isinstance(actual_results, pd.DataFrame), "replicate_table_1() must return a DataFrame."
     

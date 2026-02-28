@@ -28,6 +28,9 @@ def jupyter_to_html(notebook_path, output_dir=OUTPUT_DIR):
 
 def jupyter_clear_output(notebook_path):
     return f"jupyter nbconvert --ClearOutputPreprocessor.enabled=True --ClearMetadataPreprocessor.enabled=True --inplace {notebook_path}"
+
+def jupyter_to_python(notebook_path, output_dir=OUTPUT_DIR):
+    return f"jupyter nbconvert --to python --output-dir={output_dir} {notebook_path}"
 # fmt: on
 
 
@@ -162,16 +165,28 @@ def task_clean_kelly_pruitt_data():
         "clean": True,
     }
 
-def task_replicate_table_1():
-    """Run Kelly & Pruitt (2013) Table 1 regressions and output to LaTeX"""
+def task_run_replication():
+    """Run Kelly & Pruitt (2013) Table 1 regressions, generate summary statistics, and exploratory charts."""
     return {
         "actions": [
-            "python ./src/regression.py",
+            "python ./src/replication.py",
         ],
-        "targets": [OUTPUT_DIR / "table_1_replication.tex"],
+        "targets": [
+            OUTPUT_DIR / "table_1_replication.tex",
+            OUTPUT_DIR / "data_sparsity.png",
+            OUTPUT_DIR / "data_sparsity.tex",
+            OUTPUT_DIR / "summary_statistics.tex",
+            OUTPUT_DIR / "stage_1_sensitivities.png",
+            OUTPUT_DIR / "stage_1_sensitivities.tex",
+            OUTPUT_DIR / "stage_2_factor.png",
+            OUTPUT_DIR / "stage_2_factor.tex",
+            OUTPUT_DIR / "stage_3_predictive.png",
+            OUTPUT_DIR / "stage_3_predictive.tex",
+        ],
         "file_dep": [
             "./src/settings.py",
-            "./src/regression.py", 
+            "./src/replication.py",
+            "./src/pls_regression.py", 
             "./src/regression_tools.py",
             "./src/load_data.py"
         ],
@@ -213,3 +228,74 @@ def task_build_chartbook_site():
         "task_dep": ["exploratory_charts"],
         "clean": True,
     }
+
+##############################
+## Notebook Tasks
+##############################
+
+notebook_tasks = {
+    "summary_statistics.ipynb": {
+        "file_dep": [
+            "./src/pull_ken_french_data.py",
+            "./src/load_data.py",
+            "./src/regression_tools.py",
+            "./src/pls_regression.py", 
+            "./src/replication.py",
+        ],
+        "targets": [],
+    },
+}
+
+def task_convert_notebooks_to_scripts():
+    """Convert notebooks to script form to detect changes to source code rather
+    than to the notebook's metadata.
+    """
+    build_dir = Path(OUTPUT_DIR)
+
+    for notebook in notebook_tasks.keys():
+        notebook_name = notebook.split(".")[0]
+        notebook_path = Path("./src") / notebook
+        yield {
+            "name": notebook,
+            "actions": [
+                jupyter_clear_output(notebook_path),
+                jupyter_to_python(notebook_path, build_dir),
+            ],
+            "file_dep": [notebook_path],
+            "targets": [OUTPUT_DIR / f"{notebook_name}.py"],
+            "clean": True,
+            "verbosity": 0,
+        }
+
+def task_run_notebooks():
+    """Preps the notebooks for presentation format.
+    Execute notebooks if the script version of it has been changed.
+    """
+    for notebook in notebook_tasks.keys():
+        notebook_name = notebook.split(".")[0]
+        notebook_path = Path("./src") / notebook
+        yield {
+            "name": notebook,
+            "actions": [
+                f"""python -c "import sys; from datetime import datetime; print(f'Start {notebook}: {{datetime.now()}}', file=sys.stderr)" """,
+                jupyter_execute_notebook(notebook_path),
+                jupyter_to_html(notebook_path, OUTPUT_DIR),
+                copy_file(
+                    notebook_path,
+                    OUTPUT_DIR / f"{notebook_name}.ipynb",
+                    mkdir=True,
+                ),
+                jupyter_clear_output(notebook_path),
+                f"""python -c "import sys; from datetime import datetime; print(f'End {notebook}: {{datetime.now()}}', file=sys.stderr)" """,
+            ],
+            "file_dep": [
+                OUTPUT_DIR / f"{notebook_name}.py",
+                *notebook_tasks[notebook]["file_dep"],
+            ],
+            "targets": [
+                OUTPUT_DIR / f"{notebook_name}.html",
+                OUTPUT_DIR / f"{notebook_name}.ipynb",
+                *notebook_tasks[notebook]["targets"],
+            ],
+            "clean": True,
+        }
