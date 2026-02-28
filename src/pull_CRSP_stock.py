@@ -37,13 +37,13 @@ from pandas.tseries.offsets import MonthEnd
 from settings import config
 
 DATA_DIR = Path(config("DATA_DIR"))
-START_DATE = config("START_DATE")
-END_DATE = config("END_DATE")
+START_TRAIN_DATE = config("START_TRAIN_DATE")
+END_TEST_DATE = config("END_TEST_DATE")
 WRDS_USERNAME = config("WRDS_USERNAME") or None  # Empty string becomes None
 
 
 def pull_CRSP_monthly_file(
-    start_date=START_DATE, end_date=END_DATE, wrds_username=WRDS_USERNAME
+    start_date=START_TRAIN_DATE, end_date=END_TEST_DATE, wrds_username=WRDS_USERNAME
 ):
     """
     Pulls monthly CRSP stock data from a specified start date to end date.
@@ -207,7 +207,7 @@ def pull_CRSP_monthly_file(
 
 
 def pull_CRSP_index_files(
-    start_date=START_DATE, end_date=END_DATE, wrds_username=WRDS_USERNAME
+    start_date=START_TRAIN_DATE, end_date=END_TEST_DATE, wrds_username=WRDS_USERNAME
 ):
     """
     Pulls the CRSP index files from crsp_a_indexes.msix:
@@ -228,7 +228,7 @@ def pull_CRSP_index_files(
 
 
 def pull_CRSP_market_returns(
-    start_date=START_DATE, end_date=END_DATE, wrds_username=WRDS_USERNAME
+    start_date=START_TRAIN_DATE, end_date=END_TEST_DATE, wrds_username=WRDS_USERNAME
 ):
     """
     Pull aggregate market returns from CRSP for dividend growth calculation.
@@ -285,14 +285,14 @@ def _demo():
 
 
 if __name__ == "__main__":
-    df_msf = pull_CRSP_monthly_file(start_date=START_DATE, end_date=END_DATE)
+    df_msf = pull_CRSP_monthly_file(start_date=START_TRAIN_DATE, end_date=END_TEST_DATE)
     path = Path(DATA_DIR) / "CRSP_monthly_stock.parquet"
     df_msf.to_parquet(path)
 
-    df_msix = pull_CRSP_index_files(start_date=START_DATE, end_date=END_DATE)
+    df_msix = pull_CRSP_index_files(start_date=START_TRAIN_DATE, end_date=END_TEST_DATE)
     path = Path(DATA_DIR) / "CRSP_MSIX.parquet"
     df_msix.to_parquet(path)
 
-    df_mkt = pull_CRSP_market_returns(start_date=START_DATE, end_date=END_DATE)
+    df_mkt = pull_CRSP_market_returns(start_date=START_TRAIN_DATE, end_date=END_TEST_DATE)
     path = Path(DATA_DIR) / "CRSP_market_returns.parquet"
     df_mkt.to_parquet(path)

@@ -12,8 +12,8 @@ import requests
 from settings import config
 
 DATA_DIR = config("DATA_DIR")
-START_DATE = config("START_DATE")
-END_DATE = config("END_DATE")
+START_TRAIN_DATE = config("START_TRAIN_DATE")
+END_TEST_DATE = config("END_TEST_DATE")
 
 FAMAFRENCH_URL = "https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/"
 
@@ -127,8 +127,8 @@ def pull_ken_french_excel(
     dataset_name="Portfolios_Formed_on_INV",
     data_dir=DATA_DIR,
     log=True,
-    start_date=START_DATE,
-    end_date=END_DATE,
+    start_date=START_TRAIN_DATE,
+    end_date=END_TEST_DATE,
 ):
     data_dir = Path(data_dir)
     # Suppress the specific FutureWarning about date_parser

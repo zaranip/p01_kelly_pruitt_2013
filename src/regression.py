@@ -6,6 +6,9 @@ from settings import config
 from pathlib import Path
 
 OUTPUT_DIR = Path(config("OUTPUT_DIR"))
+START_TRAIN_DATE = config("START_TRAIN_DATE")
+START_TEST_DATE = config("START_TEST_DATE")
+END_TEST_DATE = config("END_TEST_DATE")
 
 def calculate_r2(actuals, predictions, historical_means):
     """Calculates the out-of-sample predictive R-squared."""
@@ -29,7 +32,7 @@ def run_in_sample(v_df, y_series, h):
     # In-sample R-squared converted to percentage
     return model.rsquared * 100
 
-def run_out_of_sample(v_df, y_series, h, start_date='1980-01-01'):
+def run_out_of_sample(v_df, y_series, h, start_date=START_TEST_DATE):
     """
     Calculates the out-of-sample R-squared using a recursive expanding window.
     Forecasts begin at start_date.
@@ -78,15 +81,9 @@ def run_out_of_sample(v_df, y_series, h, start_date='1980-01-01'):
     return calculate_r2(actuals, predictions, historical_means)
 
 def replicate_table_1():
-    print("Loading datasets...")
     data = load_data.clean_kelly_pruitt_data(load_from_cache=True)
-    
-    # Restrict sample to 1930 - 2010
-    start_sample = '1930-01-01'
-    end_sample = '2010-12-31'
-    
-    # Setup Targets
-    log_returns = data['Market_Returns']['Log_Mkt'].loc[start_sample:end_sample]
+
+    log_returns = data['Market_Returns']['Log_Mkt'].loc[START_TRAIN_DATE:END_TEST_DATE]
     
     y_1m = log_returns
     y_12m = log_returns.rolling(12).sum().dropna()
@@ -99,9 +96,8 @@ def replicate_table_1():
     
     results = []
 
-    print("\nRunning Kelly & Pruitt (2013) Table 1 Regressions...")
     for label, bm_key in portfolios:
-        v_df = data[bm_key].loc[start_sample:end_sample]
+        v_df = data[bm_key].loc[START_TRAIN_DATE:END_TEST_DATE]
         
         # Align indices for 12-month series
         v_df_12m = v_df.loc[v_df.index.intersection(y_12m.index)]
@@ -113,11 +109,11 @@ def replicate_table_1():
         
         # Run 1-Year Forecasts (h=12)
         is_12m = run_in_sample(v_df_12m, y_12m_aligned, h=12)
-        oos_12m = run_out_of_sample(v_df_12m, y_12m_aligned, h=12, start_date='1980-01-01')
+        oos_12m = run_out_of_sample(v_df_12m, y_12m_aligned, h=12, start_date=START_TEST_DATE)
         
         # Run 1-Month Forecasts (h=1)
         is_1m = run_in_sample(v_df_1m, y_1m_aligned, h=1)
-        oos_1m = run_out_of_sample(v_df_1m, y_1m_aligned, h=1, start_date='1980-01-01')
+        oos_1m = run_out_of_sample(v_df_1m, y_1m_aligned, h=1, start_date=START_TEST_DATE)
         
         # Store results in a dictionary
         results.append({
@@ -131,11 +127,6 @@ def replicate_table_1():
     # Convert results to a pandas DataFrame
     df_results = pd.DataFrame(results).set_index("Portfolio Set")
     
-    # Print to console (Visible when running outside PyDoit or with `doit -v 2`)
-    print("-" * 65)
-    print(df_results.round(2))
-    print("-" * 65)
-
     # Export to LaTeX
     output_path = OUTPUT_DIR / "table_1_replication.tex"
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -150,7 +141,8 @@ def replicate_table_1():
     with open(output_path, "w") as f:
         f.write(latex_table)
         
-    print(f"\nSaved LaTeX table to: {output_path}")
+    # Return the dataframe so the test function can assert against it
+    return df_results
 
 if __name__ == "__main__":
     replicate_table_1()

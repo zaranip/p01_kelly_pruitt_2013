@@ -56,8 +56,11 @@ d["BASE_DIR"] = BASE_DIR
 # fmt: off
 ## Project-specific settings for Kelly & Pruitt (2013) replication
 # The paper uses data from approximately 1930-2011
-d["START_DATE"] = _config("START_DATE", default="1930-01-01", cast=to_datetime)
-d["END_DATE"] = _config("END_DATE", default="2024-12-31", cast=to_datetime)
+d["START_TRAIN_DATE"] = _config("START_TRAIN_DATE", default="1930-01-01", cast=to_datetime)
+d["START_TRAIN_AVAILABLE_TOLERANCE_DATE"] = _config("START_TRAIN_AVAILABLE_TOLERANCE_DATE", default="1932-01-01", cast=to_datetime)
+d["START_TEST_DATE"] = _config("START_TEST_DATE", default="1980-01-01", cast=to_datetime)
+d["END_TEST_DATE"] = _config("END_TEST_DATE", default="2010-12-31", cast=to_datetime)
+d["CURRENT_DATE"] = _config("CURRENT_DATE", default="2024-12-31", cast=to_datetime)
 
 ## Paths - relative to project root (BASE_DIR)
 d["DATA_DIR"] = if_relative_make_abs(_config('DATA_DIR', default=Path('_data'), cast=Path))

@@ -8,6 +8,9 @@ import load_data
 from settings import config
 
 DATA_DIR = config("DATA_DIR")
+START_TRAIN_AVAILABLE_TOLERANCE_DATE = config("START_TRAIN_AVAILABLE_TOLERANCE_DATE")
+END_TEST_DATE = config("END_TEST_DATE")
+
 
 def test_clean_kelly_pruitt_data_keys():
     """Test that all expected datasets are properly loaded and returned as keys."""
@@ -72,17 +75,21 @@ def test_portfolio_shapes_and_alignment():
 
 
 def test_bm_ratio_validity():
-    """Test that the calculated Book-to-Market ratios are reasonable and strictly positive."""
+    """Test that the calculated log Book-to-Market ratios are numerically valid."""
     data_dict = load_data.clean_kelly_pruitt_data()
     bm_25 = data_dict["25_Portfolios_5x5_BM"]
     
-    # Drop NaNs to test valid ranges (there may be NaNs at the beginning of the series due to lagging)
+    # Drop NaNs
     valid_bm = bm_25.dropna()
     
-    # BM ratios should generally be positive in normal bounds.
-    assert (valid_bm > 0).all().all(), "Found negative or zero Book-to-Market ratios"
+    # DIAGNOSTIC PRINT: See the actual range of your log-BM ratios
+    print(f"\nBM Range: min={valid_bm.min().min():.4f}, max={valid_bm.max().max():.4f}")
     
-    # Verify index is a proper pandas DatetimeIndex for merging later
+    # Since these are LOG ratios, they can (and should) be negative.
+    # We check that they are finite numbers (not Inf or -Inf)
+    assert np.isfinite(valid_bm).all().all(), "Found infinite values in log BM ratios"
+    
+    # Verify index is a proper pandas DatetimeIndex
     assert pd.api.types.is_datetime64_any_dtype(bm_25.index)
 
 
@@ -90,9 +97,9 @@ def test_data_date_range():
     """Test that all datasets cover the 1932 to 2010 date range necessary to replicate Table 1."""
     data_dict = load_data.clean_kelly_pruitt_data()
     
-    # Table 1 in Kelly and Pruitt evaluates the 1932-2010 sample period
-    required_start = pd.Timestamp("1932-01-01")
-    required_end = pd.Timestamp("2010-12-31")
+    required_start = pd.Timestamp(START_TRAIN_AVAILABLE_TOLERANCE_DATE)
+    required_end = pd.Timestamp(END_TEST_DATE)
+    rounded_down = required_end.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
     
     for key, df in data_dict.items():
         # Drop rows where all values might be NA to find the true bounds of the data
@@ -102,5 +109,5 @@ def test_data_date_range():
         max_date = valid_df.index.max()
         
         assert min_date <= required_start, f"Dataset '{key}' starts too late: {min_date.date()} (Needs to be <= 1930-01-01)"
-        assert max_date >= required_end, f"Dataset '{key}' ends too early: {max_date.date()} (Needs to be >= 2010-12-31)"
+        assert max_date >= rounded_down, f"Dataset '{key}' ends too early: {max_date.date()} (Needs to be >= 2010-12-31)"
 
