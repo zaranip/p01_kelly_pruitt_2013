@@ -34,8 +34,6 @@
 
 \renewcommand{\itemmarker}{{\small\textbullet}}
 
-% Removed \addbibresource{references.bib} to fix the .bbl error
-
 \begin{document}
 \name{Kelly \& Pruitt (2013) Replication}
 \tagline{Three-Pass Regression Filter Analysis}
@@ -57,7 +55,7 @@
 % --- Left column: Charts ---
 
 \need{Data Availability}
-Number of active portfolios over time. The constraints in early periods motivate the use of PLS-style techniques to handle unbalanced panels. illustrates the number of active portfolios with valid data over time for the 6, 25, and 100 portfolio datasets. The key takeaway is the data availability constraint in earlier periods, particularly for the 100-portfolio set. This motivates the use of Partial Least Squares (PLS)-style methods, such as the three-pass regression filter, which can effectively handle missing or unbalanced panels without discarding large swaths of historical data.
+Active portfolios over time across the 6, 25, and 100 portfolio datasets. Data sparsity in early periods, especially for the 100-portfolio set, motivates the use of Partial Least Squares (PLS) methods like the three-pass regression filter to handle unbalanced panels.
 
 \smallskip
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput data_sparsity.png}\par}
@@ -65,7 +63,7 @@ Number of active portfolios over time. The constraints in early periods motivate
 \divider
 
 \need{Stage 1: Estimated Sensitivities}
-Cross-sectional loadings for the 25 Book-to-Market portfolios. Displays the estimated sensitivities ($\phi_i$) for the 25 portfolios derived from the first stage of the regression filter. This chart highlights which specific portfolios exhibit the strongest comovement with future market returns. The reader should take away that the filter applies distinct cross-sectional weights, favoring assets with stronger predictive signals rather than using a simple equal-weighted average.
+Estimated sensitivities ($\phi_i$) for the 25 book-to-market portfolios derived from the first-stage regression. The filter applies distinct cross-sectional weights based on predictive signals rather than simple equal-weighting.
 
 \smallskip
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_1_sensitivities.png}\par}
@@ -73,7 +71,7 @@ Cross-sectional loadings for the 25 Book-to-Market portfolios. Displays the esti
 \divider
 
 \need{Stage 2: Extracted Latent Factor}
-The time-series of the predictive index extracted from the cross-section. Plots the extracted latent factor ($F_t$) over time. The reader should note the cyclicality and significant structural spikes in the factor, which often correspond to major macroeconomic events. The key takeaway is that the cross-section of book-to-market ratios successfully aggregates time-varying expected returns into a single, cohesive predictive index.
+Time-series of the extracted latent factor ($F_t$). While the index aggregates cross-sectional characteristics, subsequent performance tests reveal it possesses limited out-of-sample predictive power in this replication.
 
 \smallskip
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_2_factor.png}\par}
@@ -81,7 +79,7 @@ The time-series of the predictive index extracted from the cross-section. Plots 
 \divider
 
 \need{Stage 3: Predictive Relationship}
-In-sample correlation between the extracted factor and realized future market returns. Depicts the predictive relationship between the extracted latent factor ($F_t$) and the realized future market returns ($y_{t+1}$). The upward-sloping trend line demonstrates the strong in-sample predictive power of the factor. The reader should conclude that the information extracted from the cross-section is highly relevant and linearly correlated with forecasting aggregate market movements.
+In-sample correlation between the extracted factor ($F_t$) and realized future market returns ($y_{t+1}$). The linear relationship is weak, contributing to low R-squared values and a failure to replicate the original paper's strong predictive findings.
 
 \smallskip
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_3_predictive.png}\par}
@@ -114,8 +112,7 @@ Descriptive statistics for the 25 Portfolios and Log Market Returns.
 \divider
 
 \need{Table 1 Replication Results}
-In-sample and out-of-sample predictive R-squared statistics (in percentages) across different portfolio granularities.
-Train: 1930 - 1980, Test: 1981 - 2010
+Predictive R-squared statistics (\%) across portfolio granularities (Train: 1930--1980, Test: 1981--2010). Note the exceptionally low out-of-sample values, indicating a failure to replicate the original study's predictive success.
 
 \smallskip
 {
@@ -128,8 +125,7 @@ Train: 1930 - 1980, Test: 1981 - 2010
 \divider
 
 \need{Table 1 Replication Results for New Data}
-In-sample and out-of-sample predictive R-squared statistics (in percentages) across different portfolio granularities.
-Train: 1930 - 2010, Test: 2011 - 2024
+Predictive R-squared statistics (\%) using modern data (Train: 1930--2010, Test: 2011--2024). Out-of-sample performance remains weak in the modern era, further confirming the lack of robust replicability.
 
 \smallskip
 {
