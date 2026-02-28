@@ -1,0 +1,129 @@
+\documentclass[10pt,letterpaper]{handout}
+
+\usepackage[T1]{fontenc}
+\usepackage[default]{lato}
+\usepackage{fontawesome}
+\usepackage{booktabs}
+\usepackage{paracol}
+
+% Path to generated outputs
+\newcommand*{\PathToOutput}{../_output/}% Make sure this matches your folder name
+
+% Read the quote date from the generated text file
+\newread\datefile
+\openin\datefile=\PathToOutput report_date.txt
+\read\datefile to \BriefDate
+\closein\datefile
+
+% UChicago Colors
+\definecolor{Maroon}{HTML}{800000}
+\definecolor{DarkGreystone}{HTML}{737373}
+\definecolor{Greystone}{HTML}{A6A6A6}
+\definecolor{LightGreystone}{HTML}{D9D9D9}
+\definecolor{Goldenrod}{HTML}{EAAA00}
+\definecolor{Terracotta}{HTML}{DE7C00}
+\definecolor{Green}{HTML}{319866}
+\definecolor{Red}{HTML}{CC0000}
+\definecolor{Black}{HTML}{111111}
+
+\colorlet{heading}{Maroon}
+\colorlet{titlecolor}{Maroon}
+\colorlet{accent}{Terracotta}
+\colorlet{emphasis}{Black}
+\colorlet{body}{DarkGreystone}
+
+\renewcommand{\itemmarker}{{\small\textbullet}}
+
+% Removed \addbibresource{references.bib} to fix the .bbl error
+
+\begin{document}
+\name{Kelly \& Pruitt (2013) Replication}
+\tagline{Three-Pass Regression Filter Analysis}
+\asof{Data through \BriefDate}
+
+\docinfo{%
+  \analyst{Quantitative Strategy}{Factor Extraction}
+}
+
+\begin{fullwidth}
+\makeheader
+\end{fullwidth}
+
+%% ============================================================
+%% Page 1: Visuals (left) | Statistics & Tables (right)
+%% ============================================================
+\begin{paracol}{2}
+
+% --- Left column: Charts ---
+
+\need{Data Availability}
+Number of active portfolios over time. The constraints in early periods motivate the use of PLS-style techniques to handle unbalanced panels. illustrates the number of active portfolios with valid data over time for the 6, 25, and 100 portfolio datasets. The key takeaway is the data availability constraint in earlier periods, particularly for the 100-portfolio set. This motivates the use of Partial Least Squares (PLS)-style methods, such as the three-pass regression filter, which can effectively handle missing or unbalanced panels without discarding large swaths of historical data.
+
+\smallskip
+{\centering\includegraphics[width=0.96\linewidth]{\PathToOutput data_sparsity.png}\par}
+
+\divider
+
+\need{Stage 1: Estimated Sensitivities}
+Cross-sectional loadings for the 25 Book-to-Market portfolios. Displays the estimated sensitivities ($\phi_i$) for the 25 portfolios derived from the first stage of the regression filter. This chart highlights which specific portfolios exhibit the strongest comovement with future market returns. The reader should take away that the filter applies distinct cross-sectional weights, favoring assets with stronger predictive signals rather than using a simple equal-weighted average.
+
+\smallskip
+{\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_1_sensitivities.png}\par}
+
+\divider
+
+\need{Stage 2: Extracted Latent Factor}
+The time-series of the predictive index extracted from the cross-section. Plots the extracted latent factor ($F_t$) over time. The reader should note the cyclicality and significant structural spikes in the factor, which often correspond to major macroeconomic events. The key takeaway is that the cross-section of book-to-market ratios successfully aggregates time-varying expected returns into a single, cohesive predictive index.
+
+\smallskip
+{\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_2_factor.png}\par}
+
+\divider
+
+\need{Predictive Relationship}
+In-sample correlation between the extracted factor and realized future market returns. Depicts the predictive relationship between the extracted latent factor ($F_t$) and the realized future market returns ($y_{t+1}$). The upward-sloping trend line demonstrates the strong in-sample predictive power of the factor. The reader should conclude that the information extracted from the cross-section is highly relevant and linearly correlated with forecasting aggregate market movements.
+
+\smallskip
+{\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_3_predictive.png}\par}
+
+% --- Right column: Statistics and Tables ---
+\switchcolumn
+
+\need{Methodology}
+\begin{itemize}
+  \item \textbf{Objective}: Forecast aggregate market returns using a large cross-section of assets.
+  \item \textbf{Model}: Three-pass regression filter.
+  \item \textbf{Stage 1}: Time-series regression of characteristics on future market returns to get sensitivities.
+  \item \textbf{Stage 2}: Cross-sectional regression of characteristics on sensitivities to extract the latent factor.
+  \item \textbf{Stage 3}: Predictive regression of future market returns on the latent factor.
+\end{itemize}
+
+\divider
+
+\need{Summary Statistics}
+Descriptive statistics for the 25 Portfolios and Log Market Returns.
+
+\smallskip
+{
+\footnotesize
+\centering
+\input{\PathToOutput summary_statistics.tex}
+\par
+}
+
+\divider
+
+\need{Table 1 Replication Results}
+In-sample and out-of-sample predictive R-squared statistics (in percentages) across different portfolio granularities.
+
+\smallskip
+{
+\footnotesize
+\centering
+\input{\PathToOutput table_1_replication.tex}
+\par
+}
+
+\end{paracol}
+
+\end{document}

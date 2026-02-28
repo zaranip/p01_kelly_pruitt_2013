@@ -60,54 +60,54 @@ def task_config():
     }
 
 
-def task_pull_CRSP_stock():
-    """Pull CRSP stock data from WRDS (skips if all data files already exist)"""
-    targets = [
-        DATA_DIR / "CRSP_monthly_stock.parquet",
-        DATA_DIR / "CRSP_MSIX.parquet",
-        DATA_DIR / "CRSP_market_returns.parquet",
-    ]
+# def task_pull_CRSP_stock():
+#     """Pull CRSP stock data from WRDS (skips if all data files already exist)"""
+#     targets = [
+#         DATA_DIR / "CRSP_monthly_stock.parquet",
+#         DATA_DIR / "CRSP_MSIX.parquet",
+#         DATA_DIR / "CRSP_market_returns.parquet",
+#     ]
     
-    def all_targets_exist():
-        """Return True if all target files exist (skip the pull)."""
-        return all(t.exists() for t in targets)
+#     def all_targets_exist():
+#         """Return True if all target files exist (skip the pull)."""
+#         return all(t.exists() for t in targets)
     
-    return {
-        "actions": [
-            "python ./src/settings.py",
-            "python ./src/pull_CRSP_stock.py",
-        ],
-        "targets": targets,
-        "file_dep": ["./src/settings.py", "./src/pull_CRSP_stock.py"],
-        "uptodate": [all_targets_exist],
-        "verbosity": 2,
-        "clean": True,
-    }
+#     return {
+#         "actions": [
+#             "python ./src/settings.py",
+#             "python ./src/pull_CRSP_stock.py",
+#         ],
+#         "targets": targets,
+#         "file_dep": ["./src/settings.py", "./src/pull_CRSP_stock.py"],
+#         "uptodate": [all_targets_exist],
+#         "verbosity": 2,
+#         "clean": True,
+#     }
 
 
-def task_pull_CRSP_Compustat():
-    """Pull Compustat fundamentals and CCM link table from WRDS (skips if all data files already exist)"""
-    targets = [
-        DATA_DIR / "Compustat.parquet",
-        DATA_DIR / "CRSP_Comp_Link_Table.parquet",
-        DATA_DIR / "FF_FACTORS.parquet",
-    ]
+# def task_pull_CRSP_Compustat():
+#     """Pull Compustat fundamentals and CCM link table from WRDS (skips if all data files already exist)"""
+#     targets = [
+#         DATA_DIR / "Compustat.parquet",
+#         DATA_DIR / "CRSP_Comp_Link_Table.parquet",
+#         DATA_DIR / "FF_FACTORS.parquet",
+#     ]
     
-    def all_targets_exist():
-        """Return True if all target files exist (skip the pull)."""
-        return all(t.exists() for t in targets)
+#     def all_targets_exist():
+#         """Return True if all target files exist (skip the pull)."""
+#         return all(t.exists() for t in targets)
     
-    return {
-        "actions": [
-            "python ./src/settings.py",
-            "python ./src/pull_CRSP_Compustat.py",
-        ],
-        "targets": targets,
-        "file_dep": ["./src/settings.py", "./src/pull_CRSP_Compustat.py"],
-        "uptodate": [all_targets_exist],
-        "verbosity": 2,
-        "clean": True,
-    }
+#     return {
+#         "actions": [
+#             "python ./src/settings.py",
+#             "python ./src/pull_CRSP_Compustat.py",
+#         ],
+#         "targets": targets,
+#         "file_dep": ["./src/settings.py", "./src/pull_CRSP_Compustat.py"],
+#         "uptodate": [all_targets_exist],
+#         "verbosity": 2,
+#         "clean": True,
+#     }
 
 
 def task_pull_ken_french():
@@ -166,22 +166,18 @@ def task_clean_kelly_pruitt_data():
     }
 
 def task_run_replication():
-    """Run Kelly & Pruitt (2013) Table 1 regressions, generate summary statistics, and exploratory charts."""
+    """Run Kelly & Pruitt (2013) math regressions and save raw data as CSVs."""
     return {
         "actions": [
             "python ./src/replication.py",
         ],
         "targets": [
-            OUTPUT_DIR / "table_1_replication.tex",
-            OUTPUT_DIR / "data_sparsity.png",
-            OUTPUT_DIR / "data_sparsity.tex",
-            OUTPUT_DIR / "summary_statistics.tex",
-            OUTPUT_DIR / "stage_1_sensitivities.png",
-            OUTPUT_DIR / "stage_1_sensitivities.tex",
-            OUTPUT_DIR / "stage_2_factor.png",
-            OUTPUT_DIR / "stage_2_factor.tex",
-            OUTPUT_DIR / "stage_3_predictive.png",
-            OUTPUT_DIR / "stage_3_predictive.tex",
+            OUTPUT_DIR / "data_sparsity.csv",
+            OUTPUT_DIR / "summary_statistics.csv",
+            OUTPUT_DIR / "stage_1_phi.csv",
+            OUTPUT_DIR / "stage_2_factor.csv",
+            OUTPUT_DIR / "stage_3_predictive.csv",
+            OUTPUT_DIR / "table_1_results.csv",
         ],
         "file_dep": [
             "./src/settings.py",
@@ -194,40 +190,89 @@ def task_run_replication():
         "clean": True,
     }
 
-
-def task_exploratory_charts():
-    """Generate exploratory charts to verify data was pulled successfully"""
+def task_generate_figures():
+    """Read analytical results from CSVs and generate LaTeX/PNG files."""
     return {
-        "actions": [
-            "python ./src/generate_exploratory_charts.py",
-        ],
+        "actions": ["python ./src/generate_figures.py"],
         "targets": [
-            OUTPUT_DIR / "chart_market_returns.html",
-            OUTPUT_DIR / "chart_compustat_coverage.html",
+            "./reports/paths.tex",
+            OUTPUT_DIR / "report_date.txt",
+            OUTPUT_DIR / "table_1_replication.tex",
+            OUTPUT_DIR / "summary_statistics.tex",
+            OUTPUT_DIR / "data_sparsity.png",
+            OUTPUT_DIR / "stage_1_sensitivities.png",
+            OUTPUT_DIR / "stage_2_factor.png",
+            OUTPUT_DIR / "stage_3_predictive.png",
         ],
         "file_dep": [
-            "./src/settings.py",
-            "./src/generate_exploratory_charts.py",
+            "./src/generate_figures.py",
+            OUTPUT_DIR / "data_sparsity.csv",
+            OUTPUT_DIR / "summary_statistics.csv",
+            OUTPUT_DIR / "stage_1_phi.csv",
+            OUTPUT_DIR / "stage_2_factor.csv",
+            OUTPUT_DIR / "stage_3_predictive.csv",
+            OUTPUT_DIR / "table_1_results.csv",
         ],
-        "task_dep": ["pull_CRSP_stock", "pull_CRSP_Compustat"],
+        "task_dep": ["run_replication"],
         "clean": True,
     }
 
 
-def task_build_chartbook_site():
-    """Build the chartbook documentation site"""
+def task_compile_replication_report():
+    """Compile the replication report LaTeX document to PDF."""
     return {
         "actions": [
-            "chartbook build -f",
+            "latexmk -pdf -interaction=nonstopmode -cd ./reports/replication_report.tex",
         ],
-        "targets": ["./docs/index.html"],
         "file_dep": [
-            "./README.md",
-            "./chartbook.toml",
+            "./reports/replication_report.tex",
+            "./reports/handout.cls",
+            OUTPUT_DIR / "report_date.txt",
+            OUTPUT_DIR / "data_sparsity.png",
+            OUTPUT_DIR / "summary_statistics.tex",
+            OUTPUT_DIR / "stage_1_sensitivities.png",
+            OUTPUT_DIR / "stage_2_factor.png",
+            OUTPUT_DIR / "stage_3_predictive.png",
+            OUTPUT_DIR / "table_1_replication.tex",
         ],
-        "task_dep": ["exploratory_charts"],
+        "task_dep": ["generate_figures"],
+        "targets": ["./reports/replication_report.pdf"],
         "clean": True,
     }
+
+# def task_exploratory_charts():
+#     """Generate exploratory charts to verify data was pulled successfully"""
+#     return {
+#         "actions": [
+#             "python ./src/generate_exploratory_charts.py",
+#         ],
+#         "targets": [
+#             OUTPUT_DIR / "chart_market_returns.html",
+#             OUTPUT_DIR / "chart_compustat_coverage.html",
+#         ],
+#         "file_dep": [
+#             "./src/settings.py",
+#             "./src/generate_exploratory_charts.py",
+#         ],
+#         "task_dep": ["pull_CRSP_stock", "pull_CRSP_Compustat"],
+#         "clean": True,
+#     }
+
+
+# def task_build_chartbook_site():
+#     """Build the chartbook documentation site"""
+#     return {
+#         "actions": [
+#             "chartbook build -f",
+#         ],
+#         "targets": ["./docs/index.html"],
+#         "file_dep": [
+#             "./README.md",
+#             "./chartbook.toml",
+#         ],
+#         "task_dep": ["exploratory_charts"],
+#         "clean": True,
+#     }
 
 ##############################
 ## Notebook Tasks
@@ -236,12 +281,13 @@ def task_build_chartbook_site():
 notebook_tasks = {
     "summary_statistics.ipynb": {
         "file_dep": [
-            "./src/pull_ken_french_data.py",
-            "./src/load_data.py",
-            "./src/regression_tools.py",
-            "./src/pls_regression.py", 
-            "./src/replication.py",
+            OUTPUT_DIR / "data_sparsity.png",
+            OUTPUT_DIR / "summary_statistics.csv",
+            OUTPUT_DIR / "stage_1_sensitivities.png",
+            OUTPUT_DIR / "stage_2_factor.png",
+            OUTPUT_DIR / "stage_3_predictive.png",
         ],
+        "task_dep": ["generate_figures"],
         "targets": [],
     },
 }
