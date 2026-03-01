@@ -1,7 +1,10 @@
 """
-Generate Kelly & Pruitt Replication Figures
-===========================================
-Generates all figures and tables for the replication report handout.
+Generates visualizations and LaTeX tables for the replication report.
+
+Reads intermediate analytical results from CSV files and outputs formatted 
+matplotlib/seaborn charts (e.g., data sparsity, factor sensitivities, 
+latent factor time-series, and predictive relationships) as well as 
+styled LaTeX tabular data for the final PDF handout.
 """
 
 import sys
