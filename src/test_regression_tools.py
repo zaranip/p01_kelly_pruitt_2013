@@ -11,7 +11,7 @@ def create_synthetic_data():
     Creates synthetic data for testing. 
     Constructed so that expected relationships (covariances and slopes) are perfectly known.
     """
-    dates = pd.date_range("2000-01-01", periods=6, freq="ME")
+    dates = pd.date_range("2000-01-01", periods=6, freq="M")
     
     # Target series (e.g., market returns)
     y_series = pd.Series([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], index=dates, name="Mkt")
@@ -87,7 +87,7 @@ def test_second_stage_minimum_cross_section_check():
 
 def test_third_stage_regression():
     """Test Stage 3: Predictive time-series regression mechanics."""
-    dates = pd.date_range("2000-01-01", periods=6, freq="ME")
+    dates = pd.date_range("2000-01-01", periods=6, freq="M")
     y_series = pd.Series([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], index=dates, name="Mkt")
     
     # Synthetic factor extracted from stage 2
