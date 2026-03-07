@@ -1,0 +1,1716 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kelly &amp; Pruitt (2013): Summary Statistics and Replication Walkthrough &#8212; Kelly and Pruitt 2013 Replication</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=206a6f58" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=b9472d72"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/P01/summary_statistics';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Chart List" href="../../charts.html" />
+    <link rel="prev" title="Market Expectations in the Cross-Section of Present Values" href="../../index.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Kelly and Pruitt 2013 Replication - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Kelly and Pruitt 2013 Replication - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Market Expectations in the Cross-Section of Present Values
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Notebooks 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Kelly &amp; Pruitt (2013): Summary Statistics and Replication Walkthrough</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pipeline Charts 📈</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../charts.html">Chart List</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pipeline Dataframes 📊</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../dataframes/P01/ccm_link.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:ccm_link</span></code> - CRSP-Compustat Link Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dataframes/P01/compustat.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:compustat</span></code> - Compustat Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dataframes/P01/crsp_market_returns.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:crsp_market_returns</span></code> - CRSP Market Returns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dataframes/P01/crsp_monthly_stock.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:crsp_monthly_stock</span></code> - CRSP Monthly Stock Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dataframes/P01/ken_french_25_portfolios.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:ken_french_25_portfolios</span></code> - 25 Portfolios (5x5 Size x BM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dataframes/P01/ken_french_ff_factors.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:ken_french_ff_factors</span></code> - Fama-French Research Factors</a></li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div class="ablog-sidebar-item ablog__category">
+  <h3>
+    <a href="../../charts/index/category.html">Categories</a>
+  </h3>
+  <ul>
+     
+    <li>
+      <a href="../../charts/index/category/compustat.html">Compustat (1)</a>
+    </li>
+      
+    <li>
+      <a href="../../charts/index/category/crsp.html">Crsp (1)</a>
+    </li>
+      
+    <li>
+      <a href="../../charts/index/category/cumulative-returns.html">Cumulative Returns (1)</a>
+    </li>
+      
+    <li>
+      <a href="../../charts/index/category/data-coverage.html">Data Coverage (1)</a>
+    </li>
+      
+    <li>
+      <a href="../../charts/index/category/factors.html">Factors (1)</a>
+    </li>
+      
+    <li>
+      <a href="../../charts/index/category/fama-french.html">Fama-French (1)</a>
+    </li>
+      
+    <li>
+      <a href="../../charts/index/category/market-returns.html">Market Returns (1)</a>
+    </li>
+     
+  </ul>
+</div>
+</div>
+        <div class="sidebar-primary-item">
+<div class="ablog-sidebar-item ablog__tags">
+  <link
+    rel="stylesheet"
+    href="../../_static/ablog/tagcloud.css"
+    type="text/css"
+  />
+  <h3><a href="../../charts/index/tag.html">Tags</a></h3>
+  <ul class="ablog-cloud">
+     
+    <li class="ablog-cloud ablog-cloud-3">
+      <a href="../../charts/index/tag/crsp.html">CRSP</a>
+    </li>
+      
+    <li class="ablog-cloud ablog-cloud-3">
+      <a href="../../charts/index/tag/compustat.html">Compustat</a>
+    </li>
+      
+    <li class="ablog-cloud ablog-cloud-3">
+      <a href="../../charts/index/tag/kenneth-french-data-library.html">Kenneth French Data Library</a>
+    </li>
+     
+  </ul>
+</div>
+</div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/P01/summary_statistics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Kelly & Pruitt (2013): Summary Statistics and Replication Walkthrough</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-ingestion-cleaning">1. Data Ingestion &amp; Cleaning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-statistics">2. Summary Statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyzing-data-sparsity">3. Analyzing Data Sparsity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-three-pass-regression-filter">4. The Three-Pass Regression Filter</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-1-time-series-regressions-estimating-sensitivities">Stage 1: Time-Series Regressions (Estimating Sensitivities)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-2-cross-sectional-regressions-extracting-the-factor">Stage 2: Cross-Sectional Regressions (Extracting the Factor)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-3-predictive-regression">Stage 3: Predictive Regression</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-1-replication-results">5. Table 1 Replication Results</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="kelly-pruitt-2013-summary-statistics-and-replication-walkthrough">
+<h1>Kelly &amp; Pruitt (2013): Summary Statistics and Replication Walkthrough<a class="headerlink" href="#kelly-pruitt-2013-summary-statistics-and-replication-walkthrough" title="Link to this heading">#</a></h1>
+<p>This notebook provides a guided tour of the data and methodology used to replicate <strong>Table 1</strong> of:</p>
+<blockquote>
+<div><p>Kelly, B. and Pruitt, S. (2013), “Market Expectations in the Cross-Section of Present Values.” <em>The Journal of Finance</em>, 68: 1721-1756.</p>
+</div></blockquote>
+<p>The core insight is that a single factor extracted from the cross-section of book-to-market (BM) ratios can forecast aggregate market returns. The extraction uses a <strong>three-pass regression filter</strong> (also known as partial least squares / PLS), which is designed to handle large panels of predictors even when the time series is short.</p>
+<p>We walk through:</p>
+<ol class="arabic simple">
+<li><p><strong>Data Ingestion &amp; Cleaning</strong> — How we process Fama-French portfolio data</p></li>
+<li><p><strong>Summary Statistics</strong> — Descriptive statistics for BM ratios and market returns</p></li>
+<li><p><strong>Data Sparsity</strong> — Availability of cross-sectional predictors over time</p></li>
+<li><p><strong>The Three-Pass Regression Filter</strong> — Visualizing each intermediate stage</p></li>
+<li><p><strong>Table 1 Results</strong> — Comparing our replication to the published values</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">Markdown</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1"># Import our custom modules</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">load_data</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">regression_tools</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span>
+
+<span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;OUTPUT_DIR&quot;</span><span class="p">))</span>
+<span class="n">START_TRAIN_DATE</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s2">&quot;START_TRAIN_DATE&quot;</span><span class="p">)</span>
+<span class="n">START_TEST_DATE</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s2">&quot;START_TEST_DATE&quot;</span><span class="p">)</span>
+<span class="n">END_TEST_DATE</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s2">&quot;END_TEST_DATE&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load all cleaned datasets</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">load_data</span><span class="o">.</span><span class="n">clean_kelly_pruitt_data</span><span class="p">(</span><span class="n">load_from_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2"> datasets: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loaded 7 datasets: [&#39;Market_Returns&#39;, &#39;6_Portfolios_2x3_Returns&#39;, &#39;6_Portfolios_2x3_BM&#39;, &#39;25_Portfolios_5x5_Returns&#39;, &#39;25_Portfolios_5x5_BM&#39;, &#39;100_Portfolios_10x10_Returns&#39;, &#39;100_Portfolios_10x10_BM&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="data-ingestion-cleaning">
+<h2>1. Data Ingestion &amp; Cleaning<a class="headerlink" href="#data-ingestion-cleaning" title="Link to this heading">#</a></h2>
+<p>We use data from Kenneth French’s data library rather than constructing portfolios directly from CRSP/Compustat. This provides pre-formed portfolios sorted on Size and Book-to-Market going back to 1926, which is critical since the paper’s training sample begins in 1930.</p>
+<p>The raw data contains missing value indicators (<code class="docutils literal notranslate"><span class="pre">-99.99</span></code>, <code class="docutils literal notranslate"><span class="pre">-999</span></code>, etc.) which we standardize to <code class="docutils literal notranslate"><span class="pre">NaN</span></code>. We then construct <strong>monthly log book-to-market ratios</strong> following Vuolteenaho’s methodology:</p>
+<div class="math notranslate nohighlight">
+\[\text{BM}_{i,t} = \log\left(\frac{\text{BE}_{i,Y}}{\text{ME}_{i,t}}\right)\]</div>
+<p>where book equity (BE) is updated annually and market equity (ME) is observed monthly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Examine the 25 Portfolios (5x5 Size x BM) — our primary replication dataset</span>
+<span class="n">bm_25</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;25_Portfolios_5x5_BM&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;25 Portfolios BM shape: </span><span class="si">{</span><span class="n">bm_25</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Date range: </span><span class="si">{</span><span class="n">bm_25</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">bm_25</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of portfolios: </span><span class="si">{</span><span class="n">bm_25</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">First 5 rows:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">bm_25</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25 Portfolios BM shape: (1140, 25)
+Date range: 1930-01 to 2024-12
+Number of portfolios: 25
+
+First 5 rows:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SMALL LoBM</th>
+      <th>ME1 BM2</th>
+      <th>ME1 BM3</th>
+      <th>ME1 BM4</th>
+      <th>SMALL HiBM</th>
+      <th>ME2 BM1</th>
+      <th>ME2 BM2</th>
+      <th>ME2 BM3</th>
+      <th>ME2 BM4</th>
+      <th>ME2 BM5</th>
+      <th>...</th>
+      <th>ME4 BM1</th>
+      <th>ME4 BM2</th>
+      <th>ME4 BM3</th>
+      <th>ME4 BM4</th>
+      <th>ME4 BM5</th>
+      <th>BIG LoBM</th>
+      <th>ME5 BM2</th>
+      <th>ME5 BM3</th>
+      <th>ME5 BM4</th>
+      <th>BIG HiBM</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1930-01-01</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1930-02-01</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1930-03-01</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1930-04-01</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1930-05-01</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 25 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Market returns — our target variable</span>
+<span class="n">mkt</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Market_Returns&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Market Returns shape: </span><span class="si">{</span><span class="n">mkt</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Date range: </span><span class="si">{</span><span class="n">mkt</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">mkt</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Columns: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">mkt</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">First 5 rows:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">mkt</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Market Returns shape: (1140, 4)
+Date range: 1930-01 to 2024-12
+Columns: [&#39;Mkt&#39;, &#39;Log_Mkt&#39;, &#39;Mkt-RF&#39;, &#39;RF&#39;]
+
+First 5 rows:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Mkt</th>
+      <th>Log_Mkt</th>
+      <th>Mkt-RF</th>
+      <th>RF</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1930-01-01</th>
+      <td>5.75</td>
+      <td>0.055908</td>
+      <td>5.61</td>
+      <td>0.14</td>
+    </tr>
+    <tr>
+      <th>1930-02-01</th>
+      <td>2.80</td>
+      <td>0.027615</td>
+      <td>2.50</td>
+      <td>0.30</td>
+    </tr>
+    <tr>
+      <th>1930-03-01</th>
+      <td>7.44</td>
+      <td>0.071762</td>
+      <td>7.09</td>
+      <td>0.35</td>
+    </tr>
+    <tr>
+      <th>1930-04-01</th>
+      <td>-1.84</td>
+      <td>-0.018571</td>
+      <td>-2.05</td>
+      <td>0.21</td>
+    </tr>
+    <tr>
+      <th>1930-05-01</th>
+      <td>-1.40</td>
+      <td>-0.014099</td>
+      <td>-1.66</td>
+      <td>0.26</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="summary-statistics">
+<h2>2. Summary Statistics<a class="headerlink" href="#summary-statistics" title="Link to this heading">#</a></h2>
+<p>Below we compute descriptive statistics for the log BM ratios of the 25 portfolios and the log market return over the sample period used for replication (1930–2010).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Restrict to the replication sample period</span>
+<span class="n">v_df</span> <span class="o">=</span> <span class="n">bm_25</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">START_TRAIN_DATE</span><span class="p">:</span><span class="n">END_TEST_DATE</span><span class="p">]</span>
+<span class="n">y_1m</span> <span class="o">=</span> <span class="n">mkt</span><span class="p">[</span><span class="s1">&#39;Log_Mkt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">START_TRAIN_DATE</span><span class="p">:</span><span class="n">END_TEST_DATE</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sample period: </span><span class="si">{</span><span class="n">v_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">v_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of monthly observations: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">v_df</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Log Book-to-Market Ratios (25 Portfolios) ---&quot;</span><span class="p">)</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">v_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">[[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;25%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">,</span> <span class="s1">&#39;75%&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">]]</span>
+<span class="n">display</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.4f}</span><span class="s1">&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample period: 1930-01 to 2010-12
+Number of monthly observations: 972
+
+--- Log Book-to-Market Ratios (25 Portfolios) ---
+</pre></div>
+</div>
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_31ba2">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_31ba2_level0_col0" class="col_heading level0 col0" >mean</th>
+      <th id="T_31ba2_level0_col1" class="col_heading level0 col1" >std</th>
+      <th id="T_31ba2_level0_col2" class="col_heading level0 col2" >min</th>
+      <th id="T_31ba2_level0_col3" class="col_heading level0 col3" >25%</th>
+      <th id="T_31ba2_level0_col4" class="col_heading level0 col4" >50%</th>
+      <th id="T_31ba2_level0_col5" class="col_heading level0 col5" >75%</th>
+      <th id="T_31ba2_level0_col6" class="col_heading level0 col6" >max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_31ba2_level0_row0" class="row_heading level0 row0" >SMALL LoBM</th>
+      <td id="T_31ba2_row0_col0" class="data row0 col0" >-7.1225</td>
+      <td id="T_31ba2_row0_col1" class="data row0 col1" >3.1164</td>
+      <td id="T_31ba2_row0_col2" class="data row0 col2" >-11.1870</td>
+      <td id="T_31ba2_row0_col3" class="data row0 col3" >-9.5138</td>
+      <td id="T_31ba2_row0_col4" class="data row0 col4" >-8.5446</td>
+      <td id="T_31ba2_row0_col5" class="data row0 col5" >-5.1959</td>
+      <td id="T_31ba2_row0_col6" class="data row0 col6" >2.4288</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row1" class="row_heading level0 row1" >ME1 BM2</th>
+      <td id="T_31ba2_row1_col0" class="data row1 col0" >-5.2121</td>
+      <td id="T_31ba2_row1_col1" class="data row1 col1" >2.4798</td>
+      <td id="T_31ba2_row1_col2" class="data row1 col2" >-9.6086</td>
+      <td id="T_31ba2_row1_col3" class="data row1 col3" >-7.5253</td>
+      <td id="T_31ba2_row1_col4" class="data row1 col4" >-5.4371</td>
+      <td id="T_31ba2_row1_col5" class="data row1 col5" >-2.9287</td>
+      <td id="T_31ba2_row1_col6" class="data row1 col6" >0.1205</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row2" class="row_heading level0 row2" >ME1 BM3</th>
+      <td id="T_31ba2_row2_col0" class="data row2 col0" >-4.2593</td>
+      <td id="T_31ba2_row2_col1" class="data row2 col1" >2.2155</td>
+      <td id="T_31ba2_row2_col2" class="data row2 col2" >-8.0549</td>
+      <td id="T_31ba2_row2_col3" class="data row2 col3" >-6.1750</td>
+      <td id="T_31ba2_row2_col4" class="data row2 col4" >-4.2443</td>
+      <td id="T_31ba2_row2_col5" class="data row2 col5" >-2.8095</td>
+      <td id="T_31ba2_row2_col6" class="data row2 col6" >1.2058</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row3" class="row_heading level0 row3" >ME1 BM4</th>
+      <td id="T_31ba2_row3_col0" class="data row3 col0" >-2.9968</td>
+      <td id="T_31ba2_row3_col1" class="data row3 col1" >1.9918</td>
+      <td id="T_31ba2_row3_col2" class="data row3 col2" >-6.5997</td>
+      <td id="T_31ba2_row3_col3" class="data row3 col3" >-4.7247</td>
+      <td id="T_31ba2_row3_col4" class="data row3 col4" >-2.7600</td>
+      <td id="T_31ba2_row3_col5" class="data row3 col5" >-1.6815</td>
+      <td id="T_31ba2_row3_col6" class="data row3 col6" >1.8881</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row4" class="row_heading level0 row4" >SMALL HiBM</th>
+      <td id="T_31ba2_row4_col0" class="data row4 col0" >-1.4685</td>
+      <td id="T_31ba2_row4_col1" class="data row4 col1" >2.0233</td>
+      <td id="T_31ba2_row4_col2" class="data row4 col2" >-4.6608</td>
+      <td id="T_31ba2_row4_col3" class="data row4 col3" >-3.1608</td>
+      <td id="T_31ba2_row4_col4" class="data row4 col4" >-1.5776</td>
+      <td id="T_31ba2_row4_col5" class="data row4 col5" >0.0369</td>
+      <td id="T_31ba2_row4_col6" class="data row4 col6" >3.3623</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row5" class="row_heading level0 row5" >ME2 BM1</th>
+      <td id="T_31ba2_row5_col0" class="data row5 col0" >-5.1693</td>
+      <td id="T_31ba2_row5_col1" class="data row5 col1" >2.6650</td>
+      <td id="T_31ba2_row5_col2" class="data row5 col2" >-8.9115</td>
+      <td id="T_31ba2_row5_col3" class="data row5 col3" >-7.6947</td>
+      <td id="T_31ba2_row5_col4" class="data row5 col4" >-5.4075</td>
+      <td id="T_31ba2_row5_col5" class="data row5 col5" >-3.2149</td>
+      <td id="T_31ba2_row5_col6" class="data row5 col6" >2.0465</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row6" class="row_heading level0 row6" >ME2 BM2</th>
+      <td id="T_31ba2_row6_col0" class="data row6 col0" >-3.8530</td>
+      <td id="T_31ba2_row6_col1" class="data row6 col1" >2.1765</td>
+      <td id="T_31ba2_row6_col2" class="data row6 col2" >-7.0683</td>
+      <td id="T_31ba2_row6_col3" class="data row6 col3" >-5.9845</td>
+      <td id="T_31ba2_row6_col4" class="data row6 col4" >-3.9963</td>
+      <td id="T_31ba2_row6_col5" class="data row6 col5" >-2.1520</td>
+      <td id="T_31ba2_row6_col6" class="data row6 col6" >1.7511</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row7" class="row_heading level0 row7" >ME2 BM3</th>
+      <td id="T_31ba2_row7_col0" class="data row7 col0" >-3.2305</td>
+      <td id="T_31ba2_row7_col1" class="data row7 col1" >2.0188</td>
+      <td id="T_31ba2_row7_col2" class="data row7 col2" >-6.5296</td>
+      <td id="T_31ba2_row7_col3" class="data row7 col3" >-5.2972</td>
+      <td id="T_31ba2_row7_col4" class="data row7 col4" >-2.8998</td>
+      <td id="T_31ba2_row7_col5" class="data row7 col5" >-1.7746</td>
+      <td id="T_31ba2_row7_col6" class="data row7 col6" >1.4129</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row8" class="row_heading level0 row8" >ME2 BM4</th>
+      <td id="T_31ba2_row8_col0" class="data row8 col0" >-2.4647</td>
+      <td id="T_31ba2_row8_col1" class="data row8 col1" >1.9121</td>
+      <td id="T_31ba2_row8_col2" class="data row8 col2" >-5.8717</td>
+      <td id="T_31ba2_row8_col3" class="data row8 col3" >-4.0251</td>
+      <td id="T_31ba2_row8_col4" class="data row8 col4" >-2.3457</td>
+      <td id="T_31ba2_row8_col5" class="data row8 col5" >-1.1363</td>
+      <td id="T_31ba2_row8_col6" class="data row8 col6" >2.0748</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row9" class="row_heading level0 row9" >ME2 BM5</th>
+      <td id="T_31ba2_row9_col0" class="data row9 col0" >-1.3422</td>
+      <td id="T_31ba2_row9_col1" class="data row9 col1" >1.6936</td>
+      <td id="T_31ba2_row9_col2" class="data row9 col2" >-4.3707</td>
+      <td id="T_31ba2_row9_col3" class="data row9 col3" >-2.8560</td>
+      <td id="T_31ba2_row9_col4" class="data row9 col4" >-1.1752</td>
+      <td id="T_31ba2_row9_col5" class="data row9 col5" >-0.0471</td>
+      <td id="T_31ba2_row9_col6" class="data row9 col6" >2.7465</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row10" class="row_heading level0 row10" >ME3 BM1</th>
+      <td id="T_31ba2_row10_col0" class="data row10 col0" >-4.5319</td>
+      <td id="T_31ba2_row10_col1" class="data row10 col1" >2.2595</td>
+      <td id="T_31ba2_row10_col2" class="data row10 col2" >-8.1315</td>
+      <td id="T_31ba2_row10_col3" class="data row10 col3" >-6.7134</td>
+      <td id="T_31ba2_row10_col4" class="data row10 col4" >-4.5493</td>
+      <td id="T_31ba2_row10_col5" class="data row10 col5" >-2.7671</td>
+      <td id="T_31ba2_row10_col6" class="data row10 col6" >0.6780</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row11" class="row_heading level0 row11" >ME3 BM2</th>
+      <td id="T_31ba2_row11_col0" class="data row11 col0" >-3.4057</td>
+      <td id="T_31ba2_row11_col1" class="data row11 col1" >2.0685</td>
+      <td id="T_31ba2_row11_col2" class="data row11 col2" >-6.6540</td>
+      <td id="T_31ba2_row11_col3" class="data row11 col3" >-5.4026</td>
+      <td id="T_31ba2_row11_col4" class="data row11 col4" >-3.4496</td>
+      <td id="T_31ba2_row11_col5" class="data row11 col5" >-1.7100</td>
+      <td id="T_31ba2_row11_col6" class="data row11 col6" >1.1729</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row12" class="row_heading level0 row12" >ME3 BM3</th>
+      <td id="T_31ba2_row12_col0" class="data row12 col0" >-2.7606</td>
+      <td id="T_31ba2_row12_col1" class="data row12 col1" >1.8726</td>
+      <td id="T_31ba2_row12_col2" class="data row12 col2" >-6.2507</td>
+      <td id="T_31ba2_row12_col3" class="data row12 col3" >-4.5006</td>
+      <td id="T_31ba2_row12_col4" class="data row12 col4" >-2.6471</td>
+      <td id="T_31ba2_row12_col5" class="data row12 col5" >-1.2660</td>
+      <td id="T_31ba2_row12_col6" class="data row12 col6" >1.3716</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row13" class="row_heading level0 row13" >ME3 BM4</th>
+      <td id="T_31ba2_row13_col0" class="data row13 col0" >-2.3256</td>
+      <td id="T_31ba2_row13_col1" class="data row13 col1" >1.8945</td>
+      <td id="T_31ba2_row13_col2" class="data row13 col2" >-5.6962</td>
+      <td id="T_31ba2_row13_col3" class="data row13 col3" >-4.1643</td>
+      <td id="T_31ba2_row13_col4" class="data row13 col4" >-2.1399</td>
+      <td id="T_31ba2_row13_col5" class="data row13 col5" >-0.9566</td>
+      <td id="T_31ba2_row13_col6" class="data row13 col6" >2.1593</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row14" class="row_heading level0 row14" >ME3 BM5</th>
+      <td id="T_31ba2_row14_col0" class="data row14 col0" >-1.5689</td>
+      <td id="T_31ba2_row14_col1" class="data row14 col1" >1.4570</td>
+      <td id="T_31ba2_row14_col2" class="data row14 col2" >-4.3376</td>
+      <td id="T_31ba2_row14_col3" class="data row14 col3" >-3.0505</td>
+      <td id="T_31ba2_row14_col4" class="data row14 col4" >-1.3310</td>
+      <td id="T_31ba2_row14_col5" class="data row14 col5" >-0.5980</td>
+      <td id="T_31ba2_row14_col6" class="data row14 col6" >2.6489</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row15" class="row_heading level0 row15" >ME4 BM1</th>
+      <td id="T_31ba2_row15_col0" class="data row15 col0" >-3.9582</td>
+      <td id="T_31ba2_row15_col1" class="data row15 col1" >1.9041</td>
+      <td id="T_31ba2_row15_col2" class="data row15 col2" >-7.3368</td>
+      <td id="T_31ba2_row15_col3" class="data row15 col3" >-5.5750</td>
+      <td id="T_31ba2_row15_col4" class="data row15 col4" >-3.8578</td>
+      <td id="T_31ba2_row15_col5" class="data row15 col5" >-2.2805</td>
+      <td id="T_31ba2_row15_col6" class="data row15 col6" >0.1895</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row16" class="row_heading level0 row16" >ME4 BM2</th>
+      <td id="T_31ba2_row16_col0" class="data row16 col0" >-2.9957</td>
+      <td id="T_31ba2_row16_col1" class="data row16 col1" >1.8493</td>
+      <td id="T_31ba2_row16_col2" class="data row16 col2" >-6.5125</td>
+      <td id="T_31ba2_row16_col3" class="data row16 col3" >-4.6585</td>
+      <td id="T_31ba2_row16_col4" class="data row16 col4" >-2.8099</td>
+      <td id="T_31ba2_row16_col5" class="data row16 col5" >-1.6612</td>
+      <td id="T_31ba2_row16_col6" class="data row16 col6" >0.8773</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row17" class="row_heading level0 row17" >ME4 BM3</th>
+      <td id="T_31ba2_row17_col0" class="data row17 col0" >-2.6628</td>
+      <td id="T_31ba2_row17_col1" class="data row17 col1" >2.0080</td>
+      <td id="T_31ba2_row17_col2" class="data row17 col2" >-6.0253</td>
+      <td id="T_31ba2_row17_col3" class="data row17 col3" >-4.4868</td>
+      <td id="T_31ba2_row17_col4" class="data row17 col4" >-2.6498</td>
+      <td id="T_31ba2_row17_col5" class="data row17 col5" >-1.0990</td>
+      <td id="T_31ba2_row17_col6" class="data row17 col6" >1.6559</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row18" class="row_heading level0 row18" >ME4 BM4</th>
+      <td id="T_31ba2_row18_col0" class="data row18 col0" >-2.1654</td>
+      <td id="T_31ba2_row18_col1" class="data row18 col1" >1.9831</td>
+      <td id="T_31ba2_row18_col2" class="data row18 col2" >-5.3319</td>
+      <td id="T_31ba2_row18_col3" class="data row18 col3" >-4.3333</td>
+      <td id="T_31ba2_row18_col4" class="data row18 col4" >-1.8407</td>
+      <td id="T_31ba2_row18_col5" class="data row18 col5" >-0.4467</td>
+      <td id="T_31ba2_row18_col6" class="data row18 col6" >1.6794</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row19" class="row_heading level0 row19" >ME4 BM5</th>
+      <td id="T_31ba2_row19_col0" class="data row19 col0" >-1.8780</td>
+      <td id="T_31ba2_row19_col1" class="data row19 col1" >1.3962</td>
+      <td id="T_31ba2_row19_col2" class="data row19 col2" >-4.5241</td>
+      <td id="T_31ba2_row19_col3" class="data row19 col3" >-3.1179</td>
+      <td id="T_31ba2_row19_col4" class="data row19 col4" >-1.8054</td>
+      <td id="T_31ba2_row19_col5" class="data row19 col5" >-0.8312</td>
+      <td id="T_31ba2_row19_col6" class="data row19 col6" >2.9061</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row20" class="row_heading level0 row20" >BIG LoBM</th>
+      <td id="T_31ba2_row20_col0" class="data row20 col0" >-3.4723</td>
+      <td id="T_31ba2_row20_col1" class="data row20 col1" >2.0053</td>
+      <td id="T_31ba2_row20_col2" class="data row20 col2" >-7.5606</td>
+      <td id="T_31ba2_row20_col3" class="data row20 col3" >-5.1500</td>
+      <td id="T_31ba2_row20_col4" class="data row20 col4" >-3.1977</td>
+      <td id="T_31ba2_row20_col5" class="data row20 col5" >-1.6548</td>
+      <td id="T_31ba2_row20_col6" class="data row20 col6" >-0.1759</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row21" class="row_heading level0 row21" >ME5 BM2</th>
+      <td id="T_31ba2_row21_col0" class="data row21 col0" >-2.9210</td>
+      <td id="T_31ba2_row21_col1" class="data row21 col1" >2.0348</td>
+      <td id="T_31ba2_row21_col2" class="data row21 col2" >-6.9424</td>
+      <td id="T_31ba2_row21_col3" class="data row21 col3" >-4.2277</td>
+      <td id="T_31ba2_row21_col4" class="data row21 col4" >-2.6352</td>
+      <td id="T_31ba2_row21_col5" class="data row21 col5" >-1.2901</td>
+      <td id="T_31ba2_row21_col6" class="data row21 col6" >1.0540</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row22" class="row_heading level0 row22" >ME5 BM3</th>
+      <td id="T_31ba2_row22_col0" class="data row22 col0" >-2.4571</td>
+      <td id="T_31ba2_row22_col1" class="data row22 col1" >1.6474</td>
+      <td id="T_31ba2_row22_col2" class="data row22 col2" >-5.4731</td>
+      <td id="T_31ba2_row22_col3" class="data row22 col3" >-3.8134</td>
+      <td id="T_31ba2_row22_col4" class="data row22 col4" >-2.4652</td>
+      <td id="T_31ba2_row22_col5" class="data row22 col5" >-1.6701</td>
+      <td id="T_31ba2_row22_col6" class="data row22 col6" >2.4091</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row23" class="row_heading level0 row23" >ME5 BM4</th>
+      <td id="T_31ba2_row23_col0" class="data row23 col0" >-2.3181</td>
+      <td id="T_31ba2_row23_col1" class="data row23 col1" >1.6118</td>
+      <td id="T_31ba2_row23_col2" class="data row23 col2" >-5.6255</td>
+      <td id="T_31ba2_row23_col3" class="data row23 col3" >-3.8510</td>
+      <td id="T_31ba2_row23_col4" class="data row23 col4" >-2.1239</td>
+      <td id="T_31ba2_row23_col5" class="data row23 col5" >-1.0701</td>
+      <td id="T_31ba2_row23_col6" class="data row23 col6" >2.7700</td>
+    </tr>
+    <tr>
+      <th id="T_31ba2_level0_row24" class="row_heading level0 row24" >BIG HiBM</th>
+      <td id="T_31ba2_row24_col0" class="data row24 col0" >-2.8812</td>
+      <td id="T_31ba2_row24_col1" class="data row24 col1" >1.1103</td>
+      <td id="T_31ba2_row24_col2" class="data row24 col2" >-4.9414</td>
+      <td id="T_31ba2_row24_col3" class="data row24 col3" >-3.6258</td>
+      <td id="T_31ba2_row24_col4" class="data row24 col4" >-3.0644</td>
+      <td id="T_31ba2_row24_col5" class="data row24 col5" >-2.1896</td>
+      <td id="T_31ba2_row24_col6" class="data row24 col6" >1.2707</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Market return statistics</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Log Market Return ---&quot;</span><span class="p">)</span>
+<span class="n">mkt_stats</span> <span class="o">=</span> <span class="n">y_1m</span><span class="o">.</span><span class="n">describe</span><span class="p">()[[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;25%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">,</span> <span class="s1">&#39;75%&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">]]</span>
+<span class="n">mkt_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mkt_stats</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">mkt_summary</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Log Market Return&#39;</span><span class="p">]</span>
+<span class="n">display</span><span class="p">(</span><span class="n">mkt_summary</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.4f}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Annualized mean return: </span><span class="si">{</span><span class="n">y_1m</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">12</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Annualized volatility:  </span><span class="si">{</span><span class="n">y_1m</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sharpe ratio (approx):  </span><span class="si">{</span><span class="p">(</span><span class="n">y_1m</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">12</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">y_1m</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Log Market Return ---
+</pre></div>
+</div>
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_fa1f8">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_fa1f8_level0_col0" class="col_heading level0 col0" >mean</th>
+      <th id="T_fa1f8_level0_col1" class="col_heading level0 col1" >std</th>
+      <th id="T_fa1f8_level0_col2" class="col_heading level0 col2" >min</th>
+      <th id="T_fa1f8_level0_col3" class="col_heading level0 col3" >25%</th>
+      <th id="T_fa1f8_level0_col4" class="col_heading level0 col4" >50%</th>
+      <th id="T_fa1f8_level0_col5" class="col_heading level0 col5" >75%</th>
+      <th id="T_fa1f8_level0_col6" class="col_heading level0 col6" >max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_fa1f8_level0_row0" class="row_heading level0 row0" >Log Market Return</th>
+      <td id="T_fa1f8_row0_col0" class="data row0 col0" >0.0075</td>
+      <td id="T_fa1f8_row0_col1" class="data row0 col1" >0.0545</td>
+      <td id="T_fa1f8_row0_col2" class="data row0 col2" >-0.3384</td>
+      <td id="T_fa1f8_row0_col3" class="data row0 col3" >-0.0185</td>
+      <td id="T_fa1f8_row0_col4" class="data row0 col4" >0.0124</td>
+      <td id="T_fa1f8_row0_col5" class="data row0 col5" >0.0391</td>
+      <td id="T_fa1f8_row0_col6" class="data row0 col6" >0.3287</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Annualized mean return: 0.0899
+Annualized volatility:  0.1887
+Sharpe ratio (approx):  0.4766
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="analyzing-data-sparsity">
+<h2>3. Analyzing Data Sparsity<a class="headerlink" href="#analyzing-data-sparsity" title="Link to this heading">#</a></h2>
+<p>Not all portfolios have data going back to 1926. The 6-portfolio set (2×3) has near-complete coverage, but the 100-portfolio set (10×10) is sparse in early decades because many Size × BM bins lack sufficient firms. This motivates the PLS approach — it gracefully handles unbalanced panels.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Count valid (non-NaN) portfolios at each date</span>
+<span class="n">bm_6</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;6_Portfolios_2x3_BM&quot;</span><span class="p">]</span>
+<span class="n">bm_100</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;100_Portfolios_10x10_BM&quot;</span><span class="p">]</span>
+
+<span class="n">sparsity</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;6 Portfolios&#39;</span><span class="p">:</span> <span class="n">bm_6</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="s1">&#39;25 Portfolios&#39;</span><span class="p">:</span> <span class="n">bm_25</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="s1">&#39;100 Portfolios&#39;</span><span class="p">:</span> <span class="n">bm_100</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Portfolio availability at key dates:&quot;</span><span class="p">)</span>
+<span class="n">key_dates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1930-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;1950-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;1970-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;1990-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2010-01-01&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">key_dates</span><span class="p">:</span>
+    <span class="n">nearest</span> <span class="o">=</span> <span class="n">sparsity</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">sparsity</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">d</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">sparsity</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nearest</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">nearest</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">: 6-port=</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;6 Portfolios&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">, &quot;</span>
+          <span class="sa">f</span><span class="s2">&quot;25-port=</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;25 Portfolios&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">, 100-port=</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;100 Portfolios&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Portfolio availability at key dates:
+  1930-01: 6-port=0, 25-port=0, 100-port=0
+  1950-01: 6-port=6, 25-port=25, 100-port=87
+  1970-01: 6-port=6, 25-port=25, 100-port=95
+  1990-01: 6-port=6, 25-port=25, 100-port=97
+  2010-01: 6-port=6, 25-port=25, 100-port=96
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;data_sparsity.png&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/550d14c9c298c38bf871140b710f0336ed69f0add861788a1a075779371bfd38.png" src="../../_images/550d14c9c298c38bf871140b710f0336ed69f0add861788a1a075779371bfd38.png" />
+</div>
+</div>
+</section>
+<section id="the-three-pass-regression-filter">
+<h2>4. The Three-Pass Regression Filter<a class="headerlink" href="#the-three-pass-regression-filter" title="Link to this heading">#</a></h2>
+<p>The core methodology extracts a single predictive factor <span class="math notranslate nohighlight">\(F_t\)</span> from the cross-section of BM ratios. We demonstrate each stage using the <strong>25 Portfolios</strong> with a <strong>1-month forecast horizon</strong> (<span class="math notranslate nohighlight">\(h=1\)</span>).</p>
+<section id="stage-1-time-series-regressions-estimating-sensitivities">
+<h3>Stage 1: Time-Series Regressions (Estimating Sensitivities)<a class="headerlink" href="#stage-1-time-series-regressions-estimating-sensitivities" title="Link to this heading">#</a></h3>
+<p>For each portfolio <span class="math notranslate nohighlight">\(i\)</span>, we estimate its sensitivity to future market returns via a time-series regression:</p>
+<div class="math notranslate nohighlight">
+\[v_{i,t} = \phi_{i,0} + \phi_i \, y_{t+h} + e_{i,t}\]</div>
+<p>The slope coefficient <span class="math notranslate nohighlight">\(\phi_i\)</span> measures how much portfolio <span class="math notranslate nohighlight">\(i\)</span>’s BM ratio moves with future market returns. Portfolios with larger <span class="math notranslate nohighlight">\(|\phi_i|\)</span> carry more predictive information.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run Stage 1 on the full sample</span>
+<span class="n">y_full</span> <span class="o">=</span> <span class="n">mkt</span><span class="p">[</span><span class="s1">&#39;Log_Mkt&#39;</span><span class="p">]</span>
+<span class="n">common_idx</span> <span class="o">=</span> <span class="n">bm_25</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">y_full</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">v_aligned</span> <span class="o">=</span> <span class="n">bm_25</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">common_idx</span><span class="p">]</span>
+<span class="n">y_aligned</span> <span class="o">=</span> <span class="n">y_full</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">common_idx</span><span class="p">]</span>
+
+<span class="n">phi</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="n">first_stage_regressions</span><span class="p">(</span><span class="n">v_aligned</span><span class="p">,</span> <span class="n">y_aligned</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estimated sensitivities for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="si">}</span><span class="s2"> portfolios:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Range: [</span><span class="si">{</span><span class="n">phi</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">phi</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Mean:  </span><span class="si">{</span><span class="n">phi</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Std:   </span><span class="si">{</span><span class="n">phi</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Top 5 most sensitive portfolios:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">phi</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;phi&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimated sensitivities for 25 portfolios:
+  Range: [-0.3234, 0.3987]
+  Mean:  -0.0420
+  Std:   0.1867
+
+Top 5 most sensitive portfolios:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>phi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ME1 BM2</th>
+      <td>0.398695</td>
+    </tr>
+    <tr>
+      <th>SMALL LoBM</th>
+      <td>0.361601</td>
+    </tr>
+    <tr>
+      <th>SMALL HiBM</th>
+      <td>0.202698</td>
+    </tr>
+    <tr>
+      <th>ME2 BM1</th>
+      <td>0.112671</td>
+    </tr>
+    <tr>
+      <th>BIG LoBM</th>
+      <td>0.095888</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;stage_1_sensitivities.png&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a4d034f0b2904f010a64d1b21488571f662bd0ccbf11cc1d6c74c501bb61af06.png" src="../../_images/a4d034f0b2904f010a64d1b21488571f662bd0ccbf11cc1d6c74c501bb61af06.png" />
+</div>
+</div>
+</section>
+<section id="stage-2-cross-sectional-regressions-extracting-the-factor">
+<h3>Stage 2: Cross-Sectional Regressions (Extracting the Factor)<a class="headerlink" href="#stage-2-cross-sectional-regressions-extracting-the-factor" title="Link to this heading">#</a></h3>
+<p>At each time <span class="math notranslate nohighlight">\(t\)</span>, we regress the cross-section of BM ratios onto the estimated sensitivities:</p>
+<div class="math notranslate nohighlight">
+\[v_{i,t} = c_t + F_t \, \phi_i + w_{i,t}\]</div>
+<p>The slope <span class="math notranslate nohighlight">\(F_t\)</span> is our extracted latent factor — a single time series that aggregates the predictive content of all portfolios.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F_series</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="n">second_stage_regressions</span><span class="p">(</span><span class="n">v_aligned</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extracted factor F_t: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">F_series</span><span class="p">)</span><span class="si">}</span><span class="s2"> observations&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Date range: </span><span class="si">{</span><span class="n">F_series</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">F_series</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Mean:  </span><span class="si">{</span><span class="n">F_series</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Std:   </span><span class="si">{</span><span class="n">F_series</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Correlation with log market return: </span><span class="si">{</span><span class="n">F_series</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">y_aligned</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">F_series</span><span class="o">.</span><span class="n">index</span><span class="p">))</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracted factor F_t: 1122 observations
+  Date range: 1931-07 to 2024-12
+  Mean:  -4.0974
+  Std:   1.9494
+  Correlation with log market return: 0.0241
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;stage_2_factor.png&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/1962cf452aa73e763de9b8c697793c2825f126e1221e7065cf5dd8a3bc4931b5.png" src="../../_images/1962cf452aa73e763de9b8c697793c2825f126e1221e7065cf5dd8a3bc4931b5.png" />
+</div>
+</div>
+</section>
+<section id="stage-3-predictive-regression">
+<h3>Stage 3: Predictive Regression<a class="headerlink" href="#stage-3-predictive-regression" title="Link to this heading">#</a></h3>
+<p>Finally, we regress future market returns on the lagged factor:</p>
+<div class="math notranslate nohighlight">
+\[y_{t+h} = \beta_0 + \beta \, F_t + u_{t+h}\]</div>
+<p>If <span class="math notranslate nohighlight">\(F_t\)</span> captures genuine predictive information, <span class="math notranslate nohighlight">\(\beta\)</span> should be statistically significant and the <span class="math notranslate nohighlight">\(R^2\)</span> should be meaningfully positive.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="n">third_stage_regression</span><span class="p">(</span><span class="n">F_series</span><span class="p">,</span> <span class="n">y_aligned</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Stage 3 Predictive Regression Results:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Intercept (beta_0): </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Slope (beta):       </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  In-sample R²:       </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">rsquared</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">rsquared</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  t-stat (slope):     </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">tvalues</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  p-value (slope):    </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">pvalues</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  N observations:     </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">nobs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stage 3 Predictive Regression Results:
+  Intercept (beta_0): 0.011377
+  Slope (beta):       0.000712
+  In-sample R²:       0.0007 (0.07%)
+  t-stat (slope):     0.8927
+  p-value (slope):    0.3722
+  N observations:     1121
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;stage_3_predictive.png&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/eda2397c9a570f14bc9c2f31bea39444941cf34b2f5c8c72950568c5810c71a1.png" src="../../_images/eda2397c9a570f14bc9c2f31bea39444941cf34b2f5c8c72950568c5810c71a1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="table-1-replication-results">
+<h2>5. Table 1 Replication Results<a class="headerlink" href="#table-1-replication-results" title="Link to this heading">#</a></h2>
+<p>Table 1 reports in-sample (IS) and out-of-sample (OOS) predictive <span class="math notranslate nohighlight">\(R^2\)</span> values across three portfolio granularities (6, 25, 100) and two forecast horizons (1-month, 1-year). The out-of-sample evaluation uses an <strong>expanding window</strong> — at each test date, the model is re-estimated using only data available up to that point.</p>
+<p>We compare our replication against the published values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load pre-computed Table 1 results (from replication.py pipeline)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">df_original</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;table_1_results_original.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="c1"># Published values from the paper</span>
+    <span class="n">paper_values</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">&quot;1-Year IS&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;6 Portfolios&quot;</span><span class="p">:</span> <span class="mf">7.72</span><span class="p">,</span> <span class="s2">&quot;25 Portfolios&quot;</span><span class="p">:</span> <span class="mf">13.50</span><span class="p">,</span> <span class="s2">&quot;100 Portfolios&quot;</span><span class="p">:</span> <span class="mf">18.05</span><span class="p">},</span>
+        <span class="s2">&quot;1-Year OOS&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;6 Portfolios&quot;</span><span class="p">:</span> <span class="mf">5.81</span><span class="p">,</span> <span class="s2">&quot;25 Portfolios&quot;</span><span class="p">:</span> <span class="mf">3.49</span><span class="p">,</span> <span class="s2">&quot;100 Portfolios&quot;</span><span class="p">:</span> <span class="mf">13.07</span><span class="p">},</span>
+        <span class="s2">&quot;1-Month IS&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;6 Portfolios&quot;</span><span class="p">:</span> <span class="mf">0.60</span><span class="p">,</span> <span class="s2">&quot;25 Portfolios&quot;</span><span class="p">:</span> <span class="mf">1.12</span><span class="p">,</span> <span class="s2">&quot;100 Portfolios&quot;</span><span class="p">:</span> <span class="mf">2.38</span><span class="p">},</span>
+        <span class="s2">&quot;1-Month OOS&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;6 Portfolios&quot;</span><span class="p">:</span> <span class="mf">0.65</span><span class="p">,</span> <span class="s2">&quot;25 Portfolios&quot;</span><span class="p">:</span> <span class="mf">0.77</span><span class="p">,</span> <span class="s2">&quot;100 Portfolios&quot;</span><span class="p">:</span> <span class="mf">0.93</span><span class="p">},</span>
+    <span class="p">})</span>
+    <span class="n">paper_values</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Portfolio Set&quot;</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PUBLISHED VALUES (Kelly &amp; Pruitt 2013, Table 1)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">paper_values</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="p">))</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;OUR REPLICATION (Train: 1930-1980, Test: 1980-2010)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_original</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="p">))</span>
+    
+    <span class="c1"># Compute differences</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">df_original</span> <span class="o">-</span> <span class="n">paper_values</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DIFFERENCE (Replication - Published)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">diff</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:+.2f}</span><span class="s1">&#39;</span><span class="p">))</span>
+    
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Table 1 results not yet computed. Run &#39;doit run_replication&#39; first.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(The out-of-sample expanding window computation takes ~20 minutes.)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================
+PUBLISHED VALUES (Kelly &amp; Pruitt 2013, Table 1)
+======================================================================
+</pre></div>
+</div>
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_38c3e">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_38c3e_level0_col0" class="col_heading level0 col0" >1-Year IS</th>
+      <th id="T_38c3e_level0_col1" class="col_heading level0 col1" >1-Year OOS</th>
+      <th id="T_38c3e_level0_col2" class="col_heading level0 col2" >1-Month IS</th>
+      <th id="T_38c3e_level0_col3" class="col_heading level0 col3" >1-Month OOS</th>
+    </tr>
+    <tr>
+      <th class="index_name level0" >Portfolio Set</th>
+      <th class="blank col0" >&nbsp;</th>
+      <th class="blank col1" >&nbsp;</th>
+      <th class="blank col2" >&nbsp;</th>
+      <th class="blank col3" >&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_38c3e_level0_row0" class="row_heading level0 row0" >6 Portfolios</th>
+      <td id="T_38c3e_row0_col0" class="data row0 col0" >7.72</td>
+      <td id="T_38c3e_row0_col1" class="data row0 col1" >5.81</td>
+      <td id="T_38c3e_row0_col2" class="data row0 col2" >0.60</td>
+      <td id="T_38c3e_row0_col3" class="data row0 col3" >0.65</td>
+    </tr>
+    <tr>
+      <th id="T_38c3e_level0_row1" class="row_heading level0 row1" >25 Portfolios</th>
+      <td id="T_38c3e_row1_col0" class="data row1 col0" >13.50</td>
+      <td id="T_38c3e_row1_col1" class="data row1 col1" >3.49</td>
+      <td id="T_38c3e_row1_col2" class="data row1 col2" >1.12</td>
+      <td id="T_38c3e_row1_col3" class="data row1 col3" >0.77</td>
+    </tr>
+    <tr>
+      <th id="T_38c3e_level0_row2" class="row_heading level0 row2" >100 Portfolios</th>
+      <td id="T_38c3e_row2_col0" class="data row2 col0" >18.05</td>
+      <td id="T_38c3e_row2_col1" class="data row2 col1" >13.07</td>
+      <td id="T_38c3e_row2_col2" class="data row2 col2" >2.38</td>
+      <td id="T_38c3e_row2_col3" class="data row2 col3" >0.93</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================
+OUR REPLICATION (Train: 1930-1980, Test: 1980-2010)
+======================================================================
+</pre></div>
+</div>
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_6ecc7">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_6ecc7_level0_col0" class="col_heading level0 col0" >1-Year IS</th>
+      <th id="T_6ecc7_level0_col1" class="col_heading level0 col1" >1-Year OOS</th>
+      <th id="T_6ecc7_level0_col2" class="col_heading level0 col2" >1-Month IS</th>
+      <th id="T_6ecc7_level0_col3" class="col_heading level0 col3" >1-Month OOS</th>
+    </tr>
+    <tr>
+      <th class="index_name level0" >Portfolio Set</th>
+      <th class="blank col0" >&nbsp;</th>
+      <th class="blank col1" >&nbsp;</th>
+      <th class="blank col2" >&nbsp;</th>
+      <th class="blank col3" >&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_6ecc7_level0_row0" class="row_heading level0 row0" >6 Portfolios</th>
+      <td id="T_6ecc7_row0_col0" class="data row0 col0" >1.08</td>
+      <td id="T_6ecc7_row0_col1" class="data row0 col1" >-6.66</td>
+      <td id="T_6ecc7_row0_col2" class="data row0 col2" >0.15</td>
+      <td id="T_6ecc7_row0_col3" class="data row0 col3" >-0.32</td>
+    </tr>
+    <tr>
+      <th id="T_6ecc7_level0_row1" class="row_heading level0 row1" >25 Portfolios</th>
+      <td id="T_6ecc7_row1_col0" class="data row1 col0" >0.92</td>
+      <td id="T_6ecc7_row1_col1" class="data row1 col1" >-6.12</td>
+      <td id="T_6ecc7_row1_col2" class="data row1 col2" >0.08</td>
+      <td id="T_6ecc7_row1_col3" class="data row1 col3" >-1.13</td>
+    </tr>
+    <tr>
+      <th id="T_6ecc7_level0_row2" class="row_heading level0 row2" >100 Portfolios</th>
+      <td id="T_6ecc7_row2_col0" class="data row2 col0" >2.14</td>
+      <td id="T_6ecc7_row2_col1" class="data row2 col1" >-6.81</td>
+      <td id="T_6ecc7_row2_col2" class="data row2 col2" >0.31</td>
+      <td id="T_6ecc7_row2_col3" class="data row2 col3" >-1.09</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================
+DIFFERENCE (Replication - Published)
+======================================================================
+</pre></div>
+</div>
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_2c77c">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_2c77c_level0_col0" class="col_heading level0 col0" >1-Year IS</th>
+      <th id="T_2c77c_level0_col1" class="col_heading level0 col1" >1-Year OOS</th>
+      <th id="T_2c77c_level0_col2" class="col_heading level0 col2" >1-Month IS</th>
+      <th id="T_2c77c_level0_col3" class="col_heading level0 col3" >1-Month OOS</th>
+    </tr>
+    <tr>
+      <th class="index_name level0" >Portfolio Set</th>
+      <th class="blank col0" >&nbsp;</th>
+      <th class="blank col1" >&nbsp;</th>
+      <th class="blank col2" >&nbsp;</th>
+      <th class="blank col3" >&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_2c77c_level0_row0" class="row_heading level0 row0" >6 Portfolios</th>
+      <td id="T_2c77c_row0_col0" class="data row0 col0" >-6.64</td>
+      <td id="T_2c77c_row0_col1" class="data row0 col1" >-12.47</td>
+      <td id="T_2c77c_row0_col2" class="data row0 col2" >-0.45</td>
+      <td id="T_2c77c_row0_col3" class="data row0 col3" >-0.97</td>
+    </tr>
+    <tr>
+      <th id="T_2c77c_level0_row1" class="row_heading level0 row1" >25 Portfolios</th>
+      <td id="T_2c77c_row1_col0" class="data row1 col0" >-12.58</td>
+      <td id="T_2c77c_row1_col1" class="data row1 col1" >-9.61</td>
+      <td id="T_2c77c_row1_col2" class="data row1 col2" >-1.04</td>
+      <td id="T_2c77c_row1_col3" class="data row1 col3" >-1.90</td>
+    </tr>
+    <tr>
+      <th id="T_2c77c_level0_row2" class="row_heading level0 row2" >100 Portfolios</th>
+      <td id="T_2c77c_row2_col0" class="data row2 col0" >-15.91</td>
+      <td id="T_2c77c_row2_col1" class="data row2 col1" >-19.88</td>
+      <td id="T_2c77c_row2_col2" class="data row2 col2" >-2.07</td>
+      <td id="T_2c77c_row2_col3" class="data row2 col3" >-2.02</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Modern period extension</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">df_modern</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;table_1_results_modern.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;REPRODUCTION WITH NEW DATA (Train: 1930-2010, Test: 2011-2024)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_modern</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="p">))</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Modern period results not yet computed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================
+REPRODUCTION WITH NEW DATA (Train: 1930-2010, Test: 2011-2024)
+======================================================================
+</pre></div>
+</div>
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_c17b3">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_c17b3_level0_col0" class="col_heading level0 col0" >1-Year IS</th>
+      <th id="T_c17b3_level0_col1" class="col_heading level0 col1" >1-Year OOS</th>
+      <th id="T_c17b3_level0_col2" class="col_heading level0 col2" >1-Month IS</th>
+      <th id="T_c17b3_level0_col3" class="col_heading level0 col3" >1-Month OOS</th>
+    </tr>
+    <tr>
+      <th class="index_name level0" >Portfolio Set</th>
+      <th class="blank col0" >&nbsp;</th>
+      <th class="blank col1" >&nbsp;</th>
+      <th class="blank col2" >&nbsp;</th>
+      <th class="blank col3" >&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_c17b3_level0_row0" class="row_heading level0 row0" >6 Portfolios</th>
+      <td id="T_c17b3_row0_col0" class="data row0 col0" >0.66</td>
+      <td id="T_c17b3_row0_col1" class="data row0 col1" >-1.12</td>
+      <td id="T_c17b3_row0_col2" class="data row0 col2" >0.07</td>
+      <td id="T_c17b3_row0_col3" class="data row0 col3" >-0.57</td>
+    </tr>
+    <tr>
+      <th id="T_c17b3_level0_row1" class="row_heading level0 row1" >25 Portfolios</th>
+      <td id="T_c17b3_row1_col0" class="data row1 col0" >0.92</td>
+      <td id="T_c17b3_row1_col1" class="data row1 col1" >3.50</td>
+      <td id="T_c17b3_row1_col2" class="data row1 col2" >0.07</td>
+      <td id="T_c17b3_row1_col3" class="data row1 col3" >-0.12</td>
+    </tr>
+    <tr>
+      <th id="T_c17b3_level0_row2" class="row_heading level0 row2" >100 Portfolios</th>
+      <td id="T_c17b3_row2_col0" class="data row2 col0" >1.76</td>
+      <td id="T_c17b3_row2_col1" class="data row2 col1" >-1.27</td>
+      <td id="T_c17b3_row2_col2" class="data row2 col2" >0.21</td>
+      <td id="T_c17b3_row2_col3" class="data row2 col3" >-0.46</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Market Expectations in the Cross-Section of Present Values</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../charts.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chart List</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-ingestion-cleaning">1. Data Ingestion &amp; Cleaning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-statistics">2. Summary Statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyzing-data-sparsity">3. Analyzing Data Sparsity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-three-pass-regression-filter">4. The Three-Pass Regression Filter</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-1-time-series-regressions-estimating-sensitivities">Stage 1: Time-Series Regressions (Estimating Sensitivities)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-2-cross-sectional-regressions-extracting-the-factor">Stage 2: Cross-Sectional Regressions (Extracting the Factor)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-3-predictive-regression">Stage 3: Predictive Regression</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-1-replication-results">5. Table 1 Replication Results</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Zara and Dylan
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Zara and Dylan.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
