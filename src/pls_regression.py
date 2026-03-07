@@ -32,10 +32,38 @@ def calculate_r2(actuals, predictions, historical_means):
         return np.nan
     return (1 - (mse_model / mse_mean)) * 100
 
+def _standardize(v_df):
+    """Standardize each portfolio's BM in the time series (z-score).
+    
+    Falls back to raw data if standardization produces degenerate
+    (near-identical) columns, which can happen when all portfolios
+    are perfectly correlated (e.g. synthetic test data).
+    """
+    mu = v_df.mean(axis=0)
+    sigma = v_df.std(axis=0)
+    sigma = sigma.replace(0, np.nan)  # avoid division by zero
+    standardized = (v_df - mu) / sigma
+    standardized = standardized.dropna(axis=1, how='all')
+    
+    # Check for degeneracy: if all columns are nearly identical after
+    # z-scoring, the cross-sectional regression in stage 2 will fail.
+    # This happens when portfolios are perfectly correlated (same shape,
+    # different scales). In that case, fall back to raw data.
+    if standardized.shape[1] >= 2:
+        corr_matrix = standardized.corr().abs()
+        # Mean off-diagonal correlation
+        n = corr_matrix.shape[0]
+        mask = ~np.eye(n, dtype=bool)
+        mean_offdiag = corr_matrix.values[mask].mean()
+        if mean_offdiag > 0.999:
+            return v_df
+    
+    return standardized
 def run_in_sample(v_df, y_series, h):
     """Calculates the in-sample R-squared using the full dataset."""
-    phi = rt.first_stage_regressions(v_df, y_series, h=h)
-    F_series = rt.second_stage_regressions(v_df, phi)
+    v_std = _standardize(v_df)
+    phi = rt.first_stage_regressions(v_std, y_series, h=h)
+    F_series = rt.second_stage_regressions(v_std, phi)
     model = rt.third_stage_regression(F_series, y_series, h=h)
     
     # In-sample R-squared converted to percentage
@@ -54,7 +82,7 @@ def run_out_of_sample(v_df, y_series, h, start_date=START_TEST_DATE):
     
     for t in valid_dates:
         # 1. Filter data to only include information observable at time t
-        v_train = v_df.loc[:t]
+        v_train = _standardize(v_df.loc[:t])
         y_train = y_series.loc[:t]
         
         # 2. Run the three-pass regression filter on the training window

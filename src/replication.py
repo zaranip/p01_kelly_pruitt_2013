@@ -24,6 +24,10 @@ START_TEST_DATE = config("START_TEST_DATE")
 END_TEST_DATE = config("END_TEST_DATE")
 CURRENT_DATE = config("CURRENT_DATE")
 
+def _ds(ts):
+    """Convert Timestamp to date string for pandas 2.x compatible DatetimeIndex slicing."""
+    return ts.strftime('%Y-%m-%d')
+
 def data_sparsity_analysis(data):
     """Analyzes data availability over time and exports to CSV."""
     bm_6 = data["6_Portfolios_2x3_BM"]
@@ -41,8 +45,8 @@ def data_sparsity_analysis(data):
 
 def generate_summary_statistics(data):
     """Generates a summary statistics table and exports to CSV."""
-    v_df = data["25_Portfolios_5x5_BM"].loc[START_TRAIN_DATE:END_TEST_DATE]
-    y_1m = data['Market_Returns']['Log_Mkt'].loc[START_TRAIN_DATE:END_TEST_DATE]
+    v_df = data["25_Portfolios_5x5_BM"].loc[_ds(START_TRAIN_DATE):_ds(END_TEST_DATE)]
+    y_1m = data['Market_Returns']['Log_Mkt'].loc[_ds(START_TRAIN_DATE):_ds(END_TEST_DATE)]
     
     # Calculate summary statistics
     summary_df = v_df.describe().T[['mean', 'std', 'min', '25%', '50%', '75%', 'max']]
@@ -82,7 +86,7 @@ def run_stage_3_analysis(F_series, y_1m):
 
 def run_pls_evaluations(data, train_start, test_start, test_end):
     """Runs the PLS evaluations for a specific timeframe."""
-    log_returns = data['Market_Returns']['Log_Mkt'].loc[train_start:test_end]
+    log_returns = data['Market_Returns']['Log_Mkt'].loc[_ds(train_start):_ds(test_end)]
     
     y_1m = log_returns
     y_12m = log_returns.rolling(12).sum().dropna()
@@ -96,7 +100,7 @@ def run_pls_evaluations(data, train_start, test_start, test_end):
     results = []
 
     for label, bm_key in portfolios:
-        v_df = data[bm_key].loc[train_start:test_end]
+        v_df = data[bm_key].loc[_ds(train_start):_ds(test_end)]
         
         v_df_12m = v_df.loc[v_df.index.intersection(y_12m.index)]
         y_12m_aligned = y_12m.loc[v_df_12m.index]
@@ -133,7 +137,7 @@ def replicate_table_1(data):
     df_modern = run_pls_evaluations(data, START_TRAIN_DATE, modern_test_start, CURRENT_DATE)
     df_modern.to_csv(OUTPUT_DIR / "table_1_results_modern.csv")
 
-    return df_original, df_modern
+    return df_original
 
 def run_all():
     """Main function that maps out and calls all individual pipeline components in sequence."""
@@ -142,6 +146,11 @@ def run_all():
     
     print("Loading cleaned datasets...")
     data = load_data.clean_kelly_pruitt_data(load_from_cache=True)
+    for key in data:
+        df = data[key]
+        if hasattr(df.index, 'notna'):
+            df = df[df.index.notna()]
+        data[key] = df.sort_index()
     
     print("Running data sparsity analysis...")
     data_sparsity_analysis(data)
