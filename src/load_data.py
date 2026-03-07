@@ -58,65 +58,32 @@ def clean_kelly_pruitt_data(load_from_cache=False):
     # Construct Monthly Portfolio Book-to-Market Ratios
     for ds in datasets[1:]:
         # Sheet indices based on Ken French's standard layout:
-        # 0: Monthly Returns
-        # 4: Number of Firms (Monthly)
-        # 5: Average Firm Size (Monthly)
-        # 6: Annual Sum of BE / Sum of ME
+        # 0: Monthly Value-Weighted Returns
+        # 6: Monthly Value-Weighted Average of BE/ME
+        #    ("Sum[ME(Mth) * BE(FY t-1) / ME(Dec t-1)] / Sum[ME(Mth)]")
+        #    This is the portfolio-level book-to-market ratio at each month.
         returns = pkf.load_sheet(ds, sheet_name="0", data_dir=DATA_DIR)
-        n_firms = pkf.load_sheet(ds, sheet_name="4", data_dir=DATA_DIR)
-        avg_size = pkf.load_sheet(ds, sheet_name="5", data_dir=DATA_DIR)
-        annual_beme = pkf.load_sheet(ds, sheet_name="6", data_dir=DATA_DIR)
+        beme = pkf.load_sheet(ds, sheet_name="6", data_dir=DATA_DIR)
         
-        # Replace missing values with NaN across all loaded sheets
+        # Replace missing values with NaN
         returns.replace(missing_indicators, np.nan, inplace=True)
-        n_firms.replace(missing_indicators, np.nan, inplace=True)
-        avg_size.replace(missing_indicators, np.nan, inplace=True)
-        annual_beme.replace(missing_indicators, np.nan, inplace=True)
+        beme.replace(missing_indicators, np.nan, inplace=True)
         
-        # Standardize dates for monthly data
-        for df in [returns, n_firms, avg_size]:
+        # Ensure dates are parsed
+        for df in [returns, beme]:
             if 'Date' in df.columns and not pd.api.types.is_datetime64_any_dtype(df['Date']):
                 df['Date'] = pd.to_datetime(df['Date'].astype(str), format='%Y%m', errors='coerce')
             df.dropna(subset=['Date'], inplace=True)
-            df['Year'] = df['Date'].dt.year
-            df['Month'] = df['Date'].dt.month
-            
-        # Standardize dates for annual data
-        if 'Date' in annual_beme.columns:
-            # Clean up trailing decimals if pandas parsed as float
-            date_str = annual_beme['Date'].astype(str).str.replace(r'\.0$', '', regex=True)
-            annual_beme['Year'] = pd.to_numeric(date_str.str[:4], errors='coerce')
-            annual_beme.dropna(subset=['Year'], inplace=True)
-            annual_beme['Year'] = annual_beme['Year'].astype(int)
-            
-        # Calculate Monthly Market Equity (ME = N_Firms * Avg_Size)
-        portfolio_cols = [c for c in n_firms.columns if c not in ['Date', 'Year', 'Month']]
-        monthly_me = n_firms[['Date', 'Year', 'Month']].copy()
-        monthly_me[portfolio_cols] = n_firms[portfolio_cols] * avg_size[portfolio_cols]
         
-        # Calculate Annual Book Equity (BE_Y = Annual BEME_Y * ME_Dec_Y)
-        dec_me = monthly_me[monthly_me['Month'] == 12].set_index('Year')[portfolio_cols]
-        annual_beme_idx = annual_beme.set_index('Year')[portfolio_cols]
-        annual_be = (annual_beme_idx * dec_me).reset_index().rename(columns={'Year': 'Formation_Year'})
+        portfolio_cols = [c for c in returns.columns if c not in ['Date', 'Year', 'Month']]
         
-        # Shift BE visibility to June of the following year
-        monthly_me['Formation_Year'] = np.where(monthly_me['Month'] >= 7, 
-                                                monthly_me['Year'] - 1, 
-                                                monthly_me['Year'] - 2)
+        # Log book-to-market ratio: v_{i,t} = log(BM_{i,t})
+        # Sheet 6 provides monthly BE/ME ratios directly (positive values only)
+        bm_values = beme.set_index('Date')[portfolio_cols].astype(float)
+        log_bm = np.log(bm_values.where(bm_values > 0))
         
-        # Merge lagged BE and calculate Monthly BM (BM_t = BE_Y / ME_t)
-        merged_be = pd.merge(monthly_me[['Date', 'Formation_Year']], annual_be, on='Formation_Year', how='left')
-        
-        bm_ratios = monthly_me[['Date']].copy()
-        for c in portfolio_cols:
-            raw_bm = merged_be[c] / monthly_me[c]
-            
-            # Apply the log transformation as specified by the Vuolteenaho
-            bm_ratios[c] = np.log(raw_bm.where(raw_bm > 0))
-            
         cleaned_data[f"{ds}_Returns"] = returns.set_index('Date')[portfolio_cols]
-        cleaned_data[f"{ds}_BM"] = bm_ratios.set_index('Date')[portfolio_cols]
-        
+        cleaned_data[f"{ds}_BM"] = log_bm
     return cleaned_data
 
 if __name__ == "__main__":

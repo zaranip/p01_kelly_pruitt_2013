@@ -65,8 +65,8 @@ p01_kelly_pruitt_2013/
 
 ## Team
 
-- **Zara**: Data pipeline, CRSP data, chartbook setup
-- **Dylan**: Compustat data, book equity calculation, PLS implementation
+- **Zara**: Data pipeline, CRSP data, chartbook setup, LaTeX report
+- **Dylan**: Book equity calculation, PLS implementation, statistics report
 
 ## References
 

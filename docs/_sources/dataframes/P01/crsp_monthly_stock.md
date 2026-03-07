@@ -6,14 +6,14 @@ Monthly stock-level data from CRSP including prices, returns, shares outstanding
 ## DataFrame Glimpse
 
 ```
-Rows: 4418680
+Rows: 3545636
 Columns: 25
 $ permno                    <i64> 10006
 $ permco                    <i64> 22156
 $ date             <datetime[ns]> 1929-12-31 00:00:00
 $ ret                       <f64> -0.076779
 $ retx                      <f64> -0.093023
-$ shrout                    <f64> 600000.0
+$ shrout                    <i64> 600000
 $ prc                       <f64> 78.0
 $ vol                       <f64> 22600.0
 $ cfacshr                   <f64> 7.26
@@ -50,7 +50,7 @@ $ jdate            <datetime[ns]> 1929-12-31 00:00:00
 | How is data pulled?            | WRDS Python API                                                    |
 | Data available up to (min)     | N/A (large file)                                                             |
 | Data available up to (max)     | N/A (large file)                                                             |
-| Dataframe Path                 | /Users/dylanwang/Desktop/UChicago/Classes/FINM 32900/p01_kelly_pruitt_2013/_data/CRSP_monthly_stock.parquet                                                   |
+| Dataframe Path                 | C:\Users\Zara\Documents\GitHub\FINM-Winter\full-stack-quant\p01_kelly_pruitt_2013\_data\CRSP_monthly_stock.parquet                                                   |
 | Download Data as Parquet       | [Parquet](../../download_dataframe/P01/crsp_monthly_stock.parquet)         |
 | Download Data as Excel         | [Excel](../../download_dataframe/P01/crsp_monthly_stock.xlsx)              |
 | Linked Charts                  |  None  |
@@ -63,9 +63,9 @@ $ jdate            <datetime[ns]> 1929-12-31 00:00:00
 | Lead Pipeline Developer         | Zara and Dylan             |
 | Contributors                    | Zara, Dylan           |
 | Git Repo URL                    | https://github.com/zaranip/p01_kelly_pruitt_2013                        |
-| Pipeline Web Page               | <a href="file:///Users/dylanwang/Desktop/UChicago/Classes/FINM 32900/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page      |
-| Date of Last Code Update        | 2026-02-05 15:45:21           |
+| Pipeline Web Page               | <a href="file://C:/Users/Zara/Documents/GitHub/FINM-Winter/full-stack-quant/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page      |
+| Date of Last Code Update        | 2026-03-05 23:55:41           |
 | OS Compatibility                |  |
-| Linked Dataframes               |  [P01:crsp_monthly_stock](../dataframes/P01/crsp_monthly_stock.md)<br>  [P01:crsp_market_returns](../dataframes/P01/crsp_market_returns.md)<br>  [P01:compustat](../dataframes/P01/compustat.md)<br>  [P01:ccm_link](../dataframes/P01/ccm_link.md)<br>  |
+| Linked Dataframes               |  [P01:crsp_monthly_stock](../dataframes/P01/crsp_monthly_stock.md)<br>  [P01:crsp_market_returns](../dataframes/P01/crsp_market_returns.md)<br>  [P01:compustat](../dataframes/P01/compustat.md)<br>  [P01:ccm_link](../dataframes/P01/ccm_link.md)<br>  [P01:ken_french_ff_factors](../dataframes/P01/ken_french_ff_factors.md)<br>  [P01:ken_french_25_portfolios](../dataframes/P01/ken_french_25_portfolios.md)<br>  |
 
 

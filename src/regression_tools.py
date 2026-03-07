@@ -9,6 +9,9 @@ relationship (Stage 3).
 
 import pandas as pd
 import statsmodels.api as sm
+import numpy as np
+import warnings
+
 
 def first_stage_regressions(v_df, y_series, h=1):
     """
@@ -45,21 +48,40 @@ def second_stage_regressions(v_df, phi):
     Replicating v_{i,t} = {c}_t + {F}_t * phi_i + w_{i,t}
     OLS slope = Cov(v_t, phi) / Var(phi)
     """
-    v_df_aligned = v_df[phi.index]
+    v_aligned = v_df[phi.index]
+    valid_mask = v_aligned.notna()
+    n_valid = valid_mask.sum(axis=1)
 
-    F_values = {}
-    for date, row in v_df_aligned.iterrows():
-        # Drop portfolios with missing BM at this date
-        valid = row.dropna()
-        if len(valid) < 3:
-            continue
-        phi_valid = phi[valid.index]
-        var_phi = phi_valid.var()
-        if var_phi == 0:
-            continue
-        F_values[date] = valid.cov(phi_valid) / var_phi
+    # Broadcast phi across all dates
+    phi_vals = phi.values.astype(float)
+    phi_broadcast = np.where(valid_mask.values, phi_vals, np.nan)
 
-    return pd.Series(F_values).astype(float)
+    # NaN-aware means per date (axis=1)
+    with warnings.catch_warnings():
+        warnings.simplefilter('ignore', RuntimeWarning)
+        v_vals = np.where(valid_mask.values, v_aligned.values, np.nan)
+        mean_v = np.nanmean(v_vals, axis=1)
+        mean_phi = np.nanmean(phi_broadcast, axis=1)
+        mean_vphi = np.nanmean(
+            np.where(valid_mask.values, v_aligned.values * phi_vals, np.nan), axis=1
+        )
+
+        # Cov(v_t, phi) = E[v*phi] - E[v]*E[phi]
+        cov_val = mean_vphi - mean_v * mean_phi
+
+        # Var(phi) for valid portfolios at each date
+        var_phi = np.nanvar(phi_broadcast, axis=1, ddof=0)
+
+    # F_t = Cov / Var
+    with np.errstate(divide='ignore', invalid='ignore'):
+        F_arr = cov_val / var_phi
+
+    # Build Series, filter: >= 3 valid, non-zero var, finite result
+    F_series = pd.Series(F_arr, index=v_aligned.index)
+    mask = (n_valid >= 3) & (var_phi > 0) & np.isfinite(F_arr)
+    F_series = F_series[mask.values]
+
+    return F_series.astype(float)
 
 
 def third_stage_regression(F_series, y_series, h=1):

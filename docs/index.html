@@ -47,12 +47,14 @@
     <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Chart List" href="charts.html" /> 
+    <link rel="next" title="Kelly &amp; Pruitt (2013): Summary Statistics and Replication Walkthrough" href="notebooks/P01/summary_statistics.html" /> 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>   
   </head>
@@ -172,7 +174,11 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pipeline Charts 📈</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Notebooks 📖</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="notebooks/P01/summary_statistics.html">Kelly &amp; Pruitt (2013): Summary Statistics and Replication Walkthrough</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pipeline Charts 📈</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="charts.html">Chart List</a></li>
 </ul>
@@ -182,6 +188,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dataframes/P01/compustat.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:compustat</span></code> - Compustat Fundamentals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dataframes/P01/crsp_market_returns.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:crsp_market_returns</span></code> - CRSP Market Returns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dataframes/P01/crsp_monthly_stock.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:crsp_monthly_stock</span></code> - CRSP Monthly Stock Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataframes/P01/ken_french_25_portfolios.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:ken_french_25_portfolios</span></code> - 25 Portfolios (5x5 Size x BM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataframes/P01/ken_french_ff_factors.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:ken_french_ff_factors</span></code> - Fama-French Research Factors</a></li>
 </ul>
 
     </div>
@@ -202,7 +210,19 @@
     </li>
       
     <li>
+      <a href="charts/index/category/cumulative-returns.html">Cumulative Returns (1)</a>
+    </li>
+      
+    <li>
       <a href="charts/index/category/data-coverage.html">Data Coverage (1)</a>
+    </li>
+      
+    <li>
+      <a href="charts/index/category/factors.html">Factors (1)</a>
+    </li>
+      
+    <li>
+      <a href="charts/index/category/fama-french.html">Fama-French (1)</a>
     </li>
       
     <li>
@@ -228,6 +248,10 @@
       
     <li class="ablog-cloud ablog-cloud-3">
       <a href="charts/index/tag/compustat.html">Compustat</a>
+    </li>
+      
+    <li class="ablog-cloud ablog-cloud-3">
+      <a href="charts/index/tag/kenneth-french-data-library.html">Kenneth French Data Library</a>
     </li>
      
   </ul>
@@ -400,10 +424,14 @@ document.write(`
                 <article class="bd-article">
                    <section class="tex2jax_ignore mathjax_ignore" id="market-expectations-in-the-cross-section-of-present-values">
 <h1>Market Expectations in the Cross-Section of Present Values<a class="headerlink" href="#market-expectations-in-the-cross-section-of-present-values" title="Link to this heading">#</a></h1>
-<p>Last updated: Feb 5, 2026, 3:51:43 PM</p>
+<p>Last updated: Mar 6, 2026, 12:01:12 AM</p>
 <section id="table-of-contents">
 <h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Notebooks 📖</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/P01/summary_statistics.html">Kelly &amp; Pruitt (2013): Summary Statistics and Replication Walkthrough</a></li>
+</ul>
 </div>
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pipeline Charts 📈</span></p>
@@ -412,6 +440,7 @@ document.write(`
 </ul>
 </div>
 <ul class="postlist-style-none postlist simple">
+<li class="ablog-post"><p class="ablog-post-title"><a class="reference internal" href="charts/P01.ff_factors.html">Chart: Fama-French Factors</a></p></li>
 <li class="ablog-post"><p class="ablog-post-title"><a class="reference internal" href="charts/P01.compustat_coverage.html">Chart: Compustat Coverage</a></p></li>
 <li class="ablog-post"><p class="ablog-post-title"><a class="reference internal" href="charts/P01.market_returns.html">Chart: CRSP Market Returns</a></p></li>
 </ul>
@@ -422,6 +451,8 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="dataframes/P01/compustat.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:compustat</span></code> - Compustat Fundamentals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dataframes/P01/crsp_market_returns.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:crsp_market_returns</span></code> - CRSP Market Returns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dataframes/P01/crsp_monthly_stock.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:crsp_monthly_stock</span></code> - CRSP Monthly Stock Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataframes/P01/ken_french_25_portfolios.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:ken_french_25_portfolios</span></code> - 25 Portfolios (5x5 Size x BM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataframes/P01/ken_french_ff_factors.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:ken_french_ff_factors</span></code> - Fama-French Research Factors</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -449,16 +480,16 @@ document.write(`
 <td><p><a class="github reference external" href="https://github.com/zaranip/p01_kelly_pruitt_2013">zaranip/p01_kelly_pruitt_2013</a></p></td>
 </tr>
 <tr class="row-even"><td><p>Pipeline Web Page</p></td>
-<td><p><a href="file:///Users/dylanwang/Desktop/UChicago/Classes/FINM 32900/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page</p></td>
+<td><p><a href="file://C:/Users/Zara/Documents/GitHub/FINM-Winter/full-stack-quant/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page</p></td>
 </tr>
 <tr class="row-odd"><td><p>Date of Last Code Update</p></td>
-<td><p>2026-02-05 15:45:21</p></td>
+<td><p>2026-03-05 23:55:41</p></td>
 </tr>
 <tr class="row-even"><td><p>OS Compatibility</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p>Linked Dataframes</p></td>
-<td><p><a class="reference internal" href="dataframes/P01/crsp_monthly_stock.html"><span class="std std-doc">P01:crsp_monthly_stock</span></a><br>  <a class="reference internal" href="dataframes/P01/crsp_market_returns.html"><span class="std std-doc">P01:crsp_market_returns</span></a><br>  <a class="reference internal" href="dataframes/P01/compustat.html"><span class="std std-doc">P01:compustat</span></a><br>  <a class="reference internal" href="dataframes/P01/ccm_link.html"><span class="std std-doc">P01:ccm_link</span></a><br></p></td>
+<td><p><a class="reference internal" href="dataframes/P01/crsp_monthly_stock.html"><span class="std std-doc">P01:crsp_monthly_stock</span></a><br>  <a class="reference internal" href="dataframes/P01/crsp_market_returns.html"><span class="std std-doc">P01:crsp_market_returns</span></a><br>  <a class="reference internal" href="dataframes/P01/compustat.html"><span class="std std-doc">P01:compustat</span></a><br>  <a class="reference internal" href="dataframes/P01/ccm_link.html"><span class="std std-doc">P01:ccm_link</span></a><br>  <a class="reference internal" href="dataframes/P01/ken_french_ff_factors.html"><span class="std std-doc">P01:ken_french_ff_factors</span></a><br>  <a class="reference internal" href="dataframes/P01/ken_french_25_portfolios.html"><span class="std std-doc">P01:ken_french_25_portfolios</span></a><br></p></td>
 </tr>
 </tbody>
 </table>
@@ -501,18 +532,18 @@ document.write(`
 <section id="project-structure">
 <h2>Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>p01_kelly_pruitt_2013/
-├── src/
-│   ├── settings.py              # Project configuration
-│   ├── pull_CRSP_stock.py       # Pull CRSP stock data
-│   ├── pull_CRSP_Compustat.py   # Pull Compustat data
-│   └── generate_exploratory_charts.py
-├── _data/                       # Downloaded data (gitignored)
-├── _output/                     # Generated outputs
-├── docs/                        # Chartbook site
-├── dodo.py                      # PyDoit task runner
-├── chartbook.toml               # Chartbook configuration
-├── consultation.md              # Consultation meeting agenda
-└── README.md
+â”œâ”€â”€ src/
+â”‚   â”œâ”€â”€ settings.py              # Project configuration
+â”‚   â”œâ”€â”€ pull_CRSP_stock.py       # Pull CRSP stock data
+â”‚   â”œâ”€â”€ pull_CRSP_Compustat.py   # Pull Compustat data
+â”‚   â””â”€â”€ generate_exploratory_charts.py
+â”œâ”€â”€ _data/                       # Downloaded data (gitignored)
+â”œâ”€â”€ _output/                     # Generated outputs
+â”œâ”€â”€ docs/                        # Chartbook site
+â”œâ”€â”€ dodo.py                      # PyDoit task runner
+â”œâ”€â”€ chartbook.toml               # Chartbook configuration
+â”œâ”€â”€ consultation.md              # Consultation meeting agenda
+â””â”€â”€ README.md
 </pre></div>
 </div>
 </section>
@@ -567,8 +598,9 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 <section id="team">
 <h2>Team<a class="headerlink" href="#team" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Zara</strong>: Data pipeline, CRSP data, chartbook setup</p></li>
-<li><p><strong>Dylan</strong>: Compustat data, book equity calculation, PLS implementation</p></li>
+<li><p><strong>Zara</strong>: Data pipeline, CRSP data, chartbook setup, LaTeX report
+</p></li>
+<li><p><strong>Dylan</strong>: Book equity calculation, PLS implementation, statistics report</p></li>
 </ul>
 </section>
 <section id="references">
@@ -596,11 +628,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="charts.html"
+       href="notebooks/P01/summary_statistics.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Chart List</p>
+        <p class="prev-next-title">Kelly &amp; Pruitt (2013): Summary Statistics and Replication Walkthrough</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

@@ -22,6 +22,11 @@ README_file_path = "./README.md"
 
 [notebooks]
 
+[notebooks.summary_statistics]
+notebook_name = "Summary Statistics and Replication Walkthrough"
+short_description_nb = "Guided tour of the data, methodology, and results for the Kelly & Pruitt (2013) Table 1 replication."
+notebook_path = "./src/summary_statistics.ipynb"
+
 [dataframes]
 
 [dataframes.crsp_monthly_stock]
@@ -137,3 +142,59 @@ mnemonic = ""
 path_to_html_chart = "./_output/chart_compustat_coverage.html"
 path_to_excel_chart = ""
 chart_docs_str = "Bar chart showing the number of unique firms in Compustat by fiscal year. Demonstrates data coverage expansion over time from 1950 to present."
+
+[dataframes.ken_french_ff_factors]
+dataframe_name = "Fama-French Research Factors"
+short_description_df = "Monthly Fama-French 3-factor data (Mkt-RF, SMB, HML) and risk-free rate from Kenneth French's data library."
+data_sources = ["Kenneth French Data Library"]
+data_providers = ["Kenneth French"]
+links_to_data_providers = ["https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html"]
+topic_tags = ["Fama-French", "Market Returns", "Factors"]
+type_of_data_access = "Public"
+data_license = "Public"
+license_expiration_date = "N/A"
+need_to_contact_provider = "No"
+provider_contact_info = ""
+restriction_on_use = "None"
+how_is_pulled = "pandas_datareader / direct HTTP download"
+path_to_parquet_data = "./_data/Market_Returns.parquet"
+path_to_excel_data = "./_data/F-F_Research_Data_Factors.xlsx"
+date_col = "Date"
+dataframe_docs_str = "Monthly Fama-French factors (Mkt-RF, SMB, HML, RF) and aggregate market return. Used to construct the target variable (log market return) for the three-pass regression filter. Covers 1926 to present."
+
+[dataframes.ken_french_25_portfolios]
+dataframe_name = "25 Portfolios (5x5 Size x BM)"
+short_description_df = "Monthly returns, book-to-market ratios, and firm counts for 25 portfolios sorted on Size and Book-to-Market."
+data_sources = ["Kenneth French Data Library"]
+data_providers = ["Kenneth French"]
+links_to_data_providers = ["https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html"]
+topic_tags = ["Fama-French", "Portfolios", "Book-to-Market", "Size"]
+type_of_data_access = "Public"
+data_license = "Public"
+license_expiration_date = "N/A"
+need_to_contact_provider = "No"
+provider_contact_info = ""
+restriction_on_use = "None"
+how_is_pulled = "pandas_datareader / direct HTTP download"
+path_to_parquet_data = "./_data/25_Portfolios_5x5_BM.parquet"
+path_to_excel_data = "./_data/25_Portfolios_5x5.xlsx"
+date_col = "Date"
+dataframe_docs_str = "Monthly data for 25 portfolios formed on Size (market cap) and Book-to-Market ratio. Contains value-weighted returns, number of firms, average firm size, and annual BE/ME ratios. Primary dataset for the three-pass regression filter replication."
+
+[charts.ff_factors]
+chart_name = "Fama-French Factors"
+short_description_chart = "Cumulative returns of Fama-French factors (Mkt-RF, SMB, HML) over time"
+dataframe_id = "ken_french_ff_factors"
+topic_tags = ["Fama-French", "Factors", "Cumulative Returns"]
+data_series_start_date = "1926-07-01"
+data_frequency = "Monthly"
+observation_period = "Month-end"
+lag_in_data_release = "One month"
+data_release_dates = "Monthly"
+seasonal_adjustment = "None"
+units = "Cumulative Return"
+data_series = "mktrf, smb, hml"
+mnemonic = ""
+path_to_html_chart = "./_output/chart_ff_factors.html"
+path_to_excel_chart = ""
+chart_docs_str = "Interactive time series chart showing cumulative growth of $1 invested in each Fama-French factor (Market-RF, SMB, HML) from 1926 to present. Uses logarithmic scale."
