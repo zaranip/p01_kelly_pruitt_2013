@@ -4,5 +4,8 @@ CRSP Monthly Stock Data,True,dataframe,crsp_monthly_stock,P01,,../dataframes/P01
 CRSP Market Returns,True,dataframe,crsp_market_returns,P01,,../dataframes/P01/crsp_market_returns.html
 Compustat Fundamentals,True,dataframe,compustat,P01,,../dataframes/P01/compustat.html
 CRSP-Compustat Link Table,False,dataframe,ccm_link,P01,date_col,../dataframes/P01/ccm_link.html
+Fama-French Research Factors,True,dataframe,ken_french_ff_factors,P01,,../dataframes/P01/ken_french_ff_factors.html
+25 Portfolios (5x5 Size x BM),True,dataframe,ken_french_25_portfolios,P01,,../dataframes/P01/ken_french_25_portfolios.html
 CRSP Market Returns,False,chart,market_returns,P01,data_release_timing,../charts/P01.market_returns.html
 Compustat Coverage,False,chart,compustat_coverage,P01,data_release_timing,../charts/P01.compustat_coverage.html
+Fama-French Factors,False,chart,ff_factors,P01,data_release_timing,../charts/P01.ff_factors.html

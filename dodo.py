@@ -29,8 +29,6 @@ def jupyter_to_html(notebook_path, output_dir=OUTPUT_DIR):
 def jupyter_clear_output(notebook_path):
     return f"jupyter nbconvert --ClearOutputPreprocessor.enabled=True --ClearMetadataPreprocessor.enabled=True --inplace {notebook_path}"
 
-def jupyter_to_python(notebook_path, output_dir=OUTPUT_DIR):
-    return f"jupyter nbconvert --to python --output-dir={output_dir} {notebook_path}"
 # fmt: on
 
 
@@ -79,6 +77,7 @@ def task_pull_CRSP_stock():
         ],
         "targets": targets,
         "file_dep": ["./src/settings.py", "./src/pull_CRSP_stock.py"],
+        "task_dep": ["config"],
         "uptodate": [all_targets_exist],
         "verbosity": 2,
         "clean": True,
@@ -104,6 +103,7 @@ def task_pull_CRSP_Compustat():
         ],
         "targets": targets,
         "file_dep": ["./src/settings.py", "./src/pull_CRSP_Compustat.py"],
+        "task_dep": ["config"],
         "uptodate": [all_targets_exist],
         "verbosity": 2,
         "clean": True,
@@ -131,6 +131,7 @@ def task_pull_ken_french():
         ],
         "targets": targets,
         "file_dep": ["./src/settings.py", "./src/pull_ken_french_data.py"],
+        "task_dep": ["config"],
         "uptodate": [all_targets_exist],
         "verbosity": 2,
         "clean": True,
@@ -204,6 +205,8 @@ def task_generate_figures():
             OUTPUT_DIR / "stage_1_sensitivities.png",
             OUTPUT_DIR / "stage_2_factor.png",
             OUTPUT_DIR / "stage_3_predictive.png",
+            OUTPUT_DIR / "table_1_comparison.tex",
+            OUTPUT_DIR / "table_1_comparison.png",
         ],
         "file_dep": [
             "./src/generate_figures.py",
@@ -237,6 +240,8 @@ def task_compile_replication_report():
             OUTPUT_DIR / "stage_3_predictive.png",
             OUTPUT_DIR / "table_1_replication_original.tex",
             OUTPUT_DIR / "table_1_replication_modern.tex",
+            OUTPUT_DIR / "table_1_comparison.tex",
+            OUTPUT_DIR / "table_1_comparison.png",
         ],
         "task_dep": ["generate_figures"],
         "targets": ["./reports/replication_report.pdf"],
@@ -252,10 +257,20 @@ def task_exploratory_charts():
         "targets": [
             OUTPUT_DIR / "chart_market_returns.html",
             OUTPUT_DIR / "chart_compustat_coverage.html",
+            OUTPUT_DIR / "chart_crsp_stock_coverage.html",
+            OUTPUT_DIR / "chart_market_cap_distribution.html",
+            OUTPUT_DIR / "chart_ff_factors.html",
+            OUTPUT_DIR / "chart_ccm_link_coverage.html",
+            OUTPUT_DIR / "chart_compustat_variables.html",
         ],
         "file_dep": [
             "./src/settings.py",
             "./src/generate_exploratory_charts.py",
+            DATA_DIR / "CRSP_monthly_stock.parquet",
+            DATA_DIR / "CRSP_market_returns.parquet",
+            DATA_DIR / "Compustat.parquet",
+            DATA_DIR / "CRSP_Comp_Link_Table.parquet",
+            DATA_DIR / "FF_FACTORS.parquet",
         ],
         "task_dep": ["pull_CRSP_stock", "pull_CRSP_Compustat"],
         "clean": True,
@@ -263,17 +278,25 @@ def task_exploratory_charts():
 
 
 def task_build_chartbook_site():
-    """Build the chartbook documentation site"""
+    """Build the chartbook documentation site (skipped if chartbook not installed)"""
+    def _build_chartbook():
+        import subprocess
+        if shutil.which("chartbook"):
+            result = subprocess.run(["chartbook", "build", "-f"])
+            if result.returncode != 0:
+                raise Exception("chartbook build failed")
+        else:
+            print("  Skipping: chartbook not installed (requires Python >= 3.10)")
+
     return {
-        "actions": [
-            "chartbook build -f",
-        ],
+        "actions": [_build_chartbook],
         "targets": ["./docs/index.html"],
         "file_dep": [
             "./README.md",
             "./chartbook.toml",
         ],
         "task_dep": ["exploratory_charts"],
+        "uptodate": [False],
         "clean": True,
     }
 
@@ -295,60 +318,37 @@ notebook_tasks = {
     },
 }
 
-def task_convert_notebooks_to_scripts():
-    """Convert notebooks to script form to detect changes to source code rather
-    than to the notebook's metadata.
-    """
-    build_dir = Path(OUTPUT_DIR)
-
-    for notebook in notebook_tasks.keys():
-        notebook_name = notebook.split(".")[0]
-        notebook_path = Path("./src") / notebook
-        yield {
-            "name": notebook,
-            "actions": [
-                jupyter_clear_output(notebook_path),
-                jupyter_to_python(notebook_path, build_dir),
-            ],
-            "file_dep": [notebook_path],
-            "targets": [OUTPUT_DIR / f"{notebook_name}.py"],
-            "clean": True,
-            "verbosity": 0,
-        }
-
 def task_run_notebooks():
-    """Preps the notebooks for presentation format.
-    Execute notebooks if the script version of it has been changed.
-    """
+    """Execute notebooks and export to HTML."""
     for notebook in notebook_tasks.keys():
         notebook_name = notebook.split(".")[0]
         notebook_path = Path("./src") / notebook
         yield {
             "name": notebook,
+            ## Note: three actions for execution (running the notebook), exporting to HTML, and clearing output to keep the repo clean 
             "actions": [
-                f"""python -c "import sys; from datetime import datetime; print(f'Start {notebook}: {{datetime.now()}}', file=sys.stderr)" """,
                 jupyter_execute_notebook(notebook_path),
                 jupyter_to_html(notebook_path, OUTPUT_DIR),
-                copy_file(
-                    notebook_path,
-                    OUTPUT_DIR / f"{notebook_name}.ipynb",
-                    mkdir=True,
-                ),
                 jupyter_clear_output(notebook_path),
-                f"""python -c "import sys; from datetime import datetime; print(f'End {notebook}: {{datetime.now()}}', file=sys.stderr)" """,
             ],
             "file_dep": [
-                OUTPUT_DIR / f"{notebook_name}.py",
+                notebook_path,
                 *notebook_tasks[notebook]["file_dep"],
             ],
+            "task_dep": notebook_tasks[notebook].get("task_dep", []),
             "targets": [
                 OUTPUT_DIR / f"{notebook_name}.html",
-                OUTPUT_DIR / f"{notebook_name}.ipynb",
                 *notebook_tasks[notebook]["targets"],
             ],
             "clean": True,
         }
 
-##############################################################
-# TODO: add pytest run here (after fully built)
-##############################################################
+def task_run_pytest():
+    """Run the test suite with pytest after the full pipeline has been built."""
+    return {
+        "actions": [
+            "pytest ./src/ -v --tb=short --ignore=src/test_tolerance_results.py",
+        ],
+        "task_dep": ["run_replication"],
+        "verbosity": 2,
+    }

@@ -7,6 +7,7 @@ latent factor time-series, and predictive relationships) as well as
 styled LaTeX tabular data for the final PDF handout.
 """
 
+import numpy as np
 import sys
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -23,6 +24,7 @@ TERRACOTTA = "#DE7C00"
 DARK_GREY = "#737373"
 GREEN = "#319866"
 RED = "#CC0000"
+GOLDENROD = "#EAAA00"
 
 
 def generate_report_date():
@@ -129,17 +131,93 @@ def format_table_1_latex(csv_path, tex_path):
     with open(tex_path, "w") as f:
         f.write(df_results.style.format("{:.2f}").to_latex(hrules=True))
 
+
+def generate_comparison_table():
+    """Generates a side-by-side LaTeX table comparing our results to the paper."""
+    print("Generating Comparison Table...")
+    our = pd.read_csv(OUTPUT_DIR / "table_1_results_original.csv", index_col=0)
+    paper = pd.DataFrame({
+        "1-Year IS": {"6 Portfolios": 7.72, "25 Portfolios": 13.50, "100 Portfolios": 18.05},
+        "1-Year OOS": {"6 Portfolios": 5.81, "25 Portfolios": 3.49, "100 Portfolios": 13.07},
+        "1-Month IS": {"6 Portfolios": 0.60, "25 Portfolios": 1.12, "100 Portfolios": 2.38},
+        "1-Month OOS": {"6 Portfolios": 0.65, "25 Portfolios": 0.77, "100 Portfolios": 0.93},
+    })
+    paper.index.name = "Portfolio Set"
+
+    lines = []
+    lines.append(r"\begin{tabular}{l rr rr rr rr}")
+    lines.append(r"\toprule")
+    lines.append(r" & \multicolumn{2}{c}{1-Year IS} & \multicolumn{2}{c}{1-Year OOS} & \multicolumn{2}{c}{1-Month IS} & \multicolumn{2}{c}{1-Month OOS} \\")
+    lines.append(r"\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9}")
+    lines.append(r"Portfolio Set & Paper & Ours & Paper & Ours & Paper & Ours & Paper & Ours \\")
+    lines.append(r"\midrule")
+    for idx in paper.index:
+        vals = []
+        for col in ["1-Year IS", "1-Year OOS", "1-Month IS", "1-Month OOS"]:
+            vals.append(f"{paper.loc[idx, col]:.2f}")
+            vals.append(f"{our.loc[idx, col]:.2f}")
+        lines.append(f"{idx} & {' & '.join(vals)} \\\\")
+    lines.append(r"\bottomrule")
+    lines.append(r"\end{tabular}")
+
+    with open(OUTPUT_DIR / "table_1_comparison.tex", "w") as f:
+        f.write("\n".join(lines))
+
+
+def generate_comparison_chart():
+    """Generates a grouped bar chart comparing our R-squared to the paper's."""
+    print("Generating Comparison Bar Chart...")
+    our = pd.read_csv(OUTPUT_DIR / "table_1_results_original.csv", index_col=0)
+    paper = pd.DataFrame({
+        "1-Year IS": {"6 Portfolios": 7.72, "25 Portfolios": 13.50, "100 Portfolios": 18.05},
+        "1-Year OOS": {"6 Portfolios": 5.81, "25 Portfolios": 3.49, "100 Portfolios": 13.07},
+        "1-Month IS": {"6 Portfolios": 0.60, "25 Portfolios": 1.12, "100 Portfolios": 2.38},
+        "1-Month OOS": {"6 Portfolios": 0.65, "25 Portfolios": 0.77, "100 Portfolios": 0.93},
+    })
+
+    metrics = ["1-Year IS", "1-Year OOS", "1-Month IS", "1-Month OOS"]
+    portfolios = ["6 Portfolios", "25 Portfolios", "100 Portfolios"]
+
+    fig, axes = plt.subplots(1, 4, figsize=(12, 3.5), sharey=False)
+    bar_width = 0.3
+    x = np.arange(len(portfolios))
+
+    for i, metric in enumerate(metrics):
+        ax = axes[i]
+        paper_vals = [paper.loc[p, metric] for p in portfolios]
+        our_vals = [our.loc[p, metric] for p in portfolios]
+
+        ax.bar(x - bar_width/2, paper_vals, bar_width, label="Paper", color=MAROON, alpha=0.85)
+        ax.bar(x + bar_width/2, our_vals, bar_width, label="Ours", color=GOLDENROD, alpha=0.85)
+
+        ax.set_title(metric, fontsize=10, fontweight='bold')
+        ax.set_xticks(x)
+        ax.set_xticklabels(["6P", "25P", "100P"], fontsize=8)
+        ax.set_ylabel("$R^2$ (\%)", fontsize=8)
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+        ax.grid(axis='y', alpha=0.3)
+
+        if i == 0:
+            ax.legend(fontsize=7, frameon=True)
+
+    fig.suptitle("Table 1 Replication: Paper vs. Our Results", fontsize=11, fontweight='bold', y=1.02)
+    fig.tight_layout()
+    fig.savefig(OUTPUT_DIR / "table_1_comparison.png", bbox_inches="tight", dpi=150)
+    plt.close(fig)
+
+
 def generate_table_1_results():
     """Generates the raw tabular LaTeX for both original and modern results."""
     print("Formatting Table 1 Results (Original Period)...")
     format_table_1_latex(
-        OUTPUT_DIR / "table_1_results_original.csv", 
+        OUTPUT_DIR / "table_1_results_original.csv",
         OUTPUT_DIR / "table_1_replication_original.tex"
     )
-    
+
     print("Formatting Table 1 Results (Modern Period)...")
     format_table_1_latex(
-        OUTPUT_DIR / "table_1_results_modern.csv", 
+        OUTPUT_DIR / "table_1_results_modern.csv",
         OUTPUT_DIR / "table_1_replication_modern.tex"
     )
 
@@ -154,6 +232,8 @@ def main():
     generate_stage_2_chart()
     generate_stage_3_chart()
     generate_table_1_results()
+    generate_comparison_table()
+    generate_comparison_chart()
 
     print("\nDone. Run 'doit compile_replication_report' to build the PDF.")
 

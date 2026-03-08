@@ -6,30 +6,30 @@ Annual accounting data from Compustat including book equity components (seq, ceq
 ## DataFrame Glimpse
 
 ```
-Rows: 593799
+Rows: 595360
 Columns: 22
-$ gvkey                      <str> '369350'
+$ gvkey                      <str> '370994'
 $ datadate          <datetime[ns]> 2024-12-31 00:00:00
-$ at                         <f64> 5715.961
-$ lt                         <f64> 2816.05
-$ sale                       <f64> 8227.629
-$ cogs                       <f64> 5033.69
-$ xsga                       <f64> 1886.339
-$ xint                       <f64> 13.459
+$ at                         <f64> 4772.024
+$ lt                         <f64> 4371.585
+$ sale                       <f64> 1182.783
+$ cogs                       <f64> 631.295
+$ xsga                       <f64> 78.52
+$ xint                       <f64> None
 $ pstkl                      <f64> 0.0
-$ txditc                     <f64> 308.523
+$ txditc                     <f64> None
 $ pstkrv                     <f64> 0.0
-$ seq                        <f64> 2876.098
+$ seq                        <f64> 381.906
 $ pstk                       <f64> 0.0
-$ ceq                        <f64> 2876.098
-$ ni                         <f64> 599.446
-$ sich                       <f64> 2024.0
-$ dp                         <f64> 321.982
-$ ebit                       <f64> 985.618
-$ csho                       <f64> None
+$ ceq                        <f64> 381.906
+$ ni                         <f64> 127.893
+$ sich                       <i64> None
+$ dp                         <f64> 26.652
+$ ebit                       <f64> 446.316
+$ csho                       <f64> 789.269
 $ prcc_f                     <f64> None
 $ year                       <i32> 2024
-$ __index_level_0__          <i64> 93798
+$ __index_level_0__          <i64> 95359
 
 
 ```
@@ -45,9 +45,9 @@ $ __index_level_0__          <i64> 93798
 | Topic Tags                     | Accounting Data, Book Equity, Compustat                                          |
 | Type of Data Access            | S,u,b,s,c,r,i,p,t,i,o,n, ,(,W,R,D,S,)                                  |
 | How is data pulled?            | WRDS Python API                                                    |
-| Data available up to (min)     | 2025-12-31 00:00:00                                                             |
-| Data available up to (max)     | 2026-01-31 00:00:00                                                             |
-| Dataframe Path                 | /Users/dylanwang/Desktop/UChicago/Classes/FINM 32900/p01_kelly_pruitt_2013/_data/Compustat.parquet                                                   |
+| Data available up to (min)     | 2026-01-31 00:00:00                                                             |
+| Data available up to (max)     | 2026-02-28 00:00:00                                                             |
+| Dataframe Path                 | C:\Users\Zara\Documents\GitHub\FINM-Winter\full-stack-quant\p01_kelly_pruitt_2013\_data\Compustat.parquet                                                   |
 | Download Data as Parquet       | [Parquet](../../download_dataframe/P01/compustat.parquet)         |
 | Download Data as Excel         | [Excel](../../download_dataframe/P01/compustat.xlsx)              |
 | Linked Charts                  |   [P01:compustat_coverage](../../charts/P01.compustat_coverage.md)<br>   |
@@ -60,9 +60,9 @@ $ __index_level_0__          <i64> 93798
 | Lead Pipeline Developer         | Zara and Dylan             |
 | Contributors                    | Zara, Dylan           |
 | Git Repo URL                    | https://github.com/zaranip/p01_kelly_pruitt_2013                        |
-| Pipeline Web Page               | <a href="file:///Users/dylanwang/Desktop/UChicago/Classes/FINM 32900/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page      |
-| Date of Last Code Update        | 2026-02-05 15:45:21           |
+| Pipeline Web Page               | <a href="file://C:/Users/Zara/Documents/GitHub/FINM-Winter/full-stack-quant/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page      |
+| Date of Last Code Update        | 2026-03-05 23:55:41           |
 | OS Compatibility                |  |
-| Linked Dataframes               |  [P01:crsp_monthly_stock](../dataframes/P01/crsp_monthly_stock.md)<br>  [P01:crsp_market_returns](../dataframes/P01/crsp_market_returns.md)<br>  [P01:compustat](../dataframes/P01/compustat.md)<br>  [P01:ccm_link](../dataframes/P01/ccm_link.md)<br>  |
+| Linked Dataframes               |  [P01:crsp_monthly_stock](../dataframes/P01/crsp_monthly_stock.md)<br>  [P01:crsp_market_returns](../dataframes/P01/crsp_market_returns.md)<br>  [P01:compustat](../dataframes/P01/compustat.md)<br>  [P01:ccm_link](../dataframes/P01/ccm_link.md)<br>  [P01:ken_french_ff_factors](../dataframes/P01/ken_french_ff_factors.md)<br>  [P01:ken_french_25_portfolios](../dataframes/P01/ken_french_25_portfolios.md)<br>  |
 
 

@@ -6,15 +6,15 @@ Aggregate market returns from CRSP indices including value-weighted (vwretd) and
 ## DataFrame Glimpse
 
 ```
-Rows: 1140
+Rows: 972
 Columns: 7
-$ date   <datetime[ns]> 2024-12-31 00:00:00
-$ vwretd          <f64> -0.031582
-$ vwretx          <f64> -0.03347
-$ ewretd          <f64> -0.021978
-$ ewretx          <f64> -0.026649
-$ usdval          <f64> 76406622900.0
-$ sprtrn          <f64> -0.02499
+$ date   <datetime[ns]> 2010-12-31 00:00:00
+$ vwretd          <f64> 0.067182
+$ vwretx          <f64> 0.06485
+$ ewretd          <f64> 0.068851
+$ ewretx          <f64> 0.065469
+$ usdval          <f64> 17339253200.0
+$ sprtrn          <f64> 0.0653
 
 
 ```
@@ -30,9 +30,9 @@ $ sprtrn          <f64> -0.02499
 | Topic Tags                     | Market Returns, Crsp, Value-Weighted                                          |
 | Type of Data Access            | S,u,b,s,c,r,i,p,t,i,o,n, ,(,W,R,D,S,)                                  |
 | How is data pulled?            | WRDS Python API                                                    |
-| Data available up to (min)     | 2024-12-31 00:00:00                                                             |
-| Data available up to (max)     | 2024-12-31 00:00:00                                                             |
-| Dataframe Path                 | /Users/dylanwang/Desktop/UChicago/Classes/FINM 32900/p01_kelly_pruitt_2013/_data/CRSP_market_returns.parquet                                                   |
+| Data available up to (min)     | 2010-12-31 00:00:00                                                             |
+| Data available up to (max)     | 2010-12-31 00:00:00                                                             |
+| Dataframe Path                 | C:\Users\Zara\Documents\GitHub\FINM-Winter\full-stack-quant\p01_kelly_pruitt_2013\_data\CRSP_market_returns.parquet                                                   |
 | Download Data as Parquet       | [Parquet](../../download_dataframe/P01/crsp_market_returns.parquet)         |
 | Download Data as Excel         | [Excel](../../download_dataframe/P01/crsp_market_returns.xlsx)              |
 | Linked Charts                  |   [P01:market_returns](../../charts/P01.market_returns.md)<br>   |
@@ -45,9 +45,9 @@ $ sprtrn          <f64> -0.02499
 | Lead Pipeline Developer         | Zara and Dylan             |
 | Contributors                    | Zara, Dylan           |
 | Git Repo URL                    | https://github.com/zaranip/p01_kelly_pruitt_2013                        |
-| Pipeline Web Page               | <a href="file:///Users/dylanwang/Desktop/UChicago/Classes/FINM 32900/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page      |
-| Date of Last Code Update        | 2026-02-05 15:45:21           |
+| Pipeline Web Page               | <a href="file://C:/Users/Zara/Documents/GitHub/FINM-Winter/full-stack-quant/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page      |
+| Date of Last Code Update        | 2026-03-05 23:55:41           |
 | OS Compatibility                |  |
-| Linked Dataframes               |  [P01:crsp_monthly_stock](../dataframes/P01/crsp_monthly_stock.md)<br>  [P01:crsp_market_returns](../dataframes/P01/crsp_market_returns.md)<br>  [P01:compustat](../dataframes/P01/compustat.md)<br>  [P01:ccm_link](../dataframes/P01/ccm_link.md)<br>  |
+| Linked Dataframes               |  [P01:crsp_monthly_stock](../dataframes/P01/crsp_monthly_stock.md)<br>  [P01:crsp_market_returns](../dataframes/P01/crsp_market_returns.md)<br>  [P01:compustat](../dataframes/P01/compustat.md)<br>  [P01:ccm_link](../dataframes/P01/ccm_link.md)<br>  [P01:ken_french_ff_factors](../dataframes/P01/ken_french_ff_factors.md)<br>  [P01:ken_french_25_portfolios](../dataframes/P01/ken_french_25_portfolios.md)<br>  |
 
 

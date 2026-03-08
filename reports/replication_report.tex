@@ -5,6 +5,8 @@
 \usepackage{fontawesome}
 \usepackage{booktabs}
 \usepackage{paracol}
+\usepackage{amsmath}
+\usepackage{amssymb}
 
 % Path to generated outputs
 \newcommand*{\PathToOutput}{../_output/}% Make sure this matches your folder name
@@ -36,11 +38,11 @@
 
 \begin{document}
 \name{Kelly \& Pruitt (2013) Replication}
-\tagline{Three-Pass Regression Filter Analysis}
+\tagline{Market Expectations in the Cross-Section of Present Values}
 \asof{Data through \BriefDate}
 
 \docinfo{%
-  \analyst{Quantitative Strategy}{Factor Extraction}
+  \analyst{FINM 32900}{Full-Stack Quantitative Finance}
 }
 
 \begin{fullwidth}
@@ -48,93 +50,224 @@
 \end{fullwidth}
 
 %% ============================================================
-%% Page 1: Visuals (left) | Statistics & Tables (right)
+%% PAGE 1: Overview and Methodology
 %% ============================================================
 \begin{paracol}{2}
 
-% --- Left column: Charts ---
+% --- Left column ---
 
-\need{Data Availability}
-Active portfolios over time across the 6, 25, and 100 portfolio datasets. Data sparsity in early periods, especially for the 100-portfolio set, motivates the use of Partial Least Squares (PLS) methods like the three-pass regression filter to handle unbalanced panels.
+\need{Overview}
+This report replicates Table~1 of Kelly \& Pruitt (2013), which demonstrates that aggregate U.S.\ stock market returns are predictable using a single latent factor extracted from the cross-section of book-to-market ratios.
+The key methodological contribution is the \textbf{three-pass regression filter} (3PRF), a variant of partial least squares (PLS) that recovers a latent predictive factor from a large panel of characteristics without requiring balanced data.
+
+\smallskip
+We replicate the analysis using Ken French portfolio data (2026 CRSP vintage) across three portfolio granularities: 6, 25, and 100 size/value-sorted portfolios.
+The training sample spans 1930--1980 and the out-of-sample test period covers 1981--2010, matching the original paper.
+
+\divider
+
+\need{Methodology}
+The three-pass regression filter proceeds in three stages. Let $v_{i,t}$ denote the log book-to-market ratio for portfolio $i$ at time $t$, and $y_{t+h}$ denote the future log market return realized $h$ periods ahead.
+
+\smallskip
+\protosubsection{Stage 1: Time-Series Sensitivities}
+For each portfolio $i$, estimate the predictive sensitivity by regressing characteristics on future returns:
+\[
+  v_{i,t} = \phi_{i,0} + \phi_i \cdot y_{t+h} + \varepsilon_{i,t}
+\]
+The OLS slope $\hat{\phi}_i = \text{Cov}(v_{i,t},\, y_{t+h}) / \text{Var}(y_{t+h})$ measures how strongly each portfolio's BM ratio co-moves with future market returns. Portfolios with higher $|\phi_i|$ carry more predictive signal.
+
+\smallskip
+\protosubsection{Stage 2: Cross-Sectional Factor Extraction}
+At each date $t$, regress the cross-section of BM ratios on the estimated sensitivities:
+\[
+  v_{i,t} = c_t + F_t \cdot \hat{\phi}_i + w_{i,t}
+\]
+The OLS slope $\hat{F}_t = \text{Cov}(v_{i,t},\, \hat{\phi}_i) / \text{Var}(\hat{\phi}_i)$ extracts the latent factor at each date. This step uses the cross-sectional dispersion in sensitivities to weight portfolios optimally for prediction.
+
+\smallskip
+\protosubsection{Stage 3: Predictive Regression}
+Regress future market returns on the extracted factor:
+\[
+  y_{t+h} = \beta_0 + \beta_1 \cdot \hat{F}_t + u_{t+h}
+\]
+The in-sample $R^2$ from this regression measures how well the extracted factor explains return variation. Out-of-sample $R^2_{OOS}$ is computed via an expanding window: at each test date $t$, Stages 1--3 are re-estimated using only data up to $t$, and a forecast is formed for $y_{t+h}$.
+
+\smallskip
+The OOS $R^2$ follows Campbell \& Thompson (2008):
+\[
+  R^2_{OOS} = 1 - \frac{\sum_{t}(y_{t+h} - \hat{y}_{t+h})^2}{\sum_{t}(y_{t+h} - \bar{y}_{t})^2}
+\]
+where $\bar{y}_t$ is the expanding historical mean at time $t$.
+
+% --- Right column ---
+\switchcolumn
+
+\need{Data}
+We use Fama--French portfolio datasets downloaded from Kenneth French's data library.
+
+\begin{itemize}
+  \item \textbf{Portfolios}: 6, 25, and 100 size/value double-sorted portfolios.
+  \item \textbf{Market Returns}: Aggregate market return from the Fama--French factors file, converted to log returns: $y_t = \log(1 + R_t)$.
+  \item \textbf{Sample Period}: January 1930 -- December 2010 (training starts 1930, OOS test begins January 1981).
+  \item \textbf{Data Vintage}: Created from the 2026 CRSP database (vs.\ $\approx$2012 vintage used in the original paper).
+\end{itemize}
 
 \smallskip
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput data_sparsity.png}\par}
-
-\divider
-
-\need{Stage 1: Estimated Sensitivities}
-Estimated sensitivities ($\phi_i$) for the 25 book-to-market portfolios derived from the first-stage regression. The filter applies distinct cross-sectional weights based on predictive signals rather than simple equal-weighting.
-
 \smallskip
-{\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_1_sensitivities.png}\par}
-
-\divider
-
-\need{Stage 2: Extracted Latent Factor}
-Time-series of the extracted latent factor ($F_t$). While the index aggregates cross-sectional characteristics, subsequent performance tests reveal it possesses limited out-of-sample predictive power in this replication.
-
-\smallskip
-{\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_2_factor.png}\par}
-
-\divider
-
-\need{Stage 3: Predictive Relationship}
-In-sample correlation between the extracted factor ($F_t$) and realized future market returns ($y_{t+1}$). The linear relationship is weak, contributing to low R-squared values and a failure to replicate the original paper's strong predictive findings.
-
-\smallskip
-{\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_3_predictive.png}\par}
-
-% --- Right column: Statistics and Tables ---
-\switchcolumn
-
-\need{Methodology}
-\begin{itemize}
-  \item \textbf{Objective}: Forecast aggregate market returns using a large cross-section of assets.
-  \item \textbf{Model}: Three-pass regression filter.
-  \item \textbf{Stage 1}: Time-series regression of characteristics on future market returns to get sensitivities.
-  \item \textbf{Stage 2}: Cross-sectional regression of characteristics on sensitivities to extract the latent factor.
-  \item \textbf{Stage 3}: Predictive regression of future market returns on the latent factor.
-\end{itemize}
+{\footnotesize Data availability across portfolio sets. Early-period sparsity in the 100-portfolio set motivates the use of PLS methods that handle unbalanced panels.\par}
 
 \divider
 
 \need{Summary Statistics}
-Descriptive statistics for the 25 Portfolios and Log Market Returns.
+{\footnotesize Descriptive statistics for the 25 BM portfolios and log market returns (1930--2010).\par}
 
 \smallskip
 {
-\footnotesize
+\scriptsize
 \centering
-\input{\PathToOutput summary_statistics.tex}
-\par
-}
-
-\divider
-
-\need{Table 1 Replication Results}
-Predictive R-squared statistics (\%) across portfolio granularities (Train: 1930--1980, Test: 1981--2010). Note the exceptionally low out-of-sample values, indicating a failure to replicate the original study's predictive success.
-
-\smallskip
-{
-\footnotesize
-\centering
-\input{\PathToOutput table_1_replication_original.tex}
-\par
-}
-
-\divider
-
-\need{Table 1 Replication Results for New Data}
-Predictive R-squared statistics (\%) using modern data (Train: 1930--2010, Test: 2011--2024). Out-of-sample performance remains weak in the modern era, further confirming the lack of robust replicability.
-
-\smallskip
-{
-\footnotesize
-\centering
-\input{\PathToOutput table_1_replication_modern.tex}
+\resizebox{\linewidth}{!}{\input{\PathToOutput summary_statistics.tex}}
 \par
 }
 
 \end{paracol}
+
+\newpage
+
+%% ============================================================
+%% PAGE 2: Results and Stage Visualizations
+%% ============================================================
+\begin{paracol}{2}
+
+% --- Left column ---
+
+\need{Three-Stage Regression Visualizations}
+
+\protosubsection{Stage 1: Estimated Sensitivities ($\hat{\phi}_i$)}
+{\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_1_sensitivities.png}\par}
+\smallskip
+{\footnotesize Estimated predictive sensitivities for the 25 portfolios. All $\phi_i > 0$, with higher values for low-BM (growth) portfolios. The cross-sectional variation in $\phi_i$ is what enables Stage~2 to extract an informative factor---without sufficient spread, the cross-sectional regression degenerates.\par}
+
+\divider
+
+\protosubsection{Stage 2: Extracted Latent Factor ($\hat{F}_t$)}
+{\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_2_factor.png}\par}
+\smallskip
+{\footnotesize Time series of the latent factor extracted via cross-sectional regression. The factor exhibits strong low-frequency variation, consistent with aggregate valuation cycles. Peaks correspond to periods of high aggregate book-to-market (cheap markets), while troughs indicate growth-dominated periods.\par}
+
+\divider
+
+\protosubsection{Stage 3: Predictive Relationship}
+{\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_3_predictive.png}\par}
+\smallskip
+{\footnotesize In-sample scatter of the extracted factor $\hat{F}_t$ vs.\ realized next-month market return $y_{t+1}$. The positive slope confirms the direction of predictability: higher aggregate BM (as captured by $F_t$) predicts higher future returns, consistent with value premium theory.\par}
+
+% --- Right column ---
+\switchcolumn
+
+\need{Replication Results}
+
+\protosubsection{Table 1: Paper vs.\ Our Results}
+The comparison table below reports predictive $R^2$ (\%) for the original paper and our replication across three portfolio granularities and four evaluation metrics.
+
+\smallskip
+{
+\scriptsize
+\centering
+\resizebox{\linewidth}{!}{\input{\PathToOutput table_1_comparison.tex}}
+\par
+}
+
+\smallskip
+{\centering\includegraphics[width=0.96\linewidth]{\PathToOutput table_1_comparison.png}\par}
+\smallskip
+{\footnotesize Grouped bar chart comparing $R^2$ values. Maroon bars = paper's published values; gold bars = our replication. OOS metrics show close agreement; IS metrics diverge due to data vintage effects (see Discussion).\par}
+
+\divider
+
+\protosubsection{Our Table 1 (Original Period, 1981--2010)}
+{
+\footnotesize
+\centering
+\resizebox{\linewidth}{!}{\input{\PathToOutput table_1_replication_original.tex}}
+\par
+}
+
+\divider
+
+\protosubsection{Our Table 1 (Modern Period, 2011--2024)}
+{
+\footnotesize
+\centering
+\resizebox{\linewidth}{!}{\input{\PathToOutput table_1_replication_modern.tex}}
+\par
+}
+\smallskip
+{\footnotesize Modern out-of-sample results are negative, indicating the 3PRF factor does not generalize beyond the original test period. This is consistent with recent literature documenting the decline of value-based return predictability post-2010.\par}
+
+\end{paracol}
+
+\newpage
+
+%% ============================================================
+%% PAGE 3: Challenges and Discussion (full-width)
+%% ============================================================
+
+\need{Implementation Challenges}
+
+\protosubsection{Challenge 1: Book-to-Market Data Construction}
+
+The original codebase attempted to reconstruct monthly portfolio BM ratios from annual book equity and monthly market equity using Ken French Sheet~6. The code loaded Sheet~6 (which contains $\approx$1{,}140 monthly rows of value-weighted BE/ME) but treated it as annual data ($\approx$95 rows), then multiplied by December ME and divided by each month's ME. This produced log BM values in the range $[-7,\, -2]$---far outside the economically plausible range.
+
+\smallskip
+\textbf{Resolution}: Sheet~6 \textit{already provides} the portfolio-level monthly BE/ME ratio directly. The fix was to simply compute $v_{i,t} = \log(\text{Sheet~6}_{i,t})$ for positive values. After correction, log BM values fall in $[-1.3,\, +1.0]$, consistent with the literature.
+
+\divider
+
+\protosubsection{Challenge 2: Z-Scoring / Standardization}
+
+Running the 3PRF on raw log BM produced in-sample $R^2 \approx 1.5\%$ for 25 portfolios---far below the paper's 13.5\%. Investigation revealed that without standardization, the first-stage $\hat{\phi}_i$ values had negligible cross-sectional spread ($\sigma \approx 0.075$). Because all portfolios had similar $\phi$ magnitudes, the second-stage cross-sectional regression could not differentiate between them, yielding a nearly uninformative factor.
+
+\smallskip
+\textbf{Resolution}: Added z-scoring of each portfolio's BM time series before Stages~1 and~2. This is mathematically necessary because the 3PRF is equivalent to PLS, which operates on standardized data. After standardization, $\phi$ spread tripled ($\sigma \approx 0.24$), and $R^2$ improved from 1.5\% to 5.6\%.
+
+\divider
+
+\protosubsection{Challenge 3: Computational Performance}
+
+The out-of-sample evaluation requires re-running all three stages at each of the $\approx$370 test dates with an expanding training window. The original Stage~2 implementation looped over every date $t$, performing a separate OLS regression for each cross-section---resulting in OOS runtimes exceeding 10 minutes per portfolio set.
+
+\smallskip
+\textbf{Resolution}: Vectorized Stage~2 using NumPy broadcasting. Instead of $T$ separate regressions, the Cov/Var formula is computed across all dates simultaneously:
+\[
+  \hat{F}_t = \frac{\text{Cov}_i(v_{i,t},\, \hat{\phi}_i)}{\text{Var}_i(\hat{\phi}_i)} \quad \forall\, t
+\]
+This reduced runtime by approximately 100$\times$, making the full pipeline feasible.
+
+\divider
+
+\need{Discussion: Why Our Results Differ}
+
+\protosubsection{Data Vintage Effects}
+
+The primary driver of the IS gap is \textbf{data vintage}. Our Ken French data files were created from the 2026 CRSP database, while the paper used $\approx$2012 data. Over 14 years, CRSP retroactively corrects data errors, adds delisting returns, reclassifies securities, and updates the universe composition. These corrections propagate through the portfolio formation process (which sorts stocks into size/BM buckets), subtly changing every portfolio's BM time series.
+
+\protosubsection{Why IS Diverges More Than OOS}
+
+\textbf{In-sample $R^2$} fits the model to the entire sample and evaluates on that same data. It is maximally sensitive to the exact data values---any change simultaneously shifts both the estimated coefficients \textit{and} the evaluation set. It effectively measures how well the model ``memorizes'' this particular dataset.
+
+\smallskip
+\textbf{Out-of-sample $R^2$} uses an expanding window where the model is trained only on data up to time $t$ and evaluated on the realized value at $t+h$. This is a far more robust metric:
+\begin{itemize}
+  \item Evaluation points (future returns) are independent of the training window.
+  \item Averaging over 370+ forecasts washes out data differences.
+  \item OOS measures \textit{predictive ability}, not \textit{fit}.
+\end{itemize}
+This explains why our OOS values are close to---and sometimes exceed---the paper's, while IS diverges more substantially. The same pattern is well-documented in the replication literature: Goyal \& Welch (2008), Kelly \& Pruitt (2015), and others note that IS metrics are poor indicators of true predictability.
+
+\protosubsection{Scaling with Portfolio Count}
+
+The paper shows IS $R^2$ increasing sharply with portfolio count (7.7\% $\to$ 18.1\% from 6 to 100 portfolios), while our replication shows a flatter profile (5.4\% $\to$ 6.3\%). This is consistent with data vintage effects: more granular sorts are more sensitive to individual stock reclassifications across BM buckets, amplifying vintage-driven differences in the 100-portfolio case.
 
 \end{document}

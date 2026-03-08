@@ -8,7 +8,7 @@ Last updated: {sub-ref}`today`
 ```{toctree}
 :maxdepth: 1
 :caption: Notebooks 📖
-
+notebooks/P01/summary_statistics
 ```
 
 
@@ -31,6 +31,8 @@ dataframes/P01/ccm_link.md
 dataframes/P01/compustat.md
 dataframes/P01/crsp_market_returns.md
 dataframes/P01/crsp_monthly_stock.md
+dataframes/P01/ken_french_25_portfolios.md
+dataframes/P01/ken_french_ff_factors.md
 ```
 
 
@@ -49,10 +51,10 @@ apidocs/index
 | Lead Pipeline Developer         | Zara and Dylan             |
 | Contributors                    | Zara, Dylan           |
 | Git Repo URL                    | https://github.com/zaranip/p01_kelly_pruitt_2013                        |
-| Pipeline Web Page               | <a href="file:///Users/dylanwang/Desktop/UChicago/Classes/FINM 32900/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page      |
-| Date of Last Code Update        | 2026-02-05 15:45:21           |
+| Pipeline Web Page               | <a href="file://C:/Users/Zara/Documents/GitHub/FINM-Winter/full-stack-quant/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page      |
+| Date of Last Code Update        | 2026-03-05 23:55:41           |
 | OS Compatibility                |  |
-| Linked Dataframes               |  [P01:crsp_monthly_stock](./dataframes/P01/crsp_monthly_stock.md)<br>  [P01:crsp_market_returns](./dataframes/P01/crsp_market_returns.md)<br>  [P01:compustat](./dataframes/P01/compustat.md)<br>  [P01:ccm_link](./dataframes/P01/ccm_link.md)<br>  |
+| Linked Dataframes               |  [P01:crsp_monthly_stock](./dataframes/P01/crsp_monthly_stock.md)<br>  [P01:crsp_market_returns](./dataframes/P01/crsp_market_returns.md)<br>  [P01:compustat](./dataframes/P01/compustat.md)<br>  [P01:ccm_link](./dataframes/P01/ccm_link.md)<br>  [P01:ken_french_ff_factors](./dataframes/P01/ken_french_ff_factors.md)<br>  [P01:ken_french_25_portfolios](./dataframes/P01/ken_french_25_portfolios.md)<br>  |
 
 
 
@@ -77,18 +79,18 @@ This paper demonstrates that returns and cash flow growth for the aggregate US s
 
 ```
 p01_kelly_pruitt_2013/
-├── src/
-│   ├── settings.py              # Project configuration
-│   ├── pull_CRSP_stock.py       # Pull CRSP stock data
-│   ├── pull_CRSP_Compustat.py   # Pull Compustat data
-│   └── generate_exploratory_charts.py
-├── _data/                       # Downloaded data (gitignored)
-├── _output/                     # Generated outputs
-├── docs/                        # Chartbook site
-├── dodo.py                      # PyDoit task runner
-├── chartbook.toml               # Chartbook configuration
-├── consultation.md              # Consultation meeting agenda
-└── README.md
+â”œâ”€â”€ src/
+â”‚   â”œâ”€â”€ settings.py              # Project configuration
+â”‚   â”œâ”€â”€ pull_CRSP_stock.py       # Pull CRSP stock data
+â”‚   â”œâ”€â”€ pull_CRSP_Compustat.py   # Pull Compustat data
+â”‚   â””â”€â”€ generate_exploratory_charts.py
+â”œâ”€â”€ _data/                       # Downloaded data (gitignored)
+â”œâ”€â”€ _output/                     # Generated outputs
+â”œâ”€â”€ docs/                        # Chartbook site
+â”œâ”€â”€ dodo.py                      # PyDoit task runner
+â”œâ”€â”€ chartbook.toml               # Chartbook configuration
+â”œâ”€â”€ consultation.md              # Consultation meeting agenda
+â””â”€â”€ README.md
 ```
 
 ## Setup
@@ -122,8 +124,8 @@ p01_kelly_pruitt_2013/
 
 ## Team
 
-- **Zara**: Data pipeline, CRSP data, chartbook setup
-- **Dylan**: Compustat data, book equity calculation, PLS implementation
+- **Zara**: Data pipeline, CRSP data, chartbook setup, LaTeX report
+- **Dylan**: Book equity calculation, PLS implementation, statistics report
 
 ## References
 

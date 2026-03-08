@@ -171,7 +171,11 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pipeline Charts 📈</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Notebooks 📖</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/P01/summary_statistics.html">Kelly &amp; Pruitt (2013): Summary Statistics and Replication Walkthrough</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pipeline Charts 📈</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../charts.html">Chart List</a></li>
 </ul>
@@ -181,6 +185,8 @@
 <li class="toctree-l1"><a class="reference internal" href="compustat.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:compustat</span></code> - Compustat Fundamentals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="crsp_market_returns.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:crsp_market_returns</span></code> - CRSP Market Returns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="crsp_monthly_stock.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:crsp_monthly_stock</span></code> - CRSP Monthly Stock Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ken_french_25_portfolios.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:ken_french_25_portfolios</span></code> - 25 Portfolios (5x5 Size x BM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ken_french_ff_factors.html">Dataframe: <code class="docutils literal notranslate"><span class="pre">P01:ken_french_ff_factors</span></code> - Fama-French Research Factors</a></li>
 </ul>
 
     </div>
@@ -201,7 +207,19 @@
     </li>
       
     <li>
+      <a href="../../charts/index/category/cumulative-returns.html">Cumulative Returns (1)</a>
+    </li>
+      
+    <li>
       <a href="../../charts/index/category/data-coverage.html">Data Coverage (1)</a>
+    </li>
+      
+    <li>
+      <a href="../../charts/index/category/factors.html">Factors (1)</a>
+    </li>
+      
+    <li>
+      <a href="../../charts/index/category/fama-french.html">Fama-French (1)</a>
     </li>
       
     <li>
@@ -227,6 +245,10 @@
       
     <li class="ablog-cloud ablog-cloud-3">
       <a href="../../charts/index/tag/compustat.html">Compustat</a>
+    </li>
+      
+    <li class="ablog-cloud ablog-cloud-3">
+      <a href="../../charts/index/tag/kenneth-french-data-library.html">Kenneth French Data Library</a>
     </li>
      
   </ul>
@@ -394,13 +416,13 @@ document.write(`
 <p>Crosswalk table linking CRSP PERMNO to Compustat GVKEY. Contains 39K links covering 34,550 unique gvkeys and 35,066 unique permnos.</p>
 <section id="dataframe-glimpse">
 <h2>DataFrame Glimpse<a class="headerlink" href="#dataframe-glimpse" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Rows: 39192
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Rows: 40884
 Columns: 6
-$ gvkey              &lt;str&gt; &#39;356289&#39;
-$ permno             &lt;f64&gt; 25036.0
+$ gvkey              &lt;str&gt; &#39;369350&#39;
+$ permno             &lt;f64&gt; 27874.0
 $ linktype           &lt;str&gt; &#39;LC&#39;
 $ linkprim           &lt;str&gt; &#39;P&#39;
-$ linkdt    &lt;datetime[ns]&gt; 2024-04-08 00:00:00
+$ linkdt    &lt;datetime[ns]&gt; 2025-12-08 00:00:00
 $ linkenddt &lt;datetime[ns]&gt; None
 
 
@@ -444,7 +466,7 @@ $ linkenddt &lt;datetime[ns]&gt; None
 <td><p>N/A</p></td>
 </tr>
 <tr class="row-odd"><td><p>Dataframe Path</p></td>
-<td><p>/Users/dylanwang/Desktop/UChicago/Classes/FINM 32900/p01_kelly_pruitt_2013/_data/CRSP_Comp_Link_Table.parquet</p></td>
+<td><p>C:\Users\Zara\Documents\GitHub\FINM-Winter\full-stack-quant\p01_kelly_pruitt_2013_data\CRSP_Comp_Link_Table.parquet</p></td>
 </tr>
 <tr class="row-even"><td><p>Download Data as Parquet</p></td>
 <td><p><a class="reference download internal" download="" href="../../_downloads/af25a81dceb97be3a3a8cc3906bd8b05/ccm_link.parquet"><span class="xref download myst">Parquet</span></a></p></td>
@@ -481,16 +503,16 @@ $ linkenddt &lt;datetime[ns]&gt; None
 <td><p><a class="github reference external" href="https://github.com/zaranip/p01_kelly_pruitt_2013">zaranip/p01_kelly_pruitt_2013</a></p></td>
 </tr>
 <tr class="row-even"><td><p>Pipeline Web Page</p></td>
-<td><p><a href="file:///Users/dylanwang/Desktop/UChicago/Classes/FINM 32900/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page</p></td>
+<td><p><a href="file://C:/Users/Zara/Documents/GitHub/FINM-Winter/full-stack-quant/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page</p></td>
 </tr>
 <tr class="row-odd"><td><p>Date of Last Code Update</p></td>
-<td><p>2026-02-05 15:45:21</p></td>
+<td><p>2026-03-05 23:55:41</p></td>
 </tr>
 <tr class="row-even"><td><p>OS Compatibility</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p>Linked Dataframes</p></td>
-<td><p><a class="reference internal" href="#../dataframes/P01/crsp_monthly_stock.md"><span class="xref myst">P01:crsp_monthly_stock</span></a><br>  <a class="reference internal" href="#../dataframes/P01/crsp_market_returns.md"><span class="xref myst">P01:crsp_market_returns</span></a><br>  <a class="reference internal" href="#../dataframes/P01/compustat.md"><span class="xref myst">P01:compustat</span></a><br>  <a class="reference internal" href="#../dataframes/P01/ccm_link.md"><span class="xref myst">P01:ccm_link</span></a><br></p></td>
+<td><p><a class="reference internal" href="#../dataframes/P01/crsp_monthly_stock.md"><span class="xref myst">P01:crsp_monthly_stock</span></a><br>  <a class="reference internal" href="#../dataframes/P01/crsp_market_returns.md"><span class="xref myst">P01:crsp_market_returns</span></a><br>  <a class="reference internal" href="#../dataframes/P01/compustat.md"><span class="xref myst">P01:compustat</span></a><br>  <a class="reference internal" href="#../dataframes/P01/ccm_link.md"><span class="xref myst">P01:ccm_link</span></a><br>  <a class="reference internal" href="#../dataframes/P01/ken_french_ff_factors.md"><span class="xref myst">P01:ken_french_ff_factors</span></a><br>  <a class="reference internal" href="#../dataframes/P01/ken_french_25_portfolios.md"><span class="xref myst">P01:ken_french_25_portfolios</span></a><br></p></td>
 </tr>
 </tbody>
 </table>
