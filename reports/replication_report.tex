@@ -250,6 +250,10 @@ This reduced runtime by approximately 100$\times$, making the full pipeline feas
 
 The primary driver of the IS gap is \textbf{data vintage} and Book-to-Market construction. Our Ken French data files were created from the 2026 CRSP database, while the paper used $\approx$2012 data. Over 14 years, CRSP retroactively corrects data errors, adds delisting returns, reclassifies securities, and updates the universe composition. These corrections propagate through the portfolio formation process (which sorts stocks into size/BM buckets), subtly changing every portfolio's BM time series.
 
+\protosubsection{Data Alignment Effects}
+
+Another potential driver is timing alignment. The paper constructs a monthly book-to-market panel by merging current month-end market equity with annual book equity,  assuming the latter only becomes observable after June of the subsequent calendar year. Potential discrepancies in data alignment can result in look-ahead bias, distorting the predictive $R^2$.
+
 \protosubsection{Why IS Diverges More Than OOS}
 
 \textbf{In-sample $R^2$} fits the model to the entire sample and evaluates on that same data. It is maximally sensitive to the exact data values---any change simultaneously shifts both the estimated coefficients \textit{and} the evaluation set. It effectively measures how well the model ``memorizes'' this particular dataset.
