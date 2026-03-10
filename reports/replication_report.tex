@@ -7,6 +7,8 @@
 \usepackage{paracol}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{caption}
+\captionsetup{font=footnotesize,labelfont=bf}
 
 % Path to generated outputs
 \newcommand*{\PathToOutput}{../_output/}% Make sure this matches your folder name
@@ -115,14 +117,11 @@ We use Fama--French portfolio datasets downloaded from Kenneth French's data lib
 
 \smallskip
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput data_sparsity.png}\par}
-\smallskip
-{\footnotesize Data availability across portfolio sets. Early-period sparsity in the 100-portfolio set motivates the use of PLS methods that handle unbalanced panels.\par}
+\captionof{figure}{Data availability across portfolio sets. Early-period sparsity in the 100-portfolio set motivates the use of PLS methods that handle unbalanced panels.}
 
 \divider
 
 \need{Summary Statistics}
-{\footnotesize Descriptive statistics for the 25 BM portfolios and log market returns (1930--2010).\par}
-
 \smallskip
 {
 \scriptsize
@@ -130,6 +129,7 @@ We use Fama--French portfolio datasets downloaded from Kenneth French's data lib
 \resizebox{\linewidth}{!}{\input{\PathToOutput summary_statistics.tex}}
 \par
 }
+\captionof{table}{Descriptive statistics for the 25 BM portfolios and log market returns (1930--2010). The cross-sectional spread in mean log book-to-market ratios reflects the size/value sorts underlying the 3PRF.}
 
 \end{paracol}
 
@@ -146,22 +146,19 @@ We use Fama--French portfolio datasets downloaded from Kenneth French's data lib
 
 \protosubsection{Stage 1: Estimated Sensitivities ($\hat{\phi}_i$)}
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_1_sensitivities.png}\par}
-\smallskip
-{\footnotesize Estimated predictive sensitivities for the 25 portfolios. All $\phi_i > 0$, with higher values for low-BM (growth) portfolios. The cross-sectional variation in $\phi_i$ is what enables Stage~2 to extract an informative factor---without sufficient spread, the cross-sectional regression degenerates.\par}
+\captionof{figure}{Estimated predictive sensitivities ($\hat{\phi}_i$) for the 25 portfolios. All $\phi_i > 0$, with higher values for low-BM (growth) portfolios. The cross-sectional variation in $\phi_i$ enables Stage~2 to extract an informative factor---without sufficient spread, the cross-sectional regression degenerates.}
 
 \divider
 
 \protosubsection{Stage 2: Extracted Latent Factor ($\hat{F}_t$)}
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_2_factor.png}\par}
-\smallskip
-{\footnotesize Time series of the latent factor extracted via cross-sectional regression. The factor exhibits strong low-frequency variation, consistent with aggregate valuation cycles. Peaks correspond to periods of high aggregate book-to-market (cheap markets), while troughs indicate growth-dominated periods.\par}
+\captionof{figure}{Time series of the latent factor extracted via cross-sectional regression. The factor exhibits strong low-frequency variation, consistent with aggregate valuation cycles. Peaks correspond to periods of high aggregate book-to-market (cheap markets), while troughs indicate growth-dominated periods.}
 
 \divider
 
 \protosubsection{Stage 3: Predictive Relationship}
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_3_predictive.png}\par}
-\smallskip
-{\footnotesize In-sample scatter of the extracted factor $\hat{F}_t$ vs.\ realized next-month market return $y_{t+1}$. The positive slope confirms the direction of predictability: higher aggregate BM (as captured by $F_t$) predicts higher future returns, consistent with value premium theory.\par}
+\captionof{figure}{In-sample scatter of the extracted factor $\hat{F}_t$ vs.\ realized next-month market return $y_{t+1}$. The positive slope confirms the direction of predictability: higher aggregate BM predicts higher future returns, consistent with value premium theory.}
 
 % --- Right column ---
 \switchcolumn
@@ -178,11 +175,11 @@ The comparison table below reports predictive $R^2$ (\%) for the original paper 
 \resizebox{\linewidth}{!}{\input{\PathToOutput table_1_comparison.tex}}
 \par
 }
+\captionof{table}{Paper vs.\ replication comparison of predictive $R^2$ (\%) across three portfolio granularities. OOS metrics show close agreement; IS metrics diverge primarily due to data vintage effects between the 2012 and 2026 CRSP databases.}
 
 \smallskip
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput table_1_comparison.png}\par}
-\smallskip
-{\footnotesize Grouped bar chart comparing $R^2$ values. Maroon bars = paper's published values; gold bars = our replication. OOS metrics show close agreement; IS metrics diverge due to data vintage effects (see Discussion).\par}
+\captionof{figure}{Grouped bar chart comparing $R^2$ values. Maroon bars = paper's published values; gold bars = our replication. OOS metrics show close agreement; IS metrics diverge due to data vintage effects (see Discussion).}
 
 \divider
 
@@ -193,6 +190,7 @@ The comparison table below reports predictive $R^2$ (\%) for the original paper 
 \resizebox{\linewidth}{!}{\input{\PathToOutput table_1_replication_original.tex}}
 \par
 }
+\captionof{table}{Our replicated Table~1 for the original out-of-sample test period (1981--2010). Reports in-sample and out-of-sample predictive $R^2$ (\%) for 1-month and 1-year forecast horizons across three portfolio granularities.}
 
 \divider
 
@@ -203,8 +201,7 @@ The comparison table below reports predictive $R^2$ (\%) for the original paper 
 \resizebox{\linewidth}{!}{\input{\PathToOutput table_1_replication_modern.tex}}
 \par
 }
-\smallskip
-{\footnotesize Modern out-of-sample results are negative, indicating the 3PRF factor does not generalize beyond the original test period. This is consistent with recent literature documenting the decline of value-based return predictability post-2010.\par}
+\captionof{table}{Reproduced Table~1 for the modern out-of-sample period (2011--2024). Negative OOS $R^2$ values indicate that the 3PRF factor does not generalize beyond the original test period, consistent with the documented decline of value-based return predictability post-2010.}
 
 \end{paracol}
 
@@ -251,7 +248,7 @@ This reduced runtime by approximately 100$\times$, making the full pipeline feas
 
 \protosubsection{Data Vintage Effects}
 
-The primary driver of the IS gap is \textbf{data vintage}. Our Ken French data files were created from the 2026 CRSP database, while the paper used $\approx$2012 data. Over 14 years, CRSP retroactively corrects data errors, adds delisting returns, reclassifies securities, and updates the universe composition. These corrections propagate through the portfolio formation process (which sorts stocks into size/BM buckets), subtly changing every portfolio's BM time series.
+The primary driver of the IS gap is \textbf{data vintage} and Book-to-Market construction. Our Ken French data files were created from the 2026 CRSP database, while the paper used $\approx$2012 data. Over 14 years, CRSP retroactively corrects data errors, adds delisting returns, reclassifies securities, and updates the universe composition. These corrections propagate through the portfolio formation process (which sorts stocks into size/BM buckets), subtly changing every portfolio's BM time series.
 
 \protosubsection{Why IS Diverges More Than OOS}
 
@@ -269,5 +266,19 @@ This explains why our OOS values are close to---and sometimes exceed---the paper
 \protosubsection{Scaling with Portfolio Count}
 
 The paper shows IS $R^2$ increasing sharply with portfolio count (7.7\% $\to$ 18.1\% from 6 to 100 portfolios), while our replication shows a flatter profile (5.4\% $\to$ 6.3\%). This is consistent with data vintage effects: more granular sorts are more sensitive to individual stock reclassifications across BM buckets, amplifying vintage-driven differences in the 100-portfolio case.
+
+\protosubsection{Book-to-Market Construction: Fiscal Year Alignment}
+
+Kelly \& Pruitt (2013) construct portfolio book-to-market ratios directly from Ken French's reported portfolio-level book equity and market equity totals. Specifically, a BE/ME ratio in month~$t$ uses the portfolio's total market capitalization at the end of month~$t$ and the \textit{latest observable} annual book equity total. Following Fama and French (1993), portfolio book equity in calendar year~$Y$ is assumed to become observable only after June of year~$Y+1$. This six-month reporting lag ensures no look-ahead bias: book values from fiscal years ending in calendar year~$Y$ are not used until July~$Y+1$ portfolio rebalancing.
+
+\smallskip
+Our replication uses Ken French's pre-computed Sheet~6, which reports the monthly ``Value-Weighted Average of BE/ME.'' This series uses the formula $\sum[\text{ME}(t) \times \text{BE}(\text{FY}_{t-1}) / \text{ME}(\text{Dec}_{t-1})] \,/\, \sum[\text{ME}(t)]$---a value-weighted average of \textit{individual stock} BE/ME ratios within each portfolio. This differs subtly from the paper's approach of dividing aggregate portfolio book equity by aggregate portfolio market equity. The two methods diverge when portfolio composition changes (stocks entering or leaving a portfolio between rebalancing dates), and this compositional effect is amplified in finer portfolio sorts.
+
+\protosubsection{CRSP Universe and Compustat Revisions}
+
+Beyond data vintage corrections, the underlying CRSP and Compustat databases have undergone structural changes since 2012. CRSP has expanded exchange coverage (e.g., incorporating additional NASDAQ and ARCA listings), revised its treatment of delisting returns, and reclassified share codes for certain securities. Compustat has corrected historical backfill biases and updated accounting variable definitions. Each of these changes alters which stocks enter the Fama--French size/value sorts and how their book equity is measured, propagating through to the portfolio-level BM ratios we use as predictors.
+
+\smallskip
+These effects are not random: they are concentrated in small-cap and high-BM stocks where data quality has improved most over time. Since the 3PRF weights portfolios by their predictive sensitivity~$\hat{\phi}_i$, and growth/small-cap portfolios tend to receive the largest weights, even modest changes in these portfolios' BM time series can shift the extracted factor and alter in-sample fit substantially.
 
 \end{document}

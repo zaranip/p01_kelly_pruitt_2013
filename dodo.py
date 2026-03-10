@@ -1,3 +1,9 @@
+"""PyDoit task runner for the Kelly & Pruitt (2013) replication pipeline.
+
+Defines the end-to-end automation: data pulls (CRSP, Compustat, Ken French),
+data cleaning, PLS regression analysis, figure/table generation, LaTeX report
+compilation, Jupyter notebook execution, and the test suite.
+"""
 #######################################
 ## Configuration and Helpers for PyDoit
 #######################################
