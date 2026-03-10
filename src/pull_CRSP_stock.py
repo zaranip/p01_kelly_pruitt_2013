@@ -262,18 +262,21 @@ def pull_CRSP_market_returns(
 
 
 def load_CRSP_market_returns(data_dir=DATA_DIR):
+    """Load cached CRSP aggregate market returns from a local Parquet file."""
     path = Path(data_dir) / "CRSP_market_returns.parquet"
     df = pd.read_parquet(path)
     return df
 
 
 def load_CRSP_monthly_file(data_dir=DATA_DIR):
+    """Load cached CRSP monthly stock data from a local Parquet file."""
     path = Path(data_dir) / "CRSP_monthly_stock.parquet"
     df = pd.read_parquet(path)
     return df
 
 
 def load_CRSP_index_files(data_dir=DATA_DIR):
+    """Load cached CRSP market-cap decile index data from a local Parquet file."""
     path = Path(data_dir) / "CRSP_MSIX.parquet"
     df = pd.read_parquet(path)
     return df

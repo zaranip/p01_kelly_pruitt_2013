@@ -1,4 +1,10 @@
-""" """
+"""Downloads and caches Fama-French portfolio datasets from Ken French's data library.
+
+Provides functions to pull portfolio returns, book-to-market ratios, and factor
+data via pandas-datareader (with a direct-download fallback for datasets that
+trigger parsing bugs). Raw data is saved as multi-sheet Excel files for
+downstream cleaning by load_data.py.
+"""
 
 import io
 import warnings
@@ -175,6 +181,17 @@ def pull_ken_french_excel(
 
 
 def load_returns(dataset_name, weighting="value-weighted", data_dir=DATA_DIR):
+    """Load portfolio returns from a cached Ken French Excel file.
+
+    Parameters
+    ----------
+    dataset_name : str
+        Name of the Fama-French dataset (e.g. '25_Portfolios_5x5').
+    weighting : str
+        'value-weighted' (sheet 0) or 'equal-weighted' (sheet 1).
+    data_dir : Path
+        Directory containing the downloaded Excel files.
+    """
     data_dir = Path(data_dir)
     excel_path = data_dir / f"{dataset_name.replace('/', '_')}.xlsx"
     if weighting == "value-weighted":

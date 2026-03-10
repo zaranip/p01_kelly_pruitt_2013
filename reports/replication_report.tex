@@ -7,6 +7,8 @@
 \usepackage{paracol}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{caption}
+\captionsetup{font=footnotesize,labelfont=bf}
 
 % Path to generated outputs
 \newcommand*{\PathToOutput}{../_output/}% Make sure this matches your folder name
@@ -115,14 +117,11 @@ We use Fama--French portfolio datasets downloaded from Kenneth French's data lib
 
 \smallskip
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput data_sparsity.png}\par}
-\smallskip
-{\footnotesize Data availability across portfolio sets. Early-period sparsity in the 100-portfolio set motivates the use of PLS methods that handle unbalanced panels.\par}
+\captionof{figure}{Data availability across portfolio sets. Early-period sparsity in the 100-portfolio set motivates the use of PLS methods that handle unbalanced panels.}
 
 \divider
 
 \need{Summary Statistics}
-{\footnotesize Descriptive statistics for the 25 BM portfolios and log market returns (1930--2010).\par}
-
 \smallskip
 {
 \scriptsize
@@ -130,6 +129,7 @@ We use Fama--French portfolio datasets downloaded from Kenneth French's data lib
 \resizebox{\linewidth}{!}{\input{\PathToOutput summary_statistics.tex}}
 \par
 }
+\captionof{table}{Descriptive statistics for the 25 BM portfolios and log market returns (1930--2010). The cross-sectional spread in mean log book-to-market ratios reflects the size/value sorts underlying the 3PRF.}
 
 \end{paracol}
 
@@ -146,22 +146,19 @@ We use Fama--French portfolio datasets downloaded from Kenneth French's data lib
 
 \protosubsection{Stage 1: Estimated Sensitivities ($\hat{\phi}_i$)}
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_1_sensitivities.png}\par}
-\smallskip
-{\footnotesize Estimated predictive sensitivities for the 25 portfolios. All $\phi_i > 0$, with higher values for low-BM (growth) portfolios. The cross-sectional variation in $\phi_i$ is what enables Stage~2 to extract an informative factor---without sufficient spread, the cross-sectional regression degenerates.\par}
+\captionof{figure}{Estimated predictive sensitivities ($\hat{\phi}_i$) for the 25 portfolios. All $\phi_i > 0$, with higher values for low-BM (growth) portfolios. The cross-sectional variation in $\phi_i$ enables Stage~2 to extract an informative factor---without sufficient spread, the cross-sectional regression degenerates.}
 
 \divider
 
 \protosubsection{Stage 2: Extracted Latent Factor ($\hat{F}_t$)}
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_2_factor.png}\par}
-\smallskip
-{\footnotesize Time series of the latent factor extracted via cross-sectional regression. The factor exhibits strong low-frequency variation, consistent with aggregate valuation cycles. Peaks correspond to periods of high aggregate book-to-market (cheap markets), while troughs indicate growth-dominated periods.\par}
+\captionof{figure}{Time series of the latent factor extracted via cross-sectional regression. The factor exhibits strong low-frequency variation, consistent with aggregate valuation cycles. Peaks correspond to periods of high aggregate book-to-market (cheap markets), while troughs indicate growth-dominated periods.}
 
 \divider
 
 \protosubsection{Stage 3: Predictive Relationship}
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput stage_3_predictive.png}\par}
-\smallskip
-{\footnotesize In-sample scatter of the extracted factor $\hat{F}_t$ vs.\ realized next-month market return $y_{t+1}$. The positive slope confirms the direction of predictability: higher aggregate BM (as captured by $F_t$) predicts higher future returns, consistent with value premium theory.\par}
+\captionof{figure}{In-sample scatter of the extracted factor $\hat{F}_t$ vs.\ realized next-month market return $y_{t+1}$. The positive slope confirms the direction of predictability: higher aggregate BM predicts higher future returns, consistent with value premium theory.}
 
 % --- Right column ---
 \switchcolumn
@@ -178,11 +175,11 @@ The comparison table below reports predictive $R^2$ (\%) for the original paper 
 \resizebox{\linewidth}{!}{\input{\PathToOutput table_1_comparison.tex}}
 \par
 }
+\captionof{table}{Paper vs.\ replication comparison of predictive $R^2$ (\%) across three portfolio granularities. OOS metrics show close agreement; IS metrics diverge primarily due to data vintage effects between the 2012 and 2026 CRSP databases.}
 
 \smallskip
 {\centering\includegraphics[width=0.96\linewidth]{\PathToOutput table_1_comparison.png}\par}
-\smallskip
-{\footnotesize Grouped bar chart comparing $R^2$ values. Maroon bars = paper's published values; gold bars = our replication. OOS metrics show close agreement; IS metrics diverge due to data vintage effects (see Discussion).\par}
+\captionof{figure}{Grouped bar chart comparing $R^2$ values. Maroon bars = paper's published values; gold bars = our replication. OOS metrics show close agreement; IS metrics diverge due to data vintage effects (see Discussion).}
 
 \divider
 
@@ -193,6 +190,7 @@ The comparison table below reports predictive $R^2$ (\%) for the original paper 
 \resizebox{\linewidth}{!}{\input{\PathToOutput table_1_replication_original.tex}}
 \par
 }
+\captionof{table}{Our replicated Table~1 for the original out-of-sample test period (1981--2010). Reports in-sample and out-of-sample predictive $R^2$ (\%) for 1-month and 1-year forecast horizons across three portfolio granularities.}
 
 \divider
 
@@ -203,8 +201,7 @@ The comparison table below reports predictive $R^2$ (\%) for the original paper 
 \resizebox{\linewidth}{!}{\input{\PathToOutput table_1_replication_modern.tex}}
 \par
 }
-\smallskip
-{\footnotesize Modern out-of-sample results are negative, indicating the 3PRF factor does not generalize beyond the original test period. This is consistent with recent literature documenting the decline of value-based return predictability post-2010.\par}
+\captionof{table}{Reproduced Table~1 for the modern out-of-sample period (2011--2024). Negative OOS $R^2$ values indicate that the 3PRF factor does not generalize beyond the original test period, consistent with the documented decline of value-based return predictability post-2010.}
 
 \end{paracol}
 

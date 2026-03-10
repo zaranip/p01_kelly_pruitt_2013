@@ -38,15 +38,11 @@ _docs/
 ##############
 #Excluded PDFs
 ##############
-# I've decided to exclude all PDFs unless they're in the literature or papers directory.
-# http://stackoverflow.com/questions/1248570/git-ignore-everything-except-subdirectory
+# Exclude all PDFs in the root directory (copyrighted papers, etc.)
+*.pdf
 
-# !/related_literature/*
-# !/related_literature/
-# !/related_literature/*/*
-# !/Papers/*
-# !/papers/*
-# !/literature/*
+# Allow generated report PDF in reports/ (already covered by /reports/* above,
+# but the report .tex is whitelisted — the .pdf is auto-generated and gitignored)
 
 #########################
 # Exclude Compiled Files
@@ -255,3 +251,5 @@ src/z_scratch_project_template.ipynb
 *Thumbs.db
 
 src/z_scratch_pipeline_template.ipynb
+
+instructions.txt

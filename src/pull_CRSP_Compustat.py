@@ -105,6 +105,11 @@ description_crsp_comp_link = {
 
 
 def pull_CRSP_Comp_Link_Table(wrds_username=WRDS_USERNAME):
+    """Pull the CRSP-Compustat Merged link table from WRDS.
+
+    Filters to primary link types (linktype starting with 'L') and
+    primary/connecting link indicators (linkprim 'C' or 'P').
+    """
     sql_query = """
         SELECT 
             gvkey, lpermno AS permno, linktype, linkprim, linkdt, linkenddt
@@ -121,6 +126,7 @@ def pull_CRSP_Comp_Link_Table(wrds_username=WRDS_USERNAME):
 
 
 def pull_Fama_French_factors(wrds_username=WRDS_USERNAME):
+    """Pull monthly Fama-French factors (MktRF, SMB, HML, RF) from the WRDS ff library."""
     conn = wrds.Connection(wrds_username=wrds_username)
     ff = conn.get_table(library="ff", table="factors_monthly")
     conn.close()
@@ -133,18 +139,21 @@ def pull_Fama_French_factors(wrds_username=WRDS_USERNAME):
 
 
 def load_compustat(data_dir=DATA_DIR):
+    """Load cached Compustat fundamentals from a local Parquet file."""
     path = Path(data_dir) / "Compustat.parquet"
     comp = pd.read_parquet(path)
     return comp
 
 
 def load_CRSP_Comp_Link_Table(data_dir=DATA_DIR):
+    """Load cached CRSP-Compustat link table from a local Parquet file."""
     path = Path(data_dir) / "CRSP_Comp_Link_Table.parquet"
     ccm = pd.read_parquet(path)
     return ccm
 
 
 def load_Fama_French_factors(data_dir=DATA_DIR):
+    """Load cached Fama-French monthly factors from a local Parquet file."""
     path = Path(data_dir) / "FF_FACTORS.parquet"
     ff = pd.read_parquet(path)
     return ff
