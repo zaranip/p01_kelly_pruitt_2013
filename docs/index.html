@@ -29,11 +29,12 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=206a6f58" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -41,14 +42,12 @@
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=b9472d72"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="_static/favicon.ico"/>
@@ -195,7 +194,7 @@
     </div>
 </nav></div>
         <div class="sidebar-primary-item">
-<div class="ablog-sidebar-item ablog__category">
+<div class="ablog-sidebar-item ablog__categories">
   <h3>
     <a href="charts/index/category.html">Categories</a>
   </h3>
@@ -233,7 +232,7 @@
 </div>
 </div>
         <div class="sidebar-primary-item">
-<div class="ablog-sidebar-item ablog__tags">
+<div class="ablog-sidebar-item ablog__tagcloud">
   <link
     rel="stylesheet"
     href="_static/ablog/tagcloud.css"
@@ -424,7 +423,7 @@ document.write(`
                 <article class="bd-article">
                    <section class="tex2jax_ignore mathjax_ignore" id="market-expectations-in-the-cross-section-of-present-values">
 <h1>Market Expectations in the Cross-Section of Present Values<a class="headerlink" href="#market-expectations-in-the-cross-section-of-present-values" title="Link to this heading">#</a></h1>
-<p>Last updated: Mar 6, 2026, 12:01:12 AM</p>
+<p>Last updated: Mar 10, 2026, 2:57:55 AM</p>
 <section id="table-of-contents">
 <h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
@@ -480,10 +479,10 @@ document.write(`
 <td><p><a class="github reference external" href="https://github.com/zaranip/p01_kelly_pruitt_2013">zaranip/p01_kelly_pruitt_2013</a></p></td>
 </tr>
 <tr class="row-even"><td><p>Pipeline Web Page</p></td>
-<td><p><a href="file://C:/Users/Zara/Documents/GitHub/FINM-Winter/full-stack-quant/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page</p></td>
+<td><p><a href="file:///Users/dylanwang/Desktop/UChicago/Classes/FINM_32900/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page</p></td>
 </tr>
 <tr class="row-odd"><td><p>Date of Last Code Update</p></td>
-<td><p>2026-03-05 23:55:41</p></td>
+<td><p>2026-03-09 21:57:40</p></td>
 </tr>
 <tr class="row-even"><td><p>OS Compatibility</p></td>
 <td><p></p></td>
@@ -532,18 +531,18 @@ document.write(`
 <section id="project-structure">
 <h2>Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>p01_kelly_pruitt_2013/
-â”œâ”€â”€ src/
-â”‚   â”œâ”€â”€ settings.py              # Project configuration
-â”‚   â”œâ”€â”€ pull_CRSP_stock.py       # Pull CRSP stock data
-â”‚   â”œâ”€â”€ pull_CRSP_Compustat.py   # Pull Compustat data
-â”‚   â””â”€â”€ generate_exploratory_charts.py
-â”œâ”€â”€ _data/                       # Downloaded data (gitignored)
-â”œâ”€â”€ _output/                     # Generated outputs
-â”œâ”€â”€ docs/                        # Chartbook site
-â”œâ”€â”€ dodo.py                      # PyDoit task runner
-â”œâ”€â”€ chartbook.toml               # Chartbook configuration
-â”œâ”€â”€ consultation.md              # Consultation meeting agenda
-â””â”€â”€ README.md
+├── src/
+│   ├── settings.py              # Project configuration
+│   ├── pull_CRSP_stock.py       # Pull CRSP stock data
+│   ├── pull_CRSP_Compustat.py   # Pull Compustat data
+│   └── generate_exploratory_charts.py
+├── _data/                       # Downloaded data (gitignored)
+├── _output/                     # Generated outputs
+├── docs/                        # Chartbook site
+├── dodo.py                      # PyDoit task runner
+├── chartbook.toml               # Chartbook configuration
+├── consultation.md              # Consultation meeting agenda
+└── README.md
 </pre></div>
 </div>
 </section>
@@ -598,8 +597,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 <section id="team">
 <h2>Team<a class="headerlink" href="#team" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Zara</strong>: Data pipeline, CRSP data, chartbook setup, LaTeX report
-</p></li>
+<li><p><strong>Zara</strong>: Data pipeline, CRSP data, chartbook setup, LaTeX report</p></li>
 <li><p><strong>Dylan</strong>: Book equity calculation, PLS implementation, statistics report</p></li>
 </ul>
 </section>

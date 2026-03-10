@@ -51,10 +51,13 @@ $ Date       <datetime[ns]> 2024-12-01 00:00:00
 | How is data pulled?            | pandas_datareader / direct HTTP download                                                    |
 | Data available up to (min)     | 2024-12-01 00:00:00                                                             |
 | Data available up to (max)     | 2024-12-01 00:00:00                                                             |
-| Dataframe Path                 | C:\Users\Zara\Documents\GitHub\FINM-Winter\full-stack-quant\p01_kelly_pruitt_2013\_data\25_Portfolios_5x5_BM.parquet                                                   |
-| Download Data as Parquet       | [Parquet](../../download_dataframe/P01/ken_french_25_portfolios.parquet)         |
-| Download Data as Excel         | [Excel](../../download_dataframe/P01/ken_french_25_portfolios.xlsx)              |
-| Linked Charts                  |  None  |
+| Dataframe Path                 | /Users/dylanwang/Desktop/UChicago/Classes/FINM_32900/p01_kelly_pruitt_2013/_data/25_Portfolios_5x5_BM.parquet                                                   |
+
+
+**Linked Charts:**
+
+- None
+
 
 ## Pipeline Manifest
 
@@ -64,8 +67,8 @@ $ Date       <datetime[ns]> 2024-12-01 00:00:00
 | Lead Pipeline Developer         | Zara and Dylan             |
 | Contributors                    | Zara, Dylan           |
 | Git Repo URL                    | https://github.com/zaranip/p01_kelly_pruitt_2013                        |
-| Pipeline Web Page               | <a href="file://C:/Users/Zara/Documents/GitHub/FINM-Winter/full-stack-quant/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page      |
-| Date of Last Code Update        | 2026-03-05 23:55:41           |
+| Pipeline Web Page               | <a href="file:///Users/dylanwang/Desktop/UChicago/Classes/FINM_32900/p01_kelly_pruitt_2013/docs/index.html">Pipeline Web Page      |
+| Date of Last Code Update        | 2026-03-09 21:57:40           |
 | OS Compatibility                |  |
 | Linked Dataframes               |  [P01:crsp_monthly_stock](../dataframes/P01/crsp_monthly_stock.md)<br>  [P01:crsp_market_returns](../dataframes/P01/crsp_market_returns.md)<br>  [P01:compustat](../dataframes/P01/compustat.md)<br>  [P01:ccm_link](../dataframes/P01/ccm_link.md)<br>  [P01:ken_french_ff_factors](../dataframes/P01/ken_french_ff_factors.md)<br>  [P01:ken_french_25_portfolios](../dataframes/P01/ken_french_25_portfolios.md)<br>  |
 
