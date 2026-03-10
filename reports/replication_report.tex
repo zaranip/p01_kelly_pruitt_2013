@@ -267,4 +267,18 @@ This explains why our OOS values are close to---and sometimes exceed---the paper
 
 The paper shows IS $R^2$ increasing sharply with portfolio count (7.7\% $\to$ 18.1\% from 6 to 100 portfolios), while our replication shows a flatter profile (5.4\% $\to$ 6.3\%). This is consistent with data vintage effects: more granular sorts are more sensitive to individual stock reclassifications across BM buckets, amplifying vintage-driven differences in the 100-portfolio case.
 
+\protosubsection{Book-to-Market Construction: Fiscal Year Alignment}
+
+Kelly \& Pruitt (2013) construct portfolio book-to-market ratios directly from Ken French's reported portfolio-level book equity and market equity totals. Specifically, a BE/ME ratio in month~$t$ uses the portfolio's total market capitalization at the end of month~$t$ and the \textit{latest observable} annual book equity total. Following Fama and French (1993), portfolio book equity in calendar year~$Y$ is assumed to become observable only after June of year~$Y+1$. This six-month reporting lag ensures no look-ahead bias: book values from fiscal years ending in calendar year~$Y$ are not used until July~$Y+1$ portfolio rebalancing.
+
+\smallskip
+Our replication uses Ken French's pre-computed Sheet~6, which reports the monthly ``Value-Weighted Average of BE/ME.'' This series uses the formula $\sum[\text{ME}(t) \times \text{BE}(\text{FY}_{t-1}) / \text{ME}(\text{Dec}_{t-1})] \,/\, \sum[\text{ME}(t)]$---a value-weighted average of \textit{individual stock} BE/ME ratios within each portfolio. This differs subtly from the paper's approach of dividing aggregate portfolio book equity by aggregate portfolio market equity. The two methods diverge when portfolio composition changes (stocks entering or leaving a portfolio between rebalancing dates), and this compositional effect is amplified in finer portfolio sorts.
+
+\protosubsection{CRSP Universe and Compustat Revisions}
+
+Beyond data vintage corrections, the underlying CRSP and Compustat databases have undergone structural changes since 2012. CRSP has expanded exchange coverage (e.g., incorporating additional NASDAQ and ARCA listings), revised its treatment of delisting returns, and reclassified share codes for certain securities. Compustat has corrected historical backfill biases and updated accounting variable definitions. Each of these changes alters which stocks enter the Fama--French size/value sorts and how their book equity is measured, propagating through to the portfolio-level BM ratios we use as predictors.
+
+\smallskip
+These effects are not random: they are concentrated in small-cap and high-BM stocks where data quality has improved most over time. Since the 3PRF weights portfolios by their predictive sensitivity~$\hat{\phi}_i$, and growth/small-cap portfolios tend to receive the largest weights, even modest changes in these portfolios' BM time series can shift the extracted factor and alter in-sample fit substantially.
+
 \end{document}
